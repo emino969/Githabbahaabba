@@ -41,7 +41,7 @@ public class PlayerFrame extends JToolBar
 		buttonPanel.add(handValue);
 
 		if	(game.gameFinished())	{
-		    JOptionPane.showMessageDialog(null, "Clock OK to restart");
+		    JOptionPane.showMessageDialog(null, "Click OK to restart");
 		    game.restartGame();
 		}	else	{
 		    updateLabels();

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class PokerComponent extends JComponent
 {
     private PokerGame game;
-    private PokerFrame frame;
+    private PokerFrame frame; //Temporarily changed
     private TableComponent tableComponent;
     private Images imageHandler;
     private static final int X_CONST = 70;

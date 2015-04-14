@@ -17,13 +17,13 @@ public class PokerFrame extends JFrame
     private static final int defaultHeight = 600;
     private Images imageHandler;
 
-    public PokerFrame() {
+    public PokerFrame(PokerGame game) {
 	Player Emil = new Player("Emil", new Pot(1000));
 	Bot PlayerBot = new Bot("Bot", new Pot(1000));
 	Bot SuperMario = new Bot("SuperMario", new Pot(1000));
 	Bot SuperBot = new Bot("SuperBot", new Pot(1000));
 	Bot SuperPlayer = new Bot("SuperPlayer", new Pot(1000));
-	this.game = new BlackJack(); //Temporary for BlackJacK
+	this.game = game; //Temporary for BlackJacK
 	this.imageHandler = new Images();
 
 	game.addPlayer(Emil);
@@ -32,7 +32,8 @@ public class PokerFrame extends JFrame
 	game.addPlayer(SuperBot);
 	game.addPlayer(SuperPlayer);
 	game.startGame();
-	this.setDefaultCloseOperation(closeOperation);
+	//Dousn't kill itself when closed -->
+	//this.setDefaultCloseOperation(closeOperation);
 	setSize(new Dimension(defaultWidth, defaultHeight));
 	setContentPane(new JLabel(imageHandler.getBackgroundImageIcon()));
 	setLayout(new BorderLayout());

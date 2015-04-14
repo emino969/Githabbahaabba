@@ -101,9 +101,9 @@ public class PlayerComponent extends JComponent
 	    if	(ts.equals(TableSeat.FIRST_SIDE)) {
 		cl.getCardByIndex(i).draw((Graphics2D) g, x + i * cardSpaceX, y + 80, this, imageHandler);
 	    }	else if(ts.equals(TableSeat.SECOND_SIDE))	{
-		cl.getCardByIndex(i).draw((Graphics2D) g, x + i * cardSpaceX - 50, y, this, imageHandler);
+		cl.getCardByIndex(i).draw((Graphics2D) g, x - i * cardSpaceX - 25, y, this, imageHandler);
 	    }	else	{
-		cl.getCardByIndex(i).draw((Graphics2D) g, x + i * cardSpaceX, y - 90, this, imageHandler);
+		cl.getCardByIndex(i).draw((Graphics2D) g, x - i * cardSpaceX, y - 90, this, imageHandler);
 	    }
 	}
     }
