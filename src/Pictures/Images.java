@@ -12,7 +12,7 @@ import Cards.*;
 public class Images
 {
     static private BufferedImage imageClub, imageDiamond, imageHeart, imageSpade, imageBackground, imageTable;
-    private String filePath = "C:\\Users\\Emil\\IdeaProjects\\";
+    private String filePath = "";
     private String clubPic = "club.gif";
     private String diamondPic = "diamond.png";
     private String heartPic = "heart.gif";
