@@ -63,6 +63,10 @@ public class Card {
 	isVisible = true;
     }
 
+    public void flipCard()	{
+	isVisible = !isVisible;
+    }
+
     public boolean isVisible()	{
 	return isVisible;
     }

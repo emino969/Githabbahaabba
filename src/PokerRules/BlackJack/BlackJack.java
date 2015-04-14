@@ -15,7 +15,6 @@ public class BlackJack extends PokerGame
 {
     private BlackJackMoves moves;
     private Map<Person, BlackJackHand> personMap;
-    private Map<Person, Integer> personBets;
     private static final int FAST_DELAY = 1000;
     private ActionListener move =  new AbstractAction() {
     	    @Override public void actionPerformed(ActionEvent e)	{
@@ -24,7 +23,7 @@ public class BlackJack extends PokerGame
     	};
 
     public BlackJack() {
-	setDealer(new BlackJackDealer(new Pot(1000)));
+	setDealer(new BlackJackDealer(new Pot(1000))); //Default Pot
 	dealer.setGame(this); //Dealer is created in table
 	this.moves = new BlackJackMoves()	{
 	    @Override public String getHandValue(Person person)	{
@@ -91,7 +90,7 @@ public class BlackJack extends PokerGame
 
 	    @Override public void split()	{
 		//Not completely added yet, WONT DO ANYTHING IF YOU PRESS SPLIT
-		int currentBet = personBets.get(currentPlayer);
+		int currentBet = currentPlayer.getLastBet();
 		makeBet(currentPlayer, currentBet);
 		currentPlayer.addHand();
 		currentPlayer.getHandByIndex(1).addCard(currentPlayer.popCard()); //Gets one of the cards from the first hand
@@ -101,12 +100,12 @@ public class BlackJack extends PokerGame
 
 	    @Override public void surrender()	{
 		//Fold and lose half your bet
-		int bet = personBets.get(currentPlayer);
+		int bet = currentPlayer.getLastBet();
 		int loss = bet / 2;
 		dealer.getTablePot().subtractAmount(bet);
 		dealer.addToPot(loss);
 		currentPlayer.addToPot(loss);
-		personBets.put(currentPlayer, 0);
+		currentPlayer.setLastBet(0);
 	    }
 
 	    @Override public void stand()	{
@@ -120,7 +119,7 @@ public class BlackJack extends PokerGame
 
 	    @Override public void doubleDown()	{
 		/** Double the bet and stand */
-		int bet = personBets.get(getCurrentPlayer());
+		int bet = currentPlayer.getLastBet();
 		makeBet(getCurrentPlayer(), bet);
 		hit();
 	    }
@@ -128,7 +127,6 @@ public class BlackJack extends PokerGame
 
 	setOptions(moves);
 	this.personMap = new HashMap<Person, BlackJackHand>();
-	this.personBets = new HashMap<Person, Integer>(); //Keeping track of every persons bet
     }
 
     private void buyCards(Person person, int amount)	{
@@ -137,12 +135,8 @@ public class BlackJack extends PokerGame
     }
 
     private void makeBet(Person person, int amount)	{
-	person.bet(amount);
-	if	(personBets.containsKey(person)) {
-	    int currentBettedPot = personBets.get(person);
-	    personBets.put(person, currentBettedPot + amount);
-	}	else	{
-	    personBets.put(person, amount);
+	if	(!person.bet(amount)) {
+	    person.quitGame(); //If you bet more than you can afford, you're out mister!!
 	}
     }
 
@@ -197,6 +191,7 @@ public class BlackJack extends PokerGame
 		//Extremely important this comes before getNextPlayer()
 		notifyListeners();
 		//Otherwhise when the game is finished the getNextPlayer method will be stuck in a loop searching for players
+		restartGame();
 	    }	else if	(dealerIsInactive())	{
 		activateDealer();
 		clockTimer.setDelay(FAST_DELAY); //Make the dealer finish faster
@@ -277,7 +272,7 @@ public class BlackJack extends PokerGame
 
     private void makeToWinner(Person person)	{
 	int victoryAmount;
-	int bet = personBets.get(person);
+	int bet = person.getLastBet();
 
 	if	(isATie(person)) {
 	    victoryAmount = 0;
@@ -294,7 +289,7 @@ public class BlackJack extends PokerGame
     }
 
     private void makeToLoser(Person person)	{
-	int bet = personBets.get(person);
+	int bet = person.getLastBet();
 	person.changePersonState(PersonState.LOSER);
 	dealer.giveAmountToPerson(dealer, bet);
     }
@@ -331,7 +326,6 @@ public class BlackJack extends PokerGame
     @Override public void restartGame()	{
 	isOverState = false;
 	clockTimer.setDelay(DELAY);
-	personBets.clear();
 	personMap.clear();
 	setStartingStates();
 	collectCards();

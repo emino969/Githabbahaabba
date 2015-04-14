@@ -2,6 +2,7 @@ package Person;
 
 import Cards.Card;
 import Cards.CardList;
+import GameListeners.GameListener;
 import Money.Pot;
 import Table.PokerGame;
 
@@ -16,13 +17,17 @@ public class Person
     private PersonState state = PersonState.WAITING;
     private Pot defaultPot = new Pot(1000);
     protected ArrayList<CardList> multipleHands;
+    protected int lastBet;
+    private GameListener gl;
 
     public Person(String name, Pot pot)	{
 	this.name = name;
 	this.pot = pot;
 	this.hand = new CardList(); //Primary hand
 	this.multipleHands = new ArrayList<CardList>();
+	this.lastBet = 0;
 	multipleHands.add(hand);
+	setGameListener();
     }
 
     public Person(String name)	{
@@ -31,15 +36,50 @@ public class Person
 	this.hand = new CardList(); //Primary hand
 	this.multipleHands = new ArrayList<CardList>();
 	multipleHands.add(hand);
+	setGameListener();
     }
 
-    public void bet(int amount)	{
-	if(pot.getAmount() >= amount)	{
+    private void setGameListener()	{
+	this.gl = new GameListener()	{
+	    @Override public void gameChanged()	{
+		if	(game.gameFinished())	{
+		     setLastBet(0);
+		}
+	    }
+	};
+
+	game.addGameListener(gl);
+    }
+
+    public int getLastBet()	{
+	return lastBet;
+    }
+
+    public void setLastBet(int amount)	{
+	lastBet = 0;
+    }
+
+    public boolean bet(int amount)	{
+	if	(pot.getAmount() >= amount)	{
 	    pot.subtractAmount(amount);
 	    game.getDealer().getTablePot().addAmount(amount);
-	}else{
-	    throw new IllegalArgumentException("You cant bet that Amount!");
+	    lastBet += amount;
+	}	else	{
+	    throw new IllegalArgumentException("You don't have enough money!");
 	}
+	return pot.getAmount() >= amount;
+    }
+
+    public void addHiddenCard(Card card)	{
+	hand.addHiddenCard(card);
+    }
+
+    public void setCardsVisible()	{
+	hand.setCardsVisible();
+    }
+
+    public void quitGame()	{
+	game.removePlayer(this);
     }
 
     public void changePersonState(PersonState state){

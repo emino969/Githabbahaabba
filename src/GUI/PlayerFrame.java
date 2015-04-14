@@ -42,7 +42,6 @@ public class PlayerFrame extends JToolBar
 
 		if	(game.gameFinished())	{
 		    JOptionPane.showMessageDialog(null, "Click OK to restart");
-		    game.restartGame();
 		}	else	{
 		    updateLabels();
 		}
@@ -61,7 +60,6 @@ public class PlayerFrame extends JToolBar
 			pokermoves.makeMove(name);
 			game.nextMove();
 			game.notifyListeners();
-			game.startClock();
 		    }
 		}
 	    });

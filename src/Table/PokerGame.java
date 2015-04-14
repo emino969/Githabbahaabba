@@ -11,7 +11,7 @@ import java.util.List;
 public class PokerGame extends Table
 {
     protected Person currentPlayer;
-    public Timer clockTimer;
+    protected Timer clockTimer;
     static private List<GameListener> ListenerArray;
     private AbstractPokermoves moves = null; //Get's assigned in subclass
     protected static final int DELAY = 1000; //8 sekunder
@@ -63,6 +63,16 @@ public class PokerGame extends Table
 	while	(N > currentRound)	{
 	    for	(Person player : getActivePlayers())	{
 		player.addCard(dealer.popCard());
+	    }
+	    currentRound++;
+	}
+    }
+
+    public void dealOutNHiddenCards(int N)	{
+	int currentRound = 0;
+	while	(N > currentRound)	{
+	    for	(Person player : getActivePlayers())	{
+		player.addHiddenCard(dealer.popCard());
 	    }
 	    currentRound++;
 	}

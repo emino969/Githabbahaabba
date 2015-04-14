@@ -18,6 +18,43 @@ public class CardList
         return cardList.contains(card);
     }
 
+    public boolean containsIntValue(Card card)	{
+	try {
+	    for (Card c : cardList) {
+		if (c.getCardIntValue() == card.getCardIntValue()) {
+		    return true;
+		}
+	    }
+	    return false;
+	}	catch(NoSuchCardException e)	{
+	    System.out.println("Invalid card");
+	    return false;
+	}
+    }
+
+    public int countIntValue(Card card)	{
+	try {
+	    int i = 0;
+	    for (Card c : cardList) {
+		if (c.getCardIntValue() == card.getCardIntValue()) {
+		    i++;
+		}
+	    }
+	    return i;
+	}	catch(NoSuchCardException e)	{
+	    System.out.println("Invalid card");
+	    return -1000;
+	}
+    }
+
+    public CardList getCopy(CardList cl)	{
+	CardList copy = new CardList();
+	for (int i = 0; i < copy.getSize(); i++) {
+	    copy.addCard(cl.getCardByIndex(i));
+	}
+	return copy;
+    }
+
     public boolean isEmpty()    {
         return cardList.isEmpty();
     }
@@ -28,6 +65,12 @@ public class CardList
 
     public boolean addCard(Card card)  {
 	return cardList.add(card);
+    }
+
+    public void setCardsVisible()	{
+	for	(Card card : cardList)	{
+	    card.setVisible();
+	}
     }
 
     public boolean addHiddenCard(Card card)	{

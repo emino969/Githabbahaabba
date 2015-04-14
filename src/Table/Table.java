@@ -50,6 +50,21 @@ public class Table
 	return tempPlayers;
     }
 
+    public ArrayList<Person> getOnlyActivePlayers()	{
+	ArrayList<Person> persons = new ArrayList<Person>();
+	for	(Person person : players)	{
+	    if	(!(person.isPersonState(PersonState.INACTIVE) || person.isPersonState(PersonState.LOSER))) {
+		persons.add(person);
+	    }
+	}
+	persons.remove(dealer);
+	return persons;
+    }
+
+    public void removePlayer(Person player)	{
+	players.remove(player);
+    }
+
     public ArrayList<Person> getPlayers()	{
 	return new ArrayList<Person>(players);
     }
@@ -61,6 +76,8 @@ public class Table
     public void activateDealer()	{
 	dealer.changePersonState(PersonState.TURN);
     }
+
+    public void activateWaitingDealer()	{dealer.changePersonState(PersonState.WAITING);}
 
     public void deactivateDealer()	{
 	dealer.changePersonState(PersonState.INACTIVE);
