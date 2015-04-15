@@ -19,37 +19,27 @@ public class CardList
     }
 
     public boolean containsIntValue(Card card)	{
-	try {
 	    for (Card c : cardList) {
-		if (c.getCardIntValue() == card.getCardIntValue()) {
+		if (c.getCardInt() == card.getCardInt()) {
 		    return true;
 		}
 	    }
 	    return false;
-	}	catch(NoSuchCardException e)	{
-	    System.out.println("Invalid card");
-	    return false;
-	}
     }
 
     public int countIntValue(Card card)	{
-	try {
-	    int i = 0;
+	int i = 0;
 	    for (Card c : cardList) {
-		if (c.getCardIntValue() == card.getCardIntValue()) {
+		if (c.getCardInt() == card.getCardInt()) {
 		    i++;
 		}
 	    }
 	    return i;
-	}	catch(NoSuchCardException e)	{
-	    System.out.println("Invalid card");
-	    return -1000;
-	}
     }
 
     public CardList getCopy(CardList cl)	{
 	CardList copy = new CardList();
-	for (int i = 0; i < copy.getSize(); i++) {
+	for (int i = 0; i < cl.getSize(); i++) {
 	    copy.addCard(cl.getCardByIndex(i));
 	}
 	return copy;
@@ -140,19 +130,15 @@ public class CardList
     public int getSumAceOnTop()	{
 	int sum = 0;
 	for (int i = 0; i < this.getSize(); i++) {
-	    try {
 		if	(this.getCardByIndex(i).getValue().equals(CardValue.TOP_ACE))	{
 		    /** Ace is worth 11 when counted on top */
 		    sum += 11;
-		}	else if (this.getCardByIndex(i).getCardIntValue() > 10)	{
+		}	else if (this.getCardByIndex(i).getCardInt() > 10)	{
 		    /** Accoding to blackjack rules everything excepts Ace is worth 10 */
 		    sum += 10;
 		}	else	{
-		    sum += this.getCardByIndex(i).getCardIntValue();
+		    sum += this.getCardByIndex(i).getCardInt();
 		}
-	    }	catch(NoSuchCardException e)	{
-		System.out.println("Something went very wrong!");
-	    }
 	}
 	return sum;
     }
@@ -160,20 +146,16 @@ public class CardList
     public int getSumAceOnBottom()	{ //For BlackJack when Ace can be both on top and bottom
 	int sum = 0;
 	for (int i = 0; i < this.getSize(); i++) {
-	    try {
 		if	(this.getCardByIndex(i).getValue().equals(CardValue.TOP_ACE))	{
 		    /** If Ace is counted on bottom */
 		    sum += 1;
-		}	else if (this.getCardByIndex(i).getCardIntValue() > 10)	{
+		}	else if (this.getCardByIndex(i).getCardInt() > 10)	{
 		    /** Accoding to blackjack rules everything excepts Ace is worth 10 */
 		    sum += 10;
 		}	else	{
-		    sum += this.getCardByIndex(i).getCardIntValue();
+		    sum += this.getCardByIndex(i).getCardInt();
 		}
-	    }	catch(NoSuchCardException e)	{
-		System.out.println("Something went very wrong!");
 	    }
-	}
 	return sum;
     }
 

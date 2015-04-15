@@ -142,14 +142,9 @@ public class BlackJack extends PokerGame
 
     private boolean isSplittable(Person person)	{
 	if	(person.getHand().getSize() == 2) {
-	    try {
-		int firstCard = person.getHand().getCardByIndex(0).getCardIntValue();
-		int secondCard = person.getHand().getCardByIndex(1).getCardIntValue();
-		return firstCard == secondCard;
-	    }	catch(NoSuchCardException e)	{
-		System.out.println("There was no such card");
-		return false;
-	    }
+	    int firstCard = person.getHand().getCardByIndex(0).getCardInt();
+	    int secondCard = person.getHand().getCardByIndex(1).getCardInt();
+	    return firstCard == secondCard;
 	}	else	{
 	    return false;
 	}

@@ -4,7 +4,7 @@ import Cards.CardList;
 import Money.Pot;
 import Person.*;
 import Table.PokerGame;
-
+import PokerRules.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +27,7 @@ public class TexasHoldem extends PokerGame
 	this.minBet = minimumBet;
 	this.highestBet = minBet;
 	this.HHM = new HoldemHandComparator();
-	HHM.setTableDeck(dealer.getTableDeck());
+	HHM.setPokerGame(this);
 	this.moves = new HoldemMoves()	{
 	    @Override public void call()	{
 		currentPlayer.bet(highestBet - currentPlayer.getLastBet());
@@ -46,7 +46,7 @@ public class TexasHoldem extends PokerGame
 		ArrayList<String> options = new ArrayList<String>();
 		if	(!person.isPersonState(PersonState.INACTIVE))	{
 		    options.add("Call");
-		    options.add("Fold");
+		    //options.add("Fold");
 
 		    if	(highestBet != 2 * minBet) {
 			options.add("Raise");
@@ -154,7 +154,7 @@ public class TexasHoldem extends PokerGame
     }
 
     private void setStartingStates()	{
-	for	(Person person : getActivePlayers())	{
+	for	(Person person : getOnlyPlayers())	{
 	    person.changePersonState(PersonState.WAITING);
 	}
     }

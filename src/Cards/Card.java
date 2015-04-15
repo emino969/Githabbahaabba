@@ -44,7 +44,7 @@ public class Card {
         return cardType + " " + cardValue;
     }
 
-    public int getCardIntValue() throws NoSuchCardException {
+    private int getCardIntValue() throws NoSuchCardException {
         int i = 1;
         for (CardValue cardValue : CardValue.values()) {
             if(cardValue == this.cardValue){
@@ -53,6 +53,15 @@ public class Card {
             i ++;
         }
         throw new NoSuchCardException("There is no such Card");
+    }
+
+    public int getCardInt()	{
+	try	{
+	    return this.getCardIntValue();
+	}	catch(NoSuchCardException e)	{
+	    System.out.println(e);
+	    return -1;
+	}
     }
 
     public void setNonVisible()	{
