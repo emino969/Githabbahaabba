@@ -2,14 +2,14 @@ package PokerRules.TexasHoldem;
 
 import Cards.Card;
 import Cards.CardList;
+import PokerRules.AbstractGame;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumMap;
 
 public class HoldemHandComparator implements Comparator<CardList>
 {
-    private TexasHoldem game;
+    private AbstractGame game;
     private EnumMap<TexasHand, Integer> hands;
 
     @Override public int compare(CardList cl1, CardList cl2){
@@ -24,7 +24,7 @@ public class HoldemHandComparator implements Comparator<CardList>
 	}
     }
 
-    public void setPokerGame(TexasHoldem game)	{
+    public void setPokerGame(AbstractGame game)	{
 	this.game = game;
 	this.hands = new EnumMap<TexasHand, Integer>(TexasHand.class);
 	initiateMap();

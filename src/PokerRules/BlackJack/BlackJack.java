@@ -60,31 +60,31 @@ public class BlackJack extends PokerGame
 	    @Override public void makeMove(String name)	{
 		if	(name.equals("Stand"))	{
 		    stand();
-		    currentPlayer.changePersonState(PersonState.INACTIVE);
+		    getCurrentPlayer().changePersonState(PersonState.INACTIVE);
 		}	else if(name.equals("Hit"))	{
 		    hit();
-		    currentPlayer.changePersonState(PersonState.WAITING);
+		    getCurrentPlayer().changePersonState(PersonState.WAITING);
 		}	else if(name.equals("Bet 50$"))	{
 		    buyCards(getCurrentPlayer(), 50);
-		    currentPlayer.changePersonState(PersonState.WAITING);
+		    getCurrentPlayer().changePersonState(PersonState.WAITING);
 		}	else if(name.equals("Bet 100$"))	{
 		    buyCards(getCurrentPlayer(), 100);
-		    currentPlayer.changePersonState(PersonState.WAITING);
+		    getCurrentPlayer().changePersonState(PersonState.WAITING);
 		}	else if(name.equals("Bet 75$"))	{
 		    buyCards(getCurrentPlayer(), 75);
-		    currentPlayer.changePersonState(PersonState.WAITING);
+		    getCurrentPlayer().changePersonState(PersonState.WAITING);
 		}	else if(name.equals("Bet 25$"))	{
 		    buyCards(getCurrentPlayer(), 25);
-		    currentPlayer.changePersonState(PersonState.WAITING);
+		    getCurrentPlayer().changePersonState(PersonState.WAITING);
 		}	else if(name.equals("Double"))	{
 		    doubleDown();
-		    currentPlayer.changePersonState(PersonState.INACTIVE);
+		    getCurrentPlayer().changePersonState(PersonState.INACTIVE);
 		}	else if(name.equals("Surrender"))	{
 		    surrender();
-		    currentPlayer.changePersonState(PersonState.LOSER);
+		    getCurrentPlayer().changePersonState(PersonState.LOSER);
 		}	else if(name.equals("Split"))	{
 		    split();
-		    currentPlayer.changePersonState(PersonState.WAITING);
+		    getCurrentPlayer().changePersonState(PersonState.WAITING);
 		}
 	    }
 

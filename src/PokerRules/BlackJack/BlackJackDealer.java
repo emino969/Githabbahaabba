@@ -20,7 +20,7 @@ public class BlackJackDealer extends Dealer
 		game.getOptions().makeMove("Hit");
 	    } else {
 		game.getOptions().makeMove("Stand");
-		game.setIsOver();
+		game.setIsOverState(true);
 	    }
 	}	else if(hand.getSize() == 2)	{
 	    hand.getCardByIndex(1).setVisible();

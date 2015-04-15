@@ -1,5 +1,4 @@
 package Table;
-import Cards.CardList;
 import GameListeners.GameListener;
 import Person.Person;
 import PokerRules.AbstractPokermoves;
@@ -27,8 +26,8 @@ public class PokerGame extends Table
 	clockTimer.setCoalesce(true);
     }
 
-    public void setIsOver()	{
-	isOverState = true;
+    public void setIsOverState(boolean state)	{
+	isOverState = state;
     }
 
     static public void addGameListener(GameListener gl)	{
@@ -72,7 +71,11 @@ public class PokerGame extends Table
 	int currentRound = 0;
 	while	(N > currentRound)	{
 	    for	(Person player : getActivePlayers())	{
-		player.addHiddenCard(dealer.popCard());
+		if	(player.equals(getPlayer()))	{
+		    player.addCard(dealer.popCard());
+		}	else {
+		    player.addHiddenCard(dealer.popCard());
+		}
 	    }
 	    currentRound++;
 	}
@@ -88,6 +91,10 @@ public class PokerGame extends Table
 
     public void startClock()	{
 	clockTimer.start();
+    }
+
+    public void restartClock()	{
+	clockTimer.restart();
     }
 
     public void setOptions(AbstractPokermoves moves)	{

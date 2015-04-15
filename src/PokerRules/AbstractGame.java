@@ -1,7 +1,7 @@
 package PokerRules;
 
 import Person.*;
-import Table.PokerGame;
+import Table.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,21 +12,21 @@ public abstract class AbstractGame extends PokerGame
     private ActionListener move;
 
     public AbstractGame(Dealer dealer, AbstractPokermoves pokerMoves) {
+	setDealer(dealer);
+	this.dealer.setGame(this);
+	this.options = pokerMoves;
 	this.move =  new AbstractAction() {
         	    @Override public void actionPerformed(ActionEvent e)	{
         		runGameForward();
         	    }
         	};
-	setDealer(dealer);
-	dealer.setGame(this);
-	this.options = pokerMoves;
-	setOptions(options);
 	clockTimer.addActionListener(move);
+	setOptions(options);
     }
 
     abstract public boolean gameFinished(); //Telling when the game is over
 
-    abstract public boolean getWinner(); //Assign winners and end the current game round
+    abstract public void getWinner(); //Assign winners and end the current game round
 
     abstract public void startGame();
 
@@ -34,17 +34,27 @@ public abstract class AbstractGame extends PokerGame
 
     public void runGameForward()	{
 	//The method that runs the game forward
-	if	(gameFinished())	{
-	    getWinner();
-	    restartGame();
-	}	else if(dealersTurn()) {
-	    currentPlayer.changePersonState(PersonState.WAITING);
-	    dealer.turn();
-	}	else if(playersTurn())	{
+
+	if(playersTurn() && !gameFinished())	{
 	    currentPlayer.turn();
+	    getNextPlayer();
 	}
 
-	getNextPlayer();
+	if(dealersTurn() && !gameFinished()) {
+	    dealerMove();
+	}
+
+	if	(gameFinished())	{
+	    getWinner();
+	    notifyListeners();
+	    restartGame();
+	}
+
+	if	(currentPlayer.equals(getPlayer()))	{
+	    stopClock();
+	}
+
+	notifyListeners();
     }
 
     private void getNextPlayer()	{
@@ -66,13 +76,15 @@ public abstract class AbstractGame extends PokerGame
 
     abstract public boolean yourTurn();
 
+    abstract public void dealerMove();
+
     @Override public void addPlayer(Person person)	{
 	person.setGame(this);
 	players.add(person);
     }
 
-    public void nextMove()	{
-	clockTimer.restart();
+    public void nextMove() {
+	restartClock();
 	runGameForward();
     }
 }

@@ -17,7 +17,7 @@ public class TexasHoldemDealer extends Dealer
 	if (round == 1) {
 	    giveNCardsToPlayer(this, 3);
 	} else if (round == 4) {
-	    game.setIsOver();
+	    game.setIsOverState(true);
 	    round = 0;
 	} else {
 	    addCard(popCard());
