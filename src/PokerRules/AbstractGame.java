@@ -37,11 +37,12 @@ public abstract class AbstractGame extends PokerGame
 
 	if(playersTurn() && !gameFinished())	{
 	    currentPlayer.turn();
-	    getNextPlayer();
 	}
 
 	if(dealersTurn() && !gameFinished()) {
 	    dealerMove();
+	}	else	{
+	    getNextPlayer();
 	}
 
 	if	(gameFinished())	{
@@ -58,8 +59,7 @@ public abstract class AbstractGame extends PokerGame
     }
 
     private void getNextPlayer()	{
- 	setCurrentPlayer(nextPerson());
- 	notifyListeners();
+	setCurrentPlayer(nextPerson());
      }
 
     private Person nextPerson()	{

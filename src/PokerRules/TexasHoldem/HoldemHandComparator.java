@@ -3,22 +3,23 @@ package PokerRules.TexasHoldem;
 import Cards.Card;
 import Cards.CardList;
 import PokerRules.AbstractGame;
+import Person.*;
 
 import java.util.Comparator;
 import java.util.EnumMap;
 
-public class HoldemHandComparator implements Comparator<CardList>
+public class HoldemHandComparator implements Comparator<Person>
 {
     private AbstractGame game;
     private EnumMap<TexasHand, Integer> hands;
 
-    @Override public int compare(CardList cl1, CardList cl2){
-	TexasHand th1 = getTexasHand(cl1);
-	TexasHand th2 = getTexasHand(cl2);
+    @Override public int compare(Person p1, Person p2){
+	TexasHand th1 = getTexasHand(p1.getHand());
+	TexasHand th2 = getTexasHand(p2.getHand());
 	if	(getValue(th1) < getValue(th2))	{
 	    return 1;
 	}	else if	(getValue(th1) == getValue(th2))	{
-	    return compareSameHands(cl1, cl2);
+	    return compareSameHands(p1.getHand(), p2.getHand());
 	}	else	{
 	    return -1;
 	}
@@ -36,24 +37,24 @@ public class HoldemHandComparator implements Comparator<CardList>
     }
 
     public TexasHand getTexasHand(CardList hand)	{
-	if	(isOnePair(hand))	{
-	    return TexasHand.PAIR;
-	}	else if(isTwoPair(hand))	{
-	    return TexasHand.TWO_PAIR;
-	}	else if(isTriplets(hand))	{
-	    return TexasHand.TRIPLETS;
-	}	else if(isStraight(hand))	{
-	    return TexasHand.STRAIGHT;
-	}	else if(isFlush(hand))	{
-	    return TexasHand.FLUSH;
-	}	else if(isFullHouse(hand))	{
-	    return TexasHand.FULL_HOUSE;
-	}	else if(isQuads(hand))	{
-	    return TexasHand.QUADS;
+	if	(isRoyalFlush(hand))	{
+	    return TexasHand.ROYAL_FLUSH;
 	}	else if(isStraightFlush(hand))	{
 	    return TexasHand.STRAIGHT_FLUSH;
-	}	else if(isRoyalFlush(hand))	{
-	    return TexasHand.ROYAL_FLUSH;
+	}	else if(isQuads(hand))	{
+	    return TexasHand.QUADS;
+	}	else if(isFullHouse(hand))	{
+	    return TexasHand.FULL_HOUSE;
+	}	else if(isFlush(hand))	{
+	    return TexasHand.FLUSH;
+	}	else if(isStraight(hand))	{
+	    return TexasHand.STRAIGHT;
+	}	else if(isTriplets(hand))	{
+	    return TexasHand.TRIPLETS;
+	}	else if(isTwoPair(hand))	{
+	    return TexasHand.TWO_PAIR;
+	}	else if(isOnePair(hand))	{
+	    return TexasHand.PAIR;
 	}	else	{
 	    return TexasHand.EMPTY;
 	}
@@ -114,7 +115,7 @@ public class HoldemHandComparator implements Comparator<CardList>
 	CardList cl = getTableDeck();
 	cl.addCard(c1);
 	cl.addCard(c2);
-	return cl.countIntValue(c1) == 2 && cl.countIntValue(c2) == 2;
+	return cl.countIntValue(c1) == 2 && cl.countIntValue(c2) == 2 && c1.getCardInt() != c2.getCardInt();
     }
 
     public boolean isTriplets(CardList hand)	{
@@ -156,7 +157,7 @@ public class HoldemHandComparator implements Comparator<CardList>
     }
 
     public boolean isFullHouse(CardList hand)	{
-	return isOnePair(hand) && isTriplets(hand);
+	return isOnePair(hand) && isTriplets(hand) && !hand.getCard(0).equals(hand.getCard(1));
     }
 
     public boolean isQuads(CardList hand)	{

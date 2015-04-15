@@ -72,14 +72,13 @@ public class TexasHoldem extends PokerGame
 
 	    @Override public void getWinner() {
 		showCards();
-		ArrayList<CardList> hands = new ArrayList<CardList>();
 		ArrayList<Person> players = getActivePlayers();
-		for (int i = 0; i < players.size(); i++) {
-		    hands.add(players.get(i).getHand());
-		}
-		hands.sort(HHM);
+		players.sort(HHM);
 		players.get(0).changePersonState(PersonState.WINNER);
 		getDealer().givePot(players.get(0));
+		for (int i = 1; i < players.size() ; i++) {
+		    players.get(i).changePersonState(PersonState.LOSER);
+		}
 	    }
 
 	    @Override public void startGame() {
@@ -122,6 +121,7 @@ public class TexasHoldem extends PokerGame
 	    @Override public boolean playersTurn() {
 		return !dealersTurn();
 	    }
+
 
 	    @Override public boolean yourTurn() {
 		return false;

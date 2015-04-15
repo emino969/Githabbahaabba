@@ -1,6 +1,7 @@
 package GUI;
 
 import PokerRules.BlackJack.BlackJack;
+import PokerRules.TexasHoldem.TexasHoldem;
 import Table.PokerGame;
 import javax.swing.*;
 import java.awt.*;
@@ -14,14 +15,17 @@ public class StartMenu extends JFrame
     private static final int defaultHeight = 400;
     private final static String WELCOME_TEXT = "SELECT A GAME";
     private JButton blackJack;
+    private JButton texasHoldem;
     private JLabel labelMessage;
     private PokerFrame frame;
 
     public StartMenu()	{
 	this.blackJack = new JButton("Black Jack");
 	this.labelMessage = new JLabel(WELCOME_TEXT);
+	this.texasHoldem = new JButton("Texas Holdem Limited");
 	this.frame = null;
 
+	texasHoldem.setFont(new Font("Serif", Font.BOLD, 27));
 	blackJack.setFont(new Font("Serif", Font.BOLD, 27));
 	labelMessage.setFont(new Font("Serif", Font.BOLD, 30));
 
@@ -29,6 +33,13 @@ public class StartMenu extends JFrame
 	blackJack.addActionListener(new ActionListener() {
 	    @Override public void actionPerformed(ActionEvent e) {
 		runGame(new BlackJack());
+	    }
+	});
+
+	texasHoldem.addActionListener(new ActionListener()	{
+	    @Override public void actionPerformed(ActionEvent e)	{
+		TexasHoldem texas = new TexasHoldem(10);
+		runGame(texas.getGame());
 	    }
 	});
 
@@ -50,6 +61,11 @@ public class StartMenu extends JFrame
 	c.weighty = 1;
 	c.gridy = 1;
 	add(blackJack, c);
+
+	c.fill = GridBagConstraints.HORIZONTAL;
+	c.weighty = 0;
+	c.gridy = 2;
+	add(texasHoldem, c);
     }
 
     private void runGame(PokerGame game)	{

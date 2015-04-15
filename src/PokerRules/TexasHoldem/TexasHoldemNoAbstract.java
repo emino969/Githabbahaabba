@@ -132,12 +132,8 @@ public class TexasHoldemNoAbstract extends PokerGame
 
     private void getWinner()	{
 	showCards();
-	ArrayList<CardList> hands = new ArrayList<CardList>();
 	ArrayList<Person> players = getActivePlayers();
-	for (int i = 0; i < players.size(); i++) {
-	    hands.add(players.get(i).getHand());
-	}
-	hands.sort(HHM);
+	players.sort(HHM);
 	players.get(0).changePersonState(PersonState.WINNER);
 	dealer.givePot(players.get(0));
     }
