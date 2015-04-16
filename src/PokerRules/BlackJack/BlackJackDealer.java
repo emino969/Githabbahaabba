@@ -17,9 +17,9 @@ public class BlackJackDealer extends Dealer
     @Override public void turn() {
 	if (hand.isAllCardsVisible()) {
 	    if (hand.getSumAceOnTop() < 17) {
-		game.getOptions().makeMove("Hit");
+		game.getOptions().makeMove(BlackJackAction.HIT);
 	    } else {
-		game.getOptions().makeMove("Stand");
+		game.getOptions().makeMove(BlackJackAction.STAND);
 		game.setIsOverState(true);
 	    }
 	}	else if(hand.getSize() == 2)	{

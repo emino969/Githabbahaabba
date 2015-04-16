@@ -6,12 +6,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class CardList
+public class CardList extends ArrayList<Card>
 {
     private List<Card> cardList;
 
     public CardList()   {
         this.cardList = new ArrayList<Card>();
+    }
+
+    public List<Card> getCardList() {
+        return cardList;
     }
 
     public boolean contains(Card card)  {
@@ -166,4 +170,10 @@ public class CardList
         }
         return stringBuilder.toString();    }
 
-}
+    public boolean containsCardValue(final CardValue cardValue) {
+            for (Card card : cardList) {
+                if(card.getValue() == cardValue) return true;
+            }
+            return false;
+        }}
+

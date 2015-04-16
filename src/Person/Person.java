@@ -155,8 +155,9 @@ public class Person
         System.out.println(hand);
         return "";
     }
-
-    public boolean hasTurn() {
-        return (state == PersonState.TURN);
+    public boolean hasTurn(){
+        return state == PersonState.TURN;
     }
+
+
 }

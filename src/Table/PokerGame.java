@@ -109,7 +109,9 @@ public class PokerGame extends Table
 
     public void restartGame()	{}
 
-    public void addPlayer(Person player)	{}
+    public void addPlayer(Person player)	{
+
+    }
 
     public void startGame()	{}
 }

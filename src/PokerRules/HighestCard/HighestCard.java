@@ -3,6 +3,7 @@ package PokerRules.HighestCard;
 import Cards.Card;
 import Money.Pot;
 import Person.*;
+import PokerRules.CardGameMove;
 import Table.PokerGame;
 
 import javax.swing.*;
@@ -24,17 +25,17 @@ public class HighestCard extends PokerGame
 		return "";
 	    }
 
- 	    @Override public ArrayList<String> getOptions(Person person)	{
+ 	    @Override public ArrayList<CardGameMove> getOptions(Person person)	{
  		ArrayList<String> methods = new ArrayList<String>();
  	    	methods.add("Stand");
  	    	methods.add("Change card");
- 	    	return methods;
+ 	    	return null;
  	    }
 
- 	    @Override public void makeMove(String name)	{
- 		if	(name.equals("Stand"))	{
+ 	    @Override public void makeMove(CardGameMove cardGameMove)	{
+ 		if	(equals("Stand"))	{
  	    	    stand();
- 	    	}	else if	(name.equals("Change card"))	{
+ 	    	}	else if	(equals("Change card"))	{
  	    	    changeCard();
  	    	}
  	    }

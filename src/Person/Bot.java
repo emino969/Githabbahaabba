@@ -2,6 +2,8 @@ package Person;
 
 import Money.Pot;
 import PokerRules.AbstractPokermoves;
+import PokerRules.BlackJack.BlackJackAction;
+import PokerRules.CardGameMove;
 
 import java.util.Random;
 
@@ -14,7 +16,7 @@ public class Bot extends Person
     @Override public void turn()	{
 	AbstractPokermoves APm = game.getOptions();
 	Random rand = new Random();
-	String nextMove = APm.getOptions(this).get(rand.nextInt(APm.getOptions(this).size()));
+	CardGameMove nextMove = APm.getOptions(this).get(rand.nextInt(APm.getOptions(this).size()));
 	APm.makeMove(nextMove);
     }
 

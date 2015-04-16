@@ -1,7 +1,7 @@
 package GUI;
 
 import PokerRules.BlackJack.BlackJack;
-import PokerRules.TexasHoldem.TexasHoldem;
+import PokerRules.TexasHoldEm.TexasHoldEm;
 import Table.PokerGame;
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +38,7 @@ public class StartMenu extends JFrame
 
 	texasHoldem.addActionListener(new ActionListener()	{
 	    @Override public void actionPerformed(ActionEvent e)	{
-		TexasHoldem texas = new TexasHoldem(10);
+		TexasHoldEm texas = new TexasHoldEm(10);
 		runGame(texas.getGame());
 	    }
 	});
