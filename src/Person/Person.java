@@ -7,6 +7,7 @@ import Money.Pot;
 import Table.PokerGame;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Person
 {
@@ -24,17 +25,8 @@ public class Person
 	this.name = name;
 	this.pot = pot;
 	this.hand = new CardList(); //Primary hand
-	this.multipleHands = new ArrayList<CardList>();
+	this.multipleHands = new ArrayList<>();
 	this.lastBet = 0;
-	multipleHands.add(hand);
-	setGameListener();
-    }
-
-    public Person(String name)	{
-	this.name = name;
-	this.pot = defaultPot;
-	this.hand = new CardList(); //Primary hand
-	this.multipleHands = new ArrayList<CardList>();
 	multipleHands.add(hand);
 	setGameListener();
     }
@@ -48,7 +40,7 @@ public class Person
 	    }
 	};
 
-	game.addGameListener(gl);
+	PokerGame.addGameListener(gl);
     }
 
     public int getLastBet()	{
@@ -56,7 +48,7 @@ public class Person
     }
 
     public void setLastBet(int amount)	{
-	lastBet = 0;
+	lastBet = amount;
     }
 
     public boolean bet(int amount)	{
@@ -102,7 +94,7 @@ public class Person
 	return hand;
     }
 
-    public ArrayList<CardList> getHands()	{
+    public List<CardList> getHands()	{
 	return multipleHands;
     }
 
@@ -140,10 +132,6 @@ public class Person
 
     public void turn()	{
         //does nothing
-    }
-
-    public void fold()	{
-	//Resign from game
     }
 
     public boolean isPersonState(PersonState st)	{

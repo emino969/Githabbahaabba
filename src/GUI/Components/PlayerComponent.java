@@ -1,8 +1,10 @@
 package GUI.Components;
 
 import Cards.CardList;
-import Person.*;
+import Person.Person;
+import Person.PersonState;
 import Pictures.Images;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -59,7 +61,7 @@ public class PlayerComponent extends JComponent
 	drawPlayerCards(g, x, y); //A generalized solution for painting the cards
     }
 
-    public int getStringWidth(String string)	{
+    public int getStringWidth(CharSequence string)	{
 	int pixelLength = 0;
 	for (int i = 0; i < string.length(); i++) {
 	    pixelLength += fm.charWidth(string.charAt(i));
@@ -90,9 +92,8 @@ public class PlayerComponent extends JComponent
 	int calculatedSizeX = numberOfHands * cardSpaceX + (numberOfHands - 1) * spaceBetweenHands;
 	for (int i = 0; i < numberOfHands; i++) {
 	    int currentX = x + (i - 1) * cardSpaceX + (i - 1) * spaceBetweenHands - calculatedSizeX / 2;
-	    int currentY = y;
 	    CardList currentHand = person.getHands().get(i);
-	    drawHand(currentHand, g, currentX, currentY);
+	    drawHand(currentHand, g, currentX, y);
 	}
     }
 

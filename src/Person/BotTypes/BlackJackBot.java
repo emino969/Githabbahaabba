@@ -1,7 +1,5 @@
 package Person.BotTypes;
 
-import CardGameExceptions.CardGameActionException;
-import CardGameExceptions.NoSuchCardException;
 import Cards.CardValue;
 import Money.Pot;
 import Person.Person;
@@ -17,21 +15,19 @@ public class BlackJackBot extends Person
 {
 
     private BlackJack blackjack;
-    BlackJackAction[][] optionArray = new BlackJackAction[19][9];
     public BlackJackBot(final String name, final Pot pot, final BlackJack blackJack) {
         super(name, pot);
         this.blackjack = blackJack;
     }
     @Override public void turn(){
-        System.out.println(this.hasTurn());
-        if(this.hasTurn()) {
+	if(this.hasTurn()) {
             AbstractPokermoves aca = game.getOptions();
             if (hand.isEmpty()) {
 		aca.makeMove(BlackJackAction.BET_25);
 	    } else {
 		BlackJackAction action = getBestMove();
-		System.out.println(action);
 		game.getOptions().makeMove(action);
+		System.out.println(action);
 	    }
         }
         }
@@ -42,7 +38,7 @@ public class BlackJackBot extends Person
         int dealerHandValue = blackjack.getDealer().getHand().getCard(0).getCardInt();
         if(10 < dealerHandValue ) dealerHandValue =10;
         int playerHandvalue = blackjack.getLegalHandSum(this);
-        return getAction(dealerHandValue, playerHandvalue, soft);
+	return getAction(dealerHandValue, playerHandvalue, soft);
     }
 
     private BlackJackAction getAction(final int dealerHandValue, final int playerHandValue, final boolean soft) {
@@ -54,7 +50,7 @@ public class BlackJackBot extends Person
 
     public void printOptionArray(){
         StringBuilder stringBuilder = new StringBuilder();
-        BlackJackAction[][] hej = buildSoftHandOptionArray();
+        BlackJackAction[][] hej = buildhardHandOptionArray();
         int i= 4;
         for (BlackJackAction[] blackJackAction : hej) {
             stringBuilder.append(i+":");

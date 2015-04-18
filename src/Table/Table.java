@@ -1,7 +1,10 @@
 package Table;
 
 import Money.Pot;
-import Person.*;
+import Person.Dealer;
+import Person.Person;
+import Person.PersonState;
+import Person.Player;
 
 import java.util.ArrayList;
 
@@ -44,13 +47,13 @@ public class Table
 	return persons;
     }
 
-    public ArrayList<Person> getOnlyPlayers()	{//Everyone besides dealer
+    public Iterable<Person> getOnlyPlayers()	{//Everyone besides dealer
 	ArrayList<Person> tempPlayers = new ArrayList<Person>(players);
 	tempPlayers.remove(dealer);
 	return tempPlayers;
     }
 
-    public ArrayList<Person> getOnlyActivePlayers()	{
+    public Iterable<Person> getOnlyActivePlayers()	{
 	ArrayList<Person> persons = new ArrayList<Person>();
 	for	(Person person : players)	{
 	    if	(!(person.isPersonState(PersonState.INACTIVE) || person.isPersonState(PersonState.LOSER))) {
@@ -65,7 +68,7 @@ public class Table
 	players.remove(player);
     }
 
-    public ArrayList<Person> getPlayers()	{
+    public Iterable<Person> getPlayers()	{
 	return new ArrayList<Person>(players);
     }
 
@@ -95,9 +98,5 @@ public class Table
     public void setDealer(Dealer dealer)	{
 	this.dealer = dealer;
 	players.add(dealer);
-    }
-
-    public Pot getPot()	{
-	return tablePot;
     }
 }

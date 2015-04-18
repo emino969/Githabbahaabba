@@ -1,9 +1,11 @@
 package GUI;
 
 import Money.Pot;
+import Person.Bot;
+import Person.BotTypes.BlackJackBot;
+import Person.Player;
 import Pictures.Images;
 import PokerRules.BlackJack.BlackJack;
-import Person.*;
 import Table.PokerGame;
 
 import javax.swing.*;
@@ -11,19 +13,26 @@ import java.awt.*;
 
 public class PokerFrame extends JFrame
 {
-    private final PokerGame game;
     private static final int closeOperation = EXIT_ON_CLOSE;
     private static final int defaultWidth = 800;
     private static final int defaultHeight = 600;
     private Images imageHandler;
 
     public PokerFrame(PokerGame game) {
+
 	Player Emil = new Player("Emil", new Pot(1000));
+	/**
+	BlackJackBot PlayerBot = new BlackJackBot("Bot", new Pot(1000),(BlackJack) game);
+	BlackJackBot SuperMario = new BlackJackBot("SuperMario", new Pot(1000), (BlackJack) game);
+	BlackJackBot SuperBot = new BlackJackBot("SuperBot", new Pot(1000), (BlackJack) game);
+	BlackJackBot SuperPlayer = new BlackJackBot("SuperPlayer", new Pot(1000), (BlackJack) game);
+	 */
+
 	Bot PlayerBot = new Bot("Bot", new Pot(1000));
 	Bot SuperMario = new Bot("SuperMario", new Pot(1000));
 	Bot SuperBot = new Bot("SuperBot", new Pot(1000));
 	Bot SuperPlayer = new Bot("SuperPlayer", new Pot(1000));
-	this.game = game; //Temporary for BlackJacK
+
 	this.imageHandler = new Images();
 
 	game.addPlayer(Emil);

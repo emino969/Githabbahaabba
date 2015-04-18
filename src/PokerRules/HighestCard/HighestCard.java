@@ -2,7 +2,9 @@ package PokerRules.HighestCard;
 
 import Cards.Card;
 import Money.Pot;
-import Person.*;
+import Person.Dealer;
+import Person.Person;
+import Person.PersonState;
 import PokerRules.CardGameMove;
 import Table.PokerGame;
 
@@ -11,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class HighestCard extends PokerGame
 {
@@ -19,14 +22,14 @@ public class HighestCard extends PokerGame
 
     public HighestCard() {
 	this.rounds = 0;
-	this.dealer = new Dealer(new Pot(1000)); //The dealer's personal play account
+	setDealer(new Dealer(new Pot(1000))); //The dealer's personal play account
  	this.moves = new HighestCardmoves()	{
 	    @Override public String getHandValue(Person person)	{
 		return "";
 	    }
 
  	    @Override public ArrayList<CardGameMove> getOptions(Person person)	{
- 		ArrayList<String> methods = new ArrayList<String>();
+ 		List<String> methods = new ArrayList<String>();
  	    	methods.add("Stand");
  	    	methods.add("Change card");
  	    	return null;
@@ -80,7 +83,7 @@ public class HighestCard extends PokerGame
 	// handcomparator 
     private void checkRoundWinner() {
 	//Need to clone because shuffles around the players in the table
-	ArrayList<Person> players = new ArrayList<Person>(getActivePlayers());
+	List<Person> players = new ArrayList<Person>(getActivePlayers());
 	players.sort(new HandComparator());
 	dealer.givePot(players.get(getPlayersSize()-1));
 	notifyListeners();
@@ -101,7 +104,7 @@ public class HighestCard extends PokerGame
 
     public void getWinner()	{
 	//Need to clone because shuffles around the players in the table
-	ArrayList<Person> players = new ArrayList<Person>(getActivePlayers());
+	List<Person> players = new ArrayList<Person>(getActivePlayers());
 	players.sort(new HandComparator());
 	for (int i = 0; i < players.size(); i++) {
 	    if(i == getPlayersSize() -1) dealer.givePot(players.get(i));
@@ -147,12 +150,13 @@ public class HighestCard extends PokerGame
 	notifyListeners();
     }
 
-    class HandComparator implements Comparator<Person>
+    private class HandComparator implements Comparator<Person>
     {
 	@Override public int compare(Person p1, Person p2){
 	    int truthValue = compareCards(p1.getHand().getCardByIndex(0).getValue(), p2.getHand().getCardByIndex(0).getValue());
 	    return truthValue;
 	}
+
 	private int compareCards(Comparable c1, Comparable c2){
 	    int a = c1.compareTo(c2);
 	    if(a == 0) return 0;
