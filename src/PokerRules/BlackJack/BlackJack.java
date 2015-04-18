@@ -1,11 +1,11 @@
 package PokerRules.BlackJack;
 
-import CardGameExceptions.CardGameActionException;
-import CardGameExceptions.NoSuchCardException;
 import Money.Pot;
+import Person.Person;
+import Person.PersonState;
 import PokerRules.CardGameMove;
 import Table.PokerGame;
-import Person.*;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,11 +13,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The BlackJack game
+ */
+
 public class BlackJack extends PokerGame
 {
     private BlackJackMoves moves;
     private Map<Person, BlackJackHand> personMap;
     private static final int FAST_DELAY = 1000;
+    private static final int CHIP_25 = 25;
+    private static final int CHIP_50 = 75;
+    private static final int CHIP_75 = 75;
+    private static final int BLACKJACK_NUMBER = 21;
+    private static final int START_SIZE = 2;
+    private static final int NUMBER_OF_DECKS = 8;
+    private static final int DEALER_POT_AMOUNT = 1000;
     private ActionListener move =  new AbstractAction() {
     	    @Override public void actionPerformed(ActionEvent e)	{
     		runGameForward();
@@ -25,7 +36,7 @@ public class BlackJack extends PokerGame
     	};
 
     public BlackJack() {
-	setDealer(new BlackJackDealer(new Pot(1000))); //Default Pot
+	setDealer(new BlackJackDealer(new Pot(DEALER_POT_AMOUNT), NUMBER_OF_DECKS)); //Default Pot
 	dealer.setGame(this); //Dealer is created in table
 	this.moves = new BlackJackMoves()	{
 	    @Override public String getHandValue(Person person)	{
@@ -77,13 +88,13 @@ public class BlackJack extends PokerGame
 	 			hit();
 	 			break;
 	 		    case BET_25:
-	 			buyCards(currentPlayer, 25);
+	 			buyCards(currentPlayer, CHIP_25);
 	 			break;
 	 		    case BET_50:
-	 			buyCards(currentPlayer,50);
+	 			buyCards(currentPlayer, CHIP_50);
 	 			break;
 	 		    case BET_75:
-	 			buyCards(currentPlayer,75);
+	 			buyCards(currentPlayer, CHIP_75);
 	 			break;
 	 		    case DOUBLE_HIT:
 	 			doubleDown();
@@ -140,11 +151,12 @@ public class BlackJack extends PokerGame
 		int bet = currentPlayer.getLastBet();
 		makeBet(getCurrentPlayer(), bet);
 		hit();
+		stand();
 	    }
 	};
 
 	setOptions(moves);
-	this.personMap = new HashMap<Person, BlackJackHand>();
+	this.personMap = new HashMap<>();
     }
 
     private void buyCards(Person person, int amount)	{
@@ -160,7 +172,7 @@ public class BlackJack extends PokerGame
     }
 
     private boolean isSplittable(Person person)	{
-	if	(person.getHand().getSize() == 2) {
+	if	(person.getHand().getSize() == START_SIZE) {
 	    int firstCard = person.getHand().getCardByIndex(0).getCardInt();
 	    int secondCard = person.getHand().getCardByIndex(1).getCardInt();
 	    return firstCard == secondCard;
@@ -183,7 +195,7 @@ public class BlackJack extends PokerGame
     }
 
     private Person nextPerson()	{
-	if	(getActivePlayers().size() != 0) {
+	if	(!getActivePlayers().isEmpty()) {
 	    if	(getActivePlayers().contains(currentPlayer)) {
 		return getPersonByIndex((currentPlayerIndex + 1) % getActivePlayers().size());
 	    }	else	{
@@ -241,12 +253,12 @@ public class BlackJack extends PokerGame
 
     private void updatePlayerState(Person player) {
 	int handSum = getLegalHandSum(player);
-	if (handSum > 21) {
+	if (handSum > BLACKJACK_NUMBER) {
 	    personMap.put(player, BlackJackHand.BUSTED);
 	    player.changePersonState(PersonState.LOSER); //Also counts as inactive
-	} else if (handSum == 21 && player.getHand().getSize() == 2) {
+	} else if (handSum == BLACKJACK_NUMBER && player.getHand().getSize() == START_SIZE) {
 	    personMap.put(player, BlackJackHand.BLACKJACK);
-	} else if (handSum < 21) {
+	} else if (handSum < BLACKJACK_NUMBER) {
 	    personMap.put(player, BlackJackHand.THIN);
 	}
     }
@@ -254,7 +266,7 @@ public class BlackJack extends PokerGame
     public int getLegalHandSum(Person person)	{
 	int minSum = person.getHand().getSumAceOnBottom();
 	int maxSum = person.getHand().getSumAceOnTop();
-	if	(maxSum <= 21)	{
+	if	(maxSum <= BLACKJACK_NUMBER)	{
 	    return maxSum;
 	}	else	{
 	    return minSum;
@@ -344,7 +356,6 @@ public class BlackJack extends PokerGame
 	setStartingStates();
 	collectCards();
 	deactivateDealer();
-	dealer.startNewGame();
 	personMap.put(dealer, BlackJackHand.THIN);
 	setCurrentPlayer(getPlayer());
 	dealer.giveStartingCards();

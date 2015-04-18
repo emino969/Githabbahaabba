@@ -1,25 +1,23 @@
 package Cards;
 
-import CardGameExceptions.NoSuchCardException;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class CardList extends ArrayList<Card>
 {
+    public Iterable<Card> getCardList() {
+        return cardList;
+    }
+    public boolean contains(Card card)  {
+        return cardList.contains(card);
+    }
     private List<Card> cardList;
+    private static final int ACE_INT = 11;
+    private static final int TEN_TO_KING_INT = 10;
 
     public CardList()   {
         this.cardList = new ArrayList<Card>();
-    }
-
-    public List<Card> getCardList() {
-        return cardList;
-    }
-
-    public boolean contains(Card card)  {
-        return cardList.contains(card);
     }
 
     public boolean containsIntValue(Card card)	{
@@ -53,12 +51,12 @@ public class CardList extends ArrayList<Card>
         return cardList.isEmpty();
     }
 
-    public boolean removeCard(Card card)    {
-        return cardList.remove(card);
+    public void removeCard(Card card)    {
+        cardList.remove(card);
     }
 
-    public boolean addCard(Card card)  {
-	return cardList.add(card);
+    public void addCard(Card card)  {
+	cardList.add(card);
     }
 
     public void setCardsVisible()	{
@@ -67,9 +65,9 @@ public class CardList extends ArrayList<Card>
 	}
     }
 
-    public boolean addHiddenCard(Card card)	{
+    public void addHiddenCard(Card card)	{
 	card.setNonVisible();
-	return cardList.add(card);
+	cardList.add(card);
     }
 
     public boolean isAllCardsVisible()	{
@@ -93,7 +91,7 @@ public class CardList extends ArrayList<Card>
 	return cardList.get(index);
     }
 
-    public void setCardList(ArrayList<Card> cardList){
+    public void setCardList(List<Card> cardList){
           this.cardList = cardList;
     }
 
@@ -102,6 +100,12 @@ public class CardList extends ArrayList<Card>
 	    for (CardValue cardValue : CardValue.values()) {
 		if(cardValue != CardValue.BOTTOM_ACE) cardList.add(new Card(cardType, cardValue));
 	    }
+	}
+    }
+
+    public void createBlackJackDeck(int nDecks)	{
+	for (int i = 0; i < nDecks; i++) {
+	    createOrdinaryDeck();
 	}
     }
 
@@ -136,10 +140,10 @@ public class CardList extends ArrayList<Card>
 	for (int i = 0; i < this.getSize(); i++) {
 		if	(this.getCardByIndex(i).getValue().equals(CardValue.TOP_ACE))	{
 		    /** Ace is worth 11 when counted on top */
-		    sum += 11;
+		    sum += ACE_INT;
 		}	else if (this.getCardByIndex(i).getCardInt() > 10)	{
 		    /** Accoding to blackjack rules everything excepts Ace is worth 10 */
-		    sum += 10;
+		    sum += TEN_TO_KING_INT;
 		}	else	{
 		    sum += this.getCardByIndex(i).getCardInt();
 		}

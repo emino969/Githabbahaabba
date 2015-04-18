@@ -2,6 +2,7 @@ package Cards;
 
 import CardGameExceptions.NoSuchCardException;
 import Pictures.Images;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,6 +14,13 @@ public class Card {
     private static final int CARD_SIZE_Y = 75;
     private static final int STRING_SPACE_FROM_MIDDLE = CARD_SIZE_X / 2 - 20;
     private static final int FONT_SPACE = 15;
+    private static final int FONT_SIZE = 20;
+    private static final int KNIGHT_INT = 11;
+    private static final int QUEEN_INT = 12;
+    private static final int KING_INT = 13;
+    private static final int ACE_INT = 14;
+    private static final int CARD_SPACE_TOP = 15;
+    private static final int CARD_SPACE_PIC = 13;
     private boolean isVisible;
     private FontMetrics fm;
     private Font font;
@@ -22,7 +30,7 @@ public class Card {
 	this.cardValue = cardValue;
 	this.cardColor = getColorByCardType();
 	this.isVisible = true;
-	this.font = new Font("Serif", Font.BOLD, 20);
+	this.font = new Font("Serif", Font.BOLD, FONT_SIZE);
 	this.fm = null;
     }
 
@@ -36,7 +44,7 @@ public class Card {
         return cardType;
     }
 
-    public CardValue getValue() {
+    public Comparable getValue() {
         return cardValue;
     }
 
@@ -59,7 +67,7 @@ public class Card {
 	try	{
 	    return this.getCardIntValue();
 	}	catch(NoSuchCardException e)	{
-	    System.out.println(e);
+	    e.printStackTrace();
 	    return -1;
 	}
     }
@@ -72,10 +80,6 @@ public class Card {
 	isVisible = true;
     }
 
-    public void flipCard()	{
-	isVisible = !isVisible;
-    }
-
     public boolean isVisible()	{
 	return isVisible;
     }
@@ -83,13 +87,13 @@ public class Card {
     private String getSymbolFromInt(int value)	{
 	if	(value <= 10)	{
 	    return String.valueOf(value);
-	}	else if(value == 11)	{
+	}	else if(value == KNIGHT_INT)	{
 	    return "J";
-	}	else if(value == 12)	{
+	}	else if(value == QUEEN_INT)	{
 	    return "Q";
-	}	else if(value == 13)	{
+	}	else if(value == KING_INT)	{
 	    return "K";
-	}	else if(value == 14)	{
+	}	else if(value == ACE_INT)	{
 	    return "A";
 	}	else	{
 	    return "-1";
@@ -99,7 +103,7 @@ public class Card {
     public void draw(Graphics2D g, int X, int Y, JComponent comp, Images imageHandler)	{
 	final int IMAGE_X = imageHandler.getPrefferedX(cardType);
 	final int IMAGE_Y = imageHandler.getPrefferedY(cardType);
-	this.fm = comp.getFontMetrics(new Font("Serif", Font.BOLD, 20));
+	this.fm = comp.getFontMetrics(new Font("Serif", Font.BOLD, FONT_SIZE));
 
 	if(isVisible) {
 	    g.setColor(Color.WHITE);
@@ -114,7 +118,7 @@ public class Card {
 	    try{
 		g.drawString(getSymbolFromInt(getCardIntValue()),
 			     X + CARD_SIZE_X / 2 - STRING_SPACE_FROM_MIDDLE - FONT_SPACE,
-			     Y + 15);
+			     Y + CARD_SPACE_TOP);
 
 		g.drawString(getSymbolFromInt(getCardIntValue()),
 			     X + CARD_SIZE_X / 2 + STRING_SPACE_FROM_MIDDLE + FONT_SPACE - getStringWidth(getSymbolFromInt(getCardIntValue())),
@@ -122,16 +126,16 @@ public class Card {
 
 		g.drawImage(imageHandler.getPicture(cardType),
 			    X + CARD_SIZE_X / 2 - IMAGE_X / 2,
-			    Y + CARD_SIZE_Y / 2 - 13,
+			    Y + CARD_SIZE_Y / 2 - CARD_SPACE_PIC,
 			    IMAGE_X,
 			    IMAGE_Y,
 			    comp);
 
             }catch (NoSuchCardException e) {
-		System.out.println("There is no such card!");
+		e.printStackTrace();
 	    }
 
-	    Font newFont = new Font("Serif", Font.BOLD, 15);
+	    Font newFont = new Font("Serif", Font.BOLD, FONT_SIZE);
 	    g.setFont(newFont);
 
         } else{
@@ -143,7 +147,7 @@ public class Card {
             }
 	}
 
-    public int getStringWidth(String string)	{
+    public int getStringWidth(CharSequence string)	{
 	int pixelLength = 0;
 	for (int i = 0; i < string.length(); i++) {
 	    pixelLength += fm.charWidth(string.charAt(i));

@@ -1,12 +1,16 @@
 package PokerRules;
 
-import java.util.ArrayList;
-import Person.*;
-import Table.CardGame;
+import Person.Person;
+
+import java.util.List;
+
+/**
+ * The methods all player needs to make a move
+ */
 
 public interface AbstractPokermoves
 {
-    public ArrayList<CardGameMove> getOptions(Person person);
+    public List<CardGameMove> getOptions(Person person);
     public void makeMove(CardGameMove cardGameMove);
     public String getHandValue(Person person);
 }

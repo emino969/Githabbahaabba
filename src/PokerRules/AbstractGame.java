@@ -1,27 +1,29 @@
 package PokerRules;
 
-import Person.*;
-import Table.*;
+import Person.Dealer;
+import Person.Person;
+import Table.PokerGame;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ *  AbstractGame is the structure that all games should follow
+ */
+
 public abstract class AbstractGame extends PokerGame
 {
-    private AbstractPokermoves options;
-    private ActionListener move;
-
-    public AbstractGame(Dealer dealer, AbstractPokermoves pokerMoves) {
+    public AbstractGame(Dealer dealer) {
 	setDealer(dealer);
 	this.dealer.setGame(this);
-	this.options = pokerMoves;
-	this.move =  new AbstractAction() {
-        	    @Override public void actionPerformed(ActionEvent e)	{
-        		runGameForward();
-        	    }
-        	};
+	final ActionListener move = new AbstractAction()
+	{
+	    @Override public void actionPerformed(ActionEvent e) {
+		runGameForward();
+	    }
+	};
 	clockTimer.addActionListener(move);
-	setOptions(options);
+	setOptions(getOptions());
     }
 
     abstract public boolean gameFinished(); //Telling when the game is over
@@ -31,6 +33,8 @@ public abstract class AbstractGame extends PokerGame
     abstract public void startGame();
 
     abstract public void restartGame();
+
+    abstract public AbstractPokermoves getOptions(); //return options for PokerGame
 
     public void runGameForward()	{
 	//The method that runs the game forward
@@ -73,8 +77,6 @@ public abstract class AbstractGame extends PokerGame
     abstract public boolean dealersTurn();
 
     abstract public boolean playersTurn();
-
-    abstract public boolean yourTurn();
 
     abstract public void dealerMove();
 

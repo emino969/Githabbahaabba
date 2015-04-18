@@ -2,19 +2,18 @@ package Person.BotTypes;
 
 import Money.Pot;
 import Person.Person;
-import PokerRules.TexasHoldEm.TexasHoldEm;
+import PokerRules.TexasHoldem.TexasHoldem;
 
 public class TexasHoldEmBot extends Person
 {
-    private TexasHoldEm texasHoldEm;
-    public TexasHoldEmBot(final String name, final Pot pot, TexasHoldEm texasHoldEm) {
+    private TexasHoldem texasHoldem;
+    public TexasHoldEmBot(final String name, final Pot pot, TexasHoldem texasHoldem) {
 	super(name, pot);
-	this.texasHoldEm = texasHoldEm;
+	this.texasHoldem = texasHoldem;
     }
 
     @Override public void turn() {
 	super.turn();
-
     }
 
 }
