@@ -14,6 +14,11 @@ import java.util.Random;
 public class HighestCardBot extends Person implements GameListener
 {
     private CardList playedCards;
+    private final static int GAME_DECK_SIZE = 52;
+    private final static double HIGH_BET_LIMIT = 0.2;
+    private final static double MEDIUM_BET_LIMIT = 0.4;
+    private final static double LOW_BET_LIMIT = 0.5;
+
     private Random random = new Random();
     public HighestCardBot(final String name, final Pot pot, final PokerGame game) {
         super(name, pot);
@@ -32,16 +37,16 @@ public class HighestCardBot extends Person implements GameListener
         Person dealer = game.getDealer();
         int bet =0;
         int higherCards = getHigherCards();
-        double odds = (double) higherCards/52; // if highercards/52 isnt cast as double, java will give the result 0.0 as it rounds 0.xxx to  0.0
+        double odds = (double) higherCards / GAME_DECK_SIZE; // if highercards/52 isnt cast as double, java will give the result 0.0 as it rounds 0.xxx to  0.0
         bet += getBet(odds);
         if(bet > pot.getAmount()) bet = pot.getAmount();
         return bet;
     }
     private int getBet(double odds){
         System.out.println(name + odds);
-        if(odds < 0.2) return highBet();
-        else if(odds < 0.4) return mediumBet();
-        else if( odds < 0.5) return lowBet();
+        if(odds < HIGH_BET_LIMIT) return highBet();
+        else if(odds < MEDIUM_BET_LIMIT) return mediumBet();
+        else if( odds < LOW_BET_LIMIT) return lowBet();
         else return 0;
     }
     private int getHigherCards(){

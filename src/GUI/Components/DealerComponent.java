@@ -11,11 +11,12 @@ import static java.awt.Color.BLACK;
 public class DealerComponent extends JComponent
 {
     private Dealer dealer;
-    private int personRadius = 50;
-    private final static int cardSpaceX = 25; //The space between the cards on the table if there is more than 1 card per player
+    private final static int PERSON_RADIUS = 50;
+    private final static int CARD_SPACE_X = 25; //The space between the cards on the table if there is more than 1 card per player
     // --Commented out by Inspection (2015-04-16 16:36):private final static int cardSpaceY = 15;
     private final static int PERSON_RECTANGLE = 10;
     private final static int RECTANGLE_BAR = 2;
+    private final static int FONT_SIZE = 20;
     private int width, height;
     private String name;
     private Images imageHandler;
@@ -24,7 +25,7 @@ public class DealerComponent extends JComponent
     public DealerComponent(Dealer dealer, Images imageHandler) {
 	this.dealer = dealer;
 	this.imageHandler = imageHandler;
-	this.fm = getFontMetrics(new Font("Serif", Font.BOLD, 20));
+	this.fm = getFontMetrics(new Font("Serif", Font.BOLD, FONT_SIZE));
 	this.name = dealer.getName();
 	this.width = getMinimumWidth() + PERSON_RECTANGLE * 3;
 	this.height = fm.getHeight() + PERSON_RECTANGLE * 4;
@@ -43,7 +44,7 @@ public class DealerComponent extends JComponent
 	    g.setColor(Color.BLUE);
 	}
 
-	g.setFont(new Font("Serif", Font.BOLD, 20));
+	g.setFont(new Font("Serif", Font.BOLD, FONT_SIZE));
 	g.fillRoundRect(x - width, y, width, height, 10, 10);
 
 	g.setColor(BLACK);
@@ -74,12 +75,12 @@ public class DealerComponent extends JComponent
     }
     private void drawPot(Graphics g, final int x, final int y){
         g.setColor(BLACK);
-        g.drawString("Pot'o'gold: " + dealer.getTablePot().getAmount() + "$", x + 2* personRadius, y + 2*personRadius);
+        g.drawString("Pot'o'gold: " + dealer.getTablePot().getAmount() + "$", x + 2* PERSON_RADIUS, y + 2*PERSON_RADIUS);
     }
 
     private void drawDealerCards(final Graphics g, int x, int y)	{
 	for (int i = 0; i < dealer.getHand().getSize(); i++) {
-	    dealer.getHand().getCardByIndex(i).draw((Graphics2D) g, x + i * cardSpaceX + 50, y, this, imageHandler);
+	    dealer.getHand().getCardByIndex(i).draw((Graphics2D) g, x + i * CARD_SPACE_X + 50, y, this, imageHandler);
 	}
     }
 

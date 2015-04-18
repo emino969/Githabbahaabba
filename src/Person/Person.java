@@ -26,7 +26,7 @@ public class Person
 	this.name = name;
 	this.pot = pot;
 	this.hand = new CardList(); //Primary hand
-	this.multipleHands = new ArrayList<CardList>();
+	this.multipleHands = new ArrayList<>();
 	this.lastBet = 0;
 	multipleHands.add(hand);
 	setGameListener();

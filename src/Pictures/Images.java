@@ -1,14 +1,13 @@
-package GUI.Pictures;
-
-import Cards.CardType;
+package Pictures;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
+import Cards.*;
 
 public class Images
 {
@@ -31,7 +30,7 @@ public class Images
 
     public Images() {
 	getPictures();
-	cardTypesMap = new HashMap<CardType, BufferedImage>();
+	this.cardTypesMap = new HashMap<CardType, BufferedImage>();
 	cardTypesMap.put(CardType.HEARTS, imageHeart);
 	cardTypesMap.put(CardType.SPADES, imageSpade);
 	cardTypesMap.put(CardType.DIAMONDS, imageDiamond);
@@ -40,9 +39,6 @@ public class Images
 
     private void getPictures()	{
 	try {
-	    this.imageRedPokerChip = ImageIO.read(new File(filePath + redPokerChip));
-	    this.imageGreenPokerChip = ImageIO.read(new File(filePath + greenPokerChip));
-	    this.imageBlackPokerChip = ImageIO.read(new File(filePath + blackPokerChip));
 	    this.imageClub = ImageIO.read(new File(filePath + clubPic));
 	    this.imageDiamond = ImageIO.read(new File(filePath + diamondPic));
 	    this.imageHeart = ImageIO.read(new File(filePath + heartPic));
@@ -50,12 +46,11 @@ public class Images
 	    this.imageBackground = ImageIO.read(new File(filePath + backgroundPic));
 	    this.imageTable = ImageIO.read(new File(filePath + tablePic));
  	} catch (IOException ex) {
-	    System.out.println("hejsan");
-	    //ex.printStackTrace();
+	    System.out.println("CardPicture couldn't be read properly");
 	}
     }
 
-    public BufferedImage getBackground()	{
+    static public BufferedImage getBackground()	{
 	return imageBackground;
     }
 
@@ -72,14 +67,12 @@ public class Images
     }
 
     public BufferedImage getTable()	{
-	return imageTable;
-    }
 
-    public BufferedImage getPicture(CardType ct)	{
+    static public BufferedImage getPicture(CardType ct)	{
 	return cardTypesMap.get(ct);
     }
 
-    public int getPrefferedX(CardType ct)	{
+    static public int getPrefferedX(CardType ct)	{
 	switch(ct)	{
 	    case DIAMONDS:
 		return CARD_IMAGE_X * 3 / 2;
@@ -88,7 +81,7 @@ public class Images
 	}
     }
 
-    public int getPrefferedY(CardType ct)	{
+    static public int getPrefferedY(CardType ct)	{
 	switch(ct)	{
 	    case DIAMONDS:
 		return CARD_IMAGE_Y * 3 / 2;

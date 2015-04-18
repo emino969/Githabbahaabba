@@ -2,6 +2,10 @@ package GUI.Components;
 
 import Cards.CardList;
 import Person.Person;
+import Person.PersonState;
+import Pictures.Images;
+
+import Person.Person;
 import GUI.Pictures.Images;
 
 import javax.swing.*;

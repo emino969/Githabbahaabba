@@ -5,9 +5,8 @@ import GUI.Components.PlayerComponent;
 import GUI.Components.TableComponent;
 import GameListeners.GameListener;
 import Person.Person;
-import GUI.Pictures.Images;
 import Table.PokerGame;
-
+import GUI.Pictures.Images;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

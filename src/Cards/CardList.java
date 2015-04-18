@@ -1,23 +1,25 @@
 package Cards;
 
+import CardGameExceptions.NoSuchCardException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class CardList extends ArrayList<Card>
 {
-    private List<Card> cardList;
-
-    public CardList()   {
-        this.cardList = new ArrayList<Card>();
-    }
-
     public Iterable<Card> getCardList() {
         return cardList;
     }
-
     public boolean contains(Card card)  {
         return cardList.contains(card);
+    }
+    private List<Card> cardList;
+    private static final int ACE_INT = 11;
+    private static final int TEN_TO_KING_INT = 10;
+
+    public CardList()   {
+        this.cardList = new ArrayList<Card>();
     }
 
     public boolean containsIntValue(Card card)	{
@@ -103,6 +105,12 @@ public class CardList extends ArrayList<Card>
 	}
     }
 
+    public void createBlackJackDeck(int nDecks)	{
+	for (int i = 0; i < nDecks; i++) {
+	    createOrdinaryDeck();
+	}
+    }
+
     public void addCardList(CardList cl)	{
 	for (int i = 0; i < cl.getSize(); i++) {
 	    cardList.add(cl.getCard(i));
@@ -134,10 +142,10 @@ public class CardList extends ArrayList<Card>
 	for (int i = 0; i < this.getSize(); i++) {
 		if	(this.getCardByIndex(i).getValue().equals(CardValue.TOP_ACE))	{
 		    /** Ace is worth 11 when counted on top */
-		    sum += 11;
+		    sum += ACE_INT;
 		}	else if (this.getCardByIndex(i).getCardInt() > 10)	{
 		    /** Accoding to blackjack rules everything excepts Ace is worth 10 */
-		    sum += 10;
+		    sum += TEN_TO_KING_INT;
 		}	else	{
 		    sum += this.getCardByIndex(i).getCardInt();
 		}

@@ -2,6 +2,10 @@ package PokerRules.HighestCard;
 
 import Cards.Card;
 import Money.Pot;
+import Person.Dealer;
+import Person.Person;
+import Person.PersonState;
+import PokerRules.CardGameAction;
 import Person.BotTypes.HighestCardBot;
 import Person.Dealer;
 import Person.Person;
@@ -26,6 +30,7 @@ public class HighestCard extends PokerGame
 	setDealer(new Dealer(new Pot(1000))); //The dealer's personal play account
  	this.moves = new HighestCardmoves()	{
 
+	    
  	    @Override public List<CardGameAction> getOptions(Person person)	{
  		List<CardGameAction> actions = new ArrayList<>();
  	    	actions.add(HighestCardAction.STAND);
@@ -146,6 +151,8 @@ public class HighestCard extends PokerGame
 	setCurrentPlayer(nextPerson());
      }
 
+	
+    
 
     @Override public void nextMove()	{
 	clockTimer.restart();

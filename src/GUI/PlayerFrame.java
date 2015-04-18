@@ -25,8 +25,6 @@ public class PlayerFrame extends JToolBar
 	this.game = game;
 	this.player = game.getPlayer();
 	this.currentPot = new JLabel("  Current pot:  " + player.getPot().getAmount() + "$  ");
-	//this.betField = new JTextField();
-	//betField.setMaximumSize(new Dimension(50, 100));
 	this.pokermoves = game.getOptions();
 	this.handValue = new JLabel(pokermoves.getHandValue(player));
 	this.buttonPanel = new JPanel();
@@ -65,7 +63,6 @@ public class PlayerFrame extends JToolBar
 			if(!game.getPlayer().isPersonState(PersonState.TURN)) game.nextMove();
 		    }
 		}
-
 	    });
 	    buttonPanel.add(button);
     	}

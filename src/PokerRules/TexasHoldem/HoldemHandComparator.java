@@ -75,9 +75,12 @@ public class HoldemHandComparator implements Comparator<Person>
 
     private int compareSameHands(CardList cl1, CardList cl2)	{
 	//Is cl1 bigger than cl2?
+
+	/** The cardlist cl1, cl2 needs to get the complete texashand  */
+
 	int cardInt1 = getHighestCard(cl1).getCardInt();
 	int cardInt2 = getHighestCard(cl2).getCardInt();
-	if (cardInt1 > cardInt2)	{
+	if (cardInt1 < cardInt2)	{
 	    return 1;
 	}	else if(cardInt1 == cardInt2)	{
 	    return 0;
