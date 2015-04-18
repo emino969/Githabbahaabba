@@ -6,6 +6,7 @@ import Person.Person;
 import PokerRules.AbstractPokermoves;
 import PokerRules.BlackJack.BlackJack;
 import PokerRules.BlackJack.BlackJackAction;
+import Table.PokerGame;
 
 import java.util.Random;
 
@@ -15,10 +16,11 @@ import java.util.Random;
  */
 public class BlackJackBot extends Person
 {
+    private BlackJack blackJack;
     private Random rnd;
-    private BlackJack blackjack;
     public BlackJackBot(final String name, final Pot pot, final BlackJack blackJack) {
         super(name, pot);
+        this.blackJack = blackJack;
         this.game = blackJack;
         this.rnd = new Random();
     }
@@ -52,9 +54,9 @@ public class BlackJackBot extends Person
 
     private BlackJackAction getBestMove() {
         boolean soft = !handIsHard();
-        int dealerHandValue = blackjack.getDealer().getHand().getCard(0).getCardInt();
+        int dealerHandValue = game.getDealer().getHand().getCard(0).getCardInt();
         if(10 < dealerHandValue ) dealerHandValue =10;
-        int playerHandvalue = blackjack.getLegalHandSum(this);
+        int playerHandvalue = blackJack.getLegalHandSum(this);
 	return getAction(dealerHandValue, playerHandvalue, soft);
     }
 
@@ -131,4 +133,7 @@ public class BlackJackBot extends Person
         return hand.containsCardValue(CardValue.TOP_ACE);
     }
 
+    @Override public void setGame(final PokerGame game) {
+        this.blackJack = (BlackJack) game;
+    }
 }

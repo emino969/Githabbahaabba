@@ -199,7 +199,6 @@ public class BlackJack extends PokerGame
 
     @Override public void addBot(String name, Pot pot) {
 	BlackJackBot blackJackBot = new BlackJackBot(name, pot, this);
-	blackJackBot.setGame(this);
 	this.addPlayer(blackJackBot);
     }
 
