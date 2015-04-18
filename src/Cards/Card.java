@@ -2,6 +2,7 @@ package Cards;
 
 import CardGameExceptions.NoSuchCardException;
 import Pictures.Images;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -36,7 +37,7 @@ public class Card {
         return cardType;
     }
 
-    public CardValue getValue() {
+    public Comparable getValue() {
         return cardValue;
     }
 
@@ -59,7 +60,7 @@ public class Card {
 	try	{
 	    return this.getCardIntValue();
 	}	catch(NoSuchCardException e)	{
-	    System.out.println(e);
+	    e.printStackTrace();
 	    return -1;
 	}
     }
@@ -70,10 +71,6 @@ public class Card {
 
     public void setVisible()	{
 	isVisible = true;
-    }
-
-    public void flipCard()	{
-	isVisible = !isVisible;
     }
 
     public boolean isVisible()	{
@@ -128,7 +125,7 @@ public class Card {
 			    comp);
 
             }catch (NoSuchCardException e) {
-		System.out.println("There is no such card!");
+		e.printStackTrace();
 	    }
 
 	    Font newFont = new Font("Serif", Font.BOLD, 15);
@@ -143,7 +140,7 @@ public class Card {
             }
 	}
 
-    public int getStringWidth(String string)	{
+    public int getStringWidth(CharSequence string)	{
 	int pixelLength = 0;
 	for (int i = 0; i < string.length(); i++) {
 	    pixelLength += fm.charWidth(string.charAt(i));

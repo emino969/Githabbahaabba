@@ -1,8 +1,10 @@
 package Table;
+
 import GameListeners.GameListener;
-import Person.Person;
-import PokerRules.AbstractPokermoves;
+import Money.Pot;
 import Person.*;
+import PokerRules.AbstractPokermoves;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +13,7 @@ public class PokerGame extends Table
 {
     protected Person currentPlayer;
     protected Timer clockTimer;
-    static private List<GameListener> ListenerArray;
+    static private List<GameListener> ListenerArray = new ArrayList<GameListener>();
     private AbstractPokermoves moves = null; //Get's assigned in subclass
     protected static final int DELAY = 1000; //8 sekunder
     protected boolean isOverState;
@@ -20,7 +22,6 @@ public class PokerGame extends Table
     public PokerGame()	{
 	this.currentPlayer = null; //Get's assign in the subclass
 	this.currentPlayerIndex = -1; //Get's assigned and is very important
-	this.ListenerArray = new ArrayList<GameListener>();
 	this.clockTimer = new Timer(DELAY, null); //The clockTimer that should be used in the subclasses also
 	this.isOverState = false;
 	clockTimer.setCoalesce(true);
@@ -89,10 +90,6 @@ public class PokerGame extends Table
 	clockTimer.stop();
     }
 
-    public void startClock()	{
-	clockTimer.start();
-    }
-
     public void restartClock()	{
 	clockTimer.restart();
     }
@@ -108,9 +105,9 @@ public class PokerGame extends Table
     public boolean gameFinished()	{return false;}
 
     public void restartGame()	{}
+    public void addBot(String name, Pot pot) {}
 
     public void addPlayer(Person player)	{
-
     }
 
     public void startGame()	{}

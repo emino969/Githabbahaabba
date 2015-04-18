@@ -14,7 +14,6 @@ public class TexasHoldEmBot extends Person
 
     @Override public void turn() {
 	super.turn();
-
     }
 
 }

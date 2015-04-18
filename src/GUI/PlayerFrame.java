@@ -1,12 +1,12 @@
 package GUI;
 
-import CardGameExceptions.CardGameActionException;
 import GameListeners.GameListener;
+import Person.PersonState;
 import Person.Player;
 import PokerRules.AbstractPokermoves;
-import PokerRules.CardGameMove;
+import PokerRules.CardGameAction;
 import Table.PokerGame;
-import java.awt.*;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +15,8 @@ public class PlayerFrame extends JToolBar
 {
     private Player player;
     private AbstractPokermoves pokermoves;
-    private JLabel nextMove, currentPot, handValue;
+    private JLabel currentPot;
+    private JLabel handValue;
     //private JTextField betField;
     private PokerGame game;
     private JPanel buttonPanel;
@@ -42,25 +43,26 @@ public class PlayerFrame extends JToolBar
 		buttonPanel.add(currentPot);
 		buttonPanel.add(handValue);
 
-		if	(game.gameFinished())	{
+		if(game.gameFinished())	{
 		    JOptionPane.showMessageDialog(null, "Click OK to restart");
-		}	else	{
+		}else{
 		    updateLabels();
 		}
 	    }
 	};
 
-	game.addGameListener(gl);
+	PokerGame.addGameListener(gl);
     }
 
     public void updateOptions()	{
-	for (final CardGameMove cardGameMove : pokermoves.getOptions(player))	{
-	    JButton button = new JButton(cardGameMove.toString());
+	for (final CardGameAction cardGameAction : pokermoves.getOptions(player))	{
+	    JButton button = new JButton(cardGameAction.toString());
 	    button.addActionListener(new ActionListener() {
 		@Override public void actionPerformed(ActionEvent e) {
 		    if	(game.getPlayer().hasTurn()) {
-			pokermoves.makeMove(cardGameMove);
-			game.nextMove();
+			pokermoves.makeMove(cardGameAction);
+			updateLabels();
+			if(!game.getPlayer().isPersonState(PersonState.TURN)) game.nextMove();
 		    }
 		}
 
@@ -70,7 +72,7 @@ public class PlayerFrame extends JToolBar
     }
 
     public void updateLabels()	{
-	currentPot.setText("  Current pot: " + player.getPot() + "$  ");
+	currentPot.setText("  Current pot: " + player.getPot() + "$  " + "HandBet: " + player.getLastBet() + "$");
 	handValue.setText(pokermoves.getHandValue(player));
     }
 }

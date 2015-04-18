@@ -1,7 +1,5 @@
 package Cards;
 
-import CardGameExceptions.NoSuchCardException;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +12,7 @@ public class CardList extends ArrayList<Card>
         this.cardList = new ArrayList<Card>();
     }
 
-    public List<Card> getCardList() {
+    public Iterable<Card> getCardList() {
         return cardList;
     }
 
@@ -53,12 +51,12 @@ public class CardList extends ArrayList<Card>
         return cardList.isEmpty();
     }
 
-    public boolean removeCard(Card card)    {
-        return cardList.remove(card);
+    public void removeCard(Card card)    {
+        cardList.remove(card);
     }
 
-    public boolean addCard(Card card)  {
-	return cardList.add(card);
+    public void addCard(Card card)  {
+	cardList.add(card);
     }
 
     public void setCardsVisible()	{
@@ -67,9 +65,9 @@ public class CardList extends ArrayList<Card>
 	}
     }
 
-    public boolean addHiddenCard(Card card)	{
+    public void addHiddenCard(Card card)	{
 	card.setNonVisible();
-	return cardList.add(card);
+	cardList.add(card);
     }
 
     public boolean isAllCardsVisible()	{
@@ -93,7 +91,7 @@ public class CardList extends ArrayList<Card>
 	return cardList.get(index);
     }
 
-    public void setCardList(ArrayList<Card> cardList){
+    public void setCardList(List<Card> cardList){
           this.cardList = cardList;
     }
 

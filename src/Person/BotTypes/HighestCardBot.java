@@ -1,7 +1,5 @@
 package Person.BotTypes;
 
-import CardGameExceptions.CardGameActionException;
-import CardGameExceptions.NoSuchCardException;
 import Cards.Card;
 import Cards.CardList;
 import Cards.CardType;
@@ -19,7 +17,7 @@ public class HighestCardBot extends Person implements GameListener
     private Random random = new Random();
     public HighestCardBot(final String name, final Pot pot, final PokerGame game) {
         super(name, pot);
-        this.game = game;
+	this.game = game;
     }
 
     @Override public void turn() {
@@ -47,9 +45,7 @@ public class HighestCardBot extends Person implements GameListener
         else return 0;
     }
     private int getHigherCards(){
-        int cardValue = 0;
-        cardValue = hand.getCardByIndex(0).getCardInt()
-	;
+        int cardValue = hand.getCardByIndex(0).getCardInt();
         int higherCards = (14 - cardValue) * CardType.values().length ; // You have your own card
         if(playedCards != null) {
             for(Card card: playedCards.getCardList()) {

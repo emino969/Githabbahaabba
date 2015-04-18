@@ -7,6 +7,7 @@ import Money.Pot;
 import Table.PokerGame;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Person
 {
@@ -17,6 +18,7 @@ public class Person
     private PersonState state = PersonState.WAITING;
     private Pot defaultPot = new Pot(1000);
     protected ArrayList<CardList> multipleHands;
+    protected int betHolder;
     protected int lastBet;
     private GameListener gl;
 
@@ -30,15 +32,6 @@ public class Person
 	setGameListener();
     }
 
-    public Person(String name)	{
-	this.name = name;
-	this.pot = defaultPot;
-	this.hand = new CardList(); //Primary hand
-	this.multipleHands = new ArrayList<CardList>();
-	multipleHands.add(hand);
-	setGameListener();
-    }
-
     private void setGameListener()	{
 	this.gl = new GameListener()	{
 	    @Override public void gameChanged()	{
@@ -48,7 +41,7 @@ public class Person
 	    }
 	};
 
-	game.addGameListener(gl);
+	PokerGame.addGameListener(gl);
     }
 
     public int getLastBet()	{
@@ -56,7 +49,7 @@ public class Person
     }
 
     public void setLastBet(int amount)	{
-	lastBet = 0;
+	lastBet = amount;
     }
 
     public boolean bet(int amount)	{
@@ -102,7 +95,7 @@ public class Person
 	return hand;
     }
 
-    public ArrayList<CardList> getHands()	{
+    public List<CardList> getHands()	{
 	return multipleHands;
     }
 
@@ -142,10 +135,6 @@ public class Person
         //does nothing
     }
 
-    public void fold()	{
-	//Resign from game
-    }
-
     public boolean isPersonState(PersonState st)	{
 	return state.equals(st);
     }
@@ -160,4 +149,23 @@ public class Person
     }
 
 
+    public void addToBet(final int money) {
+        betHolder += money;
+        pot.subtractAmount(money);
+    }
+
+    public int getBet() {
+        int bet = betHolder;
+        betHolder = 0;
+        return bet;
+    }
+
+    public int getBetHolder() {
+        return betHolder;
+    }
+
+    public void resetBet() {
+        pot.addAmount(betHolder);
+        betHolder = 0;
+    }
 }

@@ -1,7 +1,5 @@
 package Person.BotTypes;
 
-import CardGameExceptions.CardGameActionException;
-import CardGameExceptions.NoSuchCardException;
 import Cards.CardValue;
 import Money.Pot;
 import Person.Person;
@@ -9,28 +7,42 @@ import PokerRules.AbstractPokermoves;
 import PokerRules.BlackJack.BlackJack;
 import PokerRules.BlackJack.BlackJackAction;
 
+import java.util.Random;
+
 /**
  * this blackjackBot is based on basic strategy 4-8decks fpimd at
  * http://wizardofodds.com/games/blackjack/strategy/4-decks/ 13.14.2015
  */
 public class BlackJackBot extends Person
 {
-
+    private Random rnd;
     private BlackJack blackjack;
-    BlackJackAction[][] optionArray = new BlackJackAction[19][9];
     public BlackJackBot(final String name, final Pot pot, final BlackJack blackJack) {
         super(name, pot);
         this.blackjack = blackJack;
+        this.rnd = new Random();
     }
     @Override public void turn(){
-        System.out.println(this.hasTurn());
-        if(this.hasTurn()) {
+	if(this.hasTurn()) {
             AbstractPokermoves aca = game.getOptions();
             if (hand.isEmpty()) {
-		aca.makeMove(BlackJackAction.BET_25);
+                int betOption = rnd.nextInt(3);
+                switch(betOption){
+                    case 0:
+                        aca.makeMove(BlackJackAction.BET_25);
+                        break;
+                    case 1:
+                        aca.makeMove(BlackJackAction.BET_50);
+                        break;
+                    case 2:
+                        aca.makeMove(BlackJackAction.BET_75);
+                        break;
+                    default:
+                        aca.makeMove(BlackJackAction.BET_25);
+                }
+                aca.makeMove(BlackJackAction.BET);
 	    } else {
 		BlackJackAction action = getBestMove();
-		System.out.println(action);
 		game.getOptions().makeMove(action);
 	    }
         }
@@ -42,7 +54,7 @@ public class BlackJackBot extends Person
         int dealerHandValue = blackjack.getDealer().getHand().getCard(0).getCardInt();
         if(10 < dealerHandValue ) dealerHandValue =10;
         int playerHandvalue = blackjack.getLegalHandSum(this);
-        return getAction(dealerHandValue, playerHandvalue, soft);
+	return getAction(dealerHandValue, playerHandvalue, soft);
     }
 
     private BlackJackAction getAction(final int dealerHandValue, final int playerHandValue, final boolean soft) {
@@ -54,7 +66,7 @@ public class BlackJackBot extends Person
 
     public void printOptionArray(){
         StringBuilder stringBuilder = new StringBuilder();
-        BlackJackAction[][] hej = buildSoftHandOptionArray();
+        BlackJackAction[][] hej = buildhardHandOptionArray();
         int i= 4;
         for (BlackJackAction[] blackJackAction : hej) {
             stringBuilder.append(i+":");

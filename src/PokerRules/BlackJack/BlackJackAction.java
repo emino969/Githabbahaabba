@@ -1,8 +1,8 @@
 package PokerRules.BlackJack;
 
-import PokerRules.CardGameMove;
+import PokerRules.CardGameAction;
 
-public enum BlackJackAction implements CardGameMove
+public enum BlackJackAction implements CardGameAction
 {
     HIT,
     STAND,
@@ -15,7 +15,11 @@ public enum BlackJackAction implements CardGameMove
     DOUBLE_STAND,
     DOUBLE_SURRENDER,
     SURRENDER,
-    SURRENDER_HIT;
+    SURRENDER_HIT, BET, RESET_BET;
+
+    BlackJackAction() {
+
+    }
 
     @Override public String toString() {
         String string = super.toString();
@@ -24,4 +28,5 @@ public enum BlackJackAction implements CardGameMove
         lowerString = lowerString.replaceFirst(String.valueOf(lowerString.charAt(0)),replacement);
         return lowerString;
     }
+
 }

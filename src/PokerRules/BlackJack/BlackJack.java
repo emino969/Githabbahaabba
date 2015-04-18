@@ -1,11 +1,12 @@
 package PokerRules.BlackJack;
 
-import CardGameExceptions.CardGameActionException;
-import CardGameExceptions.NoSuchCardException;
 import Money.Pot;
-import PokerRules.CardGameMove;
+import Person.BotTypes.BlackJackBot;
+import Person.Person;
+import Person.PersonState;
+import PokerRules.CardGameAction;
 import Table.PokerGame;
-import Person.*;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,22 +37,23 @@ public class BlackJack extends PokerGame
 		}
 	    }
 
-	    @Override public ArrayList<CardGameMove> getOptions(Person person)	{
-		ArrayList<CardGameMove> actions = new ArrayList<>();
-		if	(person.getHand().isEmpty()) {
+	    @Override public ArrayList<CardGameAction> getOptions(Person person)	{
+		ArrayList<CardGameAction> actions = new ArrayList<>();
+	    	if(person.getHand().isEmpty()) {
+		    actions.add(BlackJackAction.RESET_BET);
+		    actions.add(BlackJackAction.BET);
 		    actions.add(BlackJackAction.BET_25);
 		    actions.add(BlackJackAction.BET_50);
 		    actions.add(BlackJackAction.BET_75);
-		}	else if (!person.isPersonState(PersonState.INACTIVE))	{
+		}else if (!person.isPersonState(PersonState.INACTIVE))	{
 		    actions.add(BlackJackAction.STAND);
 		    actions.add(BlackJackAction.HIT);
 
-		    if	(person.getHand().getSize() == 2) {
+	    	if(person.getHand().getSize() == 2) {
 			actions.add(BlackJackAction.DOUBLE);
 			actions.add(BlackJackAction.SURRENDER);
 		    }
-
-		    if	(isSplittable(person))	{
+		if(isSplittable(person))	{
 			//names.add("Split");
 		    }
 		}
@@ -59,7 +61,7 @@ public class BlackJack extends PokerGame
 	    }
 
 
-	    @Override  public void makeMove(CardGameMove blackJackAction) {
+	    @Override  public void makeMove(CardGameAction blackJackAction) {
 	 		switch((BlackJackAction)blackJackAction){
 	 		    case HIT:
 	 			hit();
@@ -76,15 +78,20 @@ public class BlackJack extends PokerGame
 	 		    case SPLIT:
 	 			hit();
 	 			break;
+			    case BET:
+				buyCards(currentPlayer, currentPlayer.getBet());
 	 		    case BET_25:
-	 			buyCards(currentPlayer, 25);
+				currentPlayer.addToBet(25);
 	 			break;
 	 		    case BET_50:
-	 			buyCards(currentPlayer,50);
+				currentPlayer.addToBet(50);
 	 			break;
 	 		    case BET_75:
-	 			buyCards(currentPlayer,75);
+				currentPlayer.addToBet(75);
 	 			break;
+			    case RESET_BET:
+				currentPlayer.resetBet();
+				break;
 	 		    case DOUBLE_HIT:
 	 			doubleDown();
 	 			break;
@@ -177,13 +184,18 @@ public class BlackJack extends PokerGame
 	}
     }
 
+    @Override public void addBot(String name, Pot pot) {
+	BlackJackBot blackJackBot = new BlackJackBot(name, pot, this);
+	this.addPlayer(blackJackBot);
+    }
+
     private void getNextPlayer()	{
 	setCurrentPlayer(nextPerson());
 	notifyListeners();
     }
 
     private Person nextPerson()	{
-	if	(getActivePlayers().size() != 0) {
+	if	(!getActivePlayers().isEmpty()) {
 	    if	(getActivePlayers().contains(currentPlayer)) {
 		return getPersonByIndex((currentPlayerIndex + 1) % getActivePlayers().size());
 	    }	else	{
@@ -217,7 +229,7 @@ public class BlackJack extends PokerGame
 	}
 
 	//If current player is YOU, then stop the clock
-	if	(currentPlayer.equals(getPlayer()))	{
+	if(currentPlayer.equals(getPlayer()))	{
 	    clockTimer.stop();
 	}
     }

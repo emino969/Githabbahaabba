@@ -7,12 +7,14 @@ import GameListeners.GameListener;
 import Person.Person;
 import Pictures.Images;
 import Table.PokerGame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class PokerComponent extends JComponent
 {
+    private final PlayerFrame playerFrame;
     private PokerGame game;
     private PokerFrame frame; //Temporarily changed
     private TableComponent tableComponent;
@@ -21,18 +23,18 @@ public class PokerComponent extends JComponent
     private static final int Y_CONST = 90;
     private static final int ADJ_CONST = 50;
 
-    public PokerComponent(PokerGame game, PokerFrame frame)	{
+    public PokerComponent(PokerGame game, final PlayerFrame playerFrame, PokerFrame frame)	{
 	this.game = game;
 	this.frame = frame;
+	this.playerFrame = playerFrame;
+	this.imageHandler = new Images();
 	this.tableComponent = buildTableComponent();
 	GameListener gl = new GameListener()	{
 	    @Override public void gameChanged()	{
 		repaint();
 	    }
 	};
-
 	PokerGame.addGameListener(gl);
-	this.imageHandler = new Images();
     }
 
     private TableComponent buildTableComponent() {
@@ -52,17 +54,7 @@ public class PokerComponent extends JComponent
 
     @Override protected void paintComponent(Graphics g){
 	super.paintComponent(g);
+	playerFrame.updateLabels();
 	tableComponent.drawTable(g);
     }
-
-    public void drawTable(Graphics g){
-	//g.setColor(ORANGE);
-	//g.fillRect(frame.getWidth()/4, frame.getHeight()/3, frame.getWidth()/2, frame.getHeight()/3);
-	//g.fillRect(150, 150, 400, 200);
-    }
-
-    public void drawPot(){
-	//Ritar ut marker
-    }
-
 }

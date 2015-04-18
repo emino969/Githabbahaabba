@@ -1,25 +1,26 @@
 package PokerRules;
 
-import Person.*;
-import Table.*;
+import Person.Dealer;
+import Person.Person;
+import Table.PokerGame;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public abstract class AbstractGame extends PokerGame
 {
-    private AbstractPokermoves options;
-    private ActionListener move;
 
     public AbstractGame(Dealer dealer, AbstractPokermoves pokerMoves) {
 	setDealer(dealer);
 	this.dealer.setGame(this);
-	this.options = pokerMoves;
-	this.move =  new AbstractAction() {
-        	    @Override public void actionPerformed(ActionEvent e)	{
-        		runGameForward();
-        	    }
-        	};
+	final AbstractPokermoves options = pokerMoves;
+	final ActionListener move = new AbstractAction()
+	{
+	    @Override public void actionPerformed(ActionEvent e) {
+		runGameForward();
+	    }
+	};
 	clockTimer.addActionListener(move);
 	setOptions(options);
     }
@@ -55,6 +56,7 @@ public abstract class AbstractGame extends PokerGame
 	    stopClock();
 	}
 
+
 	notifyListeners();
     }
 
@@ -73,8 +75,6 @@ public abstract class AbstractGame extends PokerGame
     abstract public boolean dealersTurn();
 
     abstract public boolean playersTurn();
-
-    abstract public boolean yourTurn();
 
     abstract public void dealerMove();
 

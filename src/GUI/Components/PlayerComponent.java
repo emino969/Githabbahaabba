@@ -1,8 +1,9 @@
 package GUI.Components;
 
 import Cards.CardList;
-import Person.*;
+import Person.Person;
 import Pictures.Images;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -35,14 +36,19 @@ public class PlayerComponent extends JComponent
 	this.ts = ts;
         y -= personRadius;
 
-	if	(person.getState().equals(PersonState.LOSER)) 	{
-	    g.setColor(Color.RED);
-	}	else if(person.hasTurn())	{
-            g.setColor(Color.YELLOW);
-	}	else if (person.getState().equals(PersonState.WINNER))	{
-	    g.setColor(Color.GREEN);
-	}	else	{
-	    g.setColor(Color.BLUE);
+	switch(person.getState()){
+	    case LOSER:
+		g.setColor(Color.RED);
+		break;
+	    case TURN:
+		g.setColor(Color.YELLOW);
+		break;
+	    case WINNER:
+		g.setColor(Color.GREEN);
+		break;
+	    default:
+		g.setColor(Color.BLUE);
+		break;
 	}
 
 	//MAKE BOXES WITH INFO
@@ -56,10 +62,11 @@ public class PlayerComponent extends JComponent
 	g.drawString(name, x + PERSON_RECTANGLE, y + fm.getHeight());
 	g.drawString(String.valueOf(person.getPot().getAmount()) + '$', x + PERSON_RECTANGLE, y + 2 * fm.getHeight());
 
+	drawPlayerBetCircle(g, x, y);
 	drawPlayerCards(g, x, y); //A generalized solution for painting the cards
     }
 
-    public int getStringWidth(String string)	{
+    public int getStringWidth(CharSequence string)	{
 	int pixelLength = 0;
 	for (int i = 0; i < string.length(); i++) {
 	    pixelLength += fm.charWidth(string.charAt(i));
@@ -90,9 +97,8 @@ public class PlayerComponent extends JComponent
 	int calculatedSizeX = numberOfHands * cardSpaceX + (numberOfHands - 1) * spaceBetweenHands;
 	for (int i = 0; i < numberOfHands; i++) {
 	    int currentX = x + (i - 1) * cardSpaceX + (i - 1) * spaceBetweenHands - calculatedSizeX / 2;
-	    int currentY = y;
 	    CardList currentHand = person.getHands().get(i);
-	    drawHand(currentHand, g, currentX, currentY);
+	    drawHand(currentHand, g, currentX, y);
 	}
     }
 
@@ -105,6 +111,16 @@ public class PlayerComponent extends JComponent
 	    }	else	{
 		cl.getCardByIndex(i).draw((Graphics2D) g, x - i * cardSpaceX, y - 90, this, imageHandler);
 	    }
+	}
+    }
+    private void drawPlayerBetCircle(final Graphics g, int x ,int y){
+	g.setColor(Color.YELLOW);
+	if(ts.equals(TableSeat.FIRST_SIDE )) {
+	    g.drawOval(x - 100, y + 100, 50, 50);
+	}else if(ts.equals(TableSeat.SECOND_SIDE)){
+	    g.drawOval(x - 150, y +  10, 50, 50);
+	}else{
+	    g.drawOval(x, y - 150, 50, 50);
 	}
     }
 }

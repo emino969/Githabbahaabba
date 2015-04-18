@@ -1,19 +1,20 @@
 package GUI.Components;
+
 import GUI.PokerComponent;
 import Pictures.Images;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TableComponent extends JComponent
 {
-    private ArrayList<PlayerComponent> players;
+    private List<PlayerComponent> players;
     private PokerComponent pokerComponent;
     private DealerComponent dealer;
     private int width, height;
     private int tableX, tableY;
-    private Color color = Color.ORANGE;
     private Images imageHandler;
     private static final int BAR_SIZE = 20;
 
@@ -40,7 +41,7 @@ public class TableComponent extends JComponent
     }
 
     public void drawTable(Graphics g)	{
-	int xPos, yPos;
+	int xPos,yPos;
 	g.setColor(Color.BLACK);
 	g.fillRect(tableX - BAR_SIZE, tableY - BAR_SIZE, width + BAR_SIZE * 2, height + BAR_SIZE * 2);
 	g.drawImage(imageHandler.getTable(), tableX, tableY, width, height, this);
@@ -52,7 +53,6 @@ public class TableComponent extends JComponent
 	    yPos = getPrefferedYSeat(player);
 	    xPos = getPrefferedXSeat(player);
 	    player.drawPlayer(g, xPos, yPos, getTableSide(player));
-	    xPos += getSpace();
 	}
 	dealer.drawDealer(g, tableX - 30, tableY + height / 2 - 30);
     }
@@ -64,17 +64,12 @@ public class TableComponent extends JComponent
 	return width / 4;
     }
 
-    public int getPlayerSpace(){
-	return 2*width + 2*height;
-	//return width*2 + height; //dealer has one side to himself
-    }
-
     private int getPrefferedXSeat(PlayerComponent player)	{
 	int playerIndex = players.indexOf(player);
 	if	(playerIndex <= 2)	{
-	    return 120 + getSpace() * (playerIndex + 1);
+	    return 300 + getSpace() * (playerIndex + 1);
 	}	else if(playerIndex >= 4)	{
-	    return (120 + getSpace() * 3) - getSpace() * (playerIndex - 4);
+	    return (300 + getSpace() * 3) - getSpace() * (playerIndex - 4);
 	}	else	{
 	    return tableX + width ;
 	}
