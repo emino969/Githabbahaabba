@@ -1,9 +1,6 @@
 package PokerRules.BlackJack;
 
 import Money.Pot;
-import Person.Person;
-import Person.PersonState;
-import PokerRules.CardGameMove;
 import Person.BotTypes.BlackJackBot;
 import Person.Person;
 import Person.PersonState;
@@ -202,6 +199,7 @@ public class BlackJack extends PokerGame
 
     @Override public void addBot(String name, Pot pot) {
 	BlackJackBot blackJackBot = new BlackJackBot(name, pot, this);
+	blackJackBot.setGame(this);
 	this.addPlayer(blackJackBot);
     }
 

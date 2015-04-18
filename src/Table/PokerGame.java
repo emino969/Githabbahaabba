@@ -2,18 +2,19 @@ package Table;
 
 import GameListeners.GameListener;
 import Money.Pot;
-import Person.*;
+import Person.Person;
+import Person.PersonState;
 import PokerRules.AbstractPokermoves;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 public class PokerGame extends Table
 {
     protected Person currentPlayer;
     protected Timer clockTimer;
-    static private List<GameListener> ListenerArray = new ArrayList<GameListener>();
+    static private Collection<GameListener> ListenerArray = new ArrayList<GameListener>();
     private AbstractPokermoves moves = null; //Get's assigned in subclass
     protected static final int DELAY = 1000; //8 sekunder
     protected boolean isOverState;

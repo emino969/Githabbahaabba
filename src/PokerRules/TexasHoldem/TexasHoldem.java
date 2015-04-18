@@ -1,14 +1,15 @@
 package PokerRules.TexasHoldem;
 
-import Cards.CardList;
 import Money.Pot;
 import Person.Person;
 import Person.PersonState;
 import PokerRules.AbstractGame;
 import PokerRules.AbstractPokermoves;
-import PokerRules.CardGameMove;
+import PokerRules.CardGameAction;
+import Table.PokerGame;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TexasHoldem extends AbstractGame
 {
@@ -16,7 +17,7 @@ public class TexasHoldem extends AbstractGame
     private AbstractGame game;
     private int minBet, highestBet;
     private HoldemHandComparator handComparator = new HoldemHandComparator();
-    private HoldemMoves moves = new HoldemMoves()	{
+    private AbstractPokermoves moves = new HoldemMoves()	{
     	    @Override public void call()	{
     		currentPlayer.bet(getHighestBet() - currentPlayer.getLastBet());
     	    }
@@ -30,8 +31,8 @@ public class TexasHoldem extends AbstractGame
     		currentPlayer.changePersonState(PersonState.LOSER);
     	    }
 
-    	    @Override public ArrayList<CardGameMove> getOptions(Person person)	{
-    		ArrayList<CardGameMove> options = new ArrayList<>();
+    	    @Override public ArrayList<CardGameAction> getOptions(Person person)	{
+    		ArrayList<CardGameAction> options = new ArrayList<>();
     		if	(!person.isPersonState(PersonState.INACTIVE))	{
     		    options.add(TexasHoldemAction.CALL);
     		    //options.add("Fold");
@@ -42,7 +43,7 @@ public class TexasHoldem extends AbstractGame
     		return options;
     	    }
 
-    	    @Override public void makeMove(CardGameMove cardGameMove)	{
+    	    @Override public void makeMove(CardGameAction cardGameMove)	{
     		switch((TexasHoldemAction) cardGameMove)	{
     		    case CALL:
     			this.call();

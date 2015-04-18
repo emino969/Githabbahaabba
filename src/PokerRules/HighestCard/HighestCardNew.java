@@ -14,7 +14,7 @@ public class HighestCardNew extends PokerGame
 {
     private HighestCardmoves highestCardmoves;
     public HighestCardNew() {
-	setDealer(new BlackJackDealer(new Pot(1000))); //Default Pot
+	setDealer(new BlackJackDealer(new Pot(1000), 8)); //Default Pot
 	dealer.setGame(this); //Dealer is created in table
 	this.highestCardmoves = new HighestCardmoves()
 	{
@@ -29,7 +29,7 @@ public class HighestCardNew extends PokerGame
 	    }
 
 	    @Override public List<CardGameAction> getOptions(final Person person) {
-		ArrayList<CardGameAction> actions = new ArrayList<>();
+		List<CardGameAction> actions = new ArrayList<>();
 		if (person.hasTurn()) {
 		    actions.add(HighestCardAction.BET);
 		    actions.add(HighestCardAction.BET_25);

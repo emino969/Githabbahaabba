@@ -1,7 +1,7 @@
 package GUI.Components;
 
 import Person.Dealer;
-import GUI.Pictures.Images;
+import Pictures.Images;
 
 import javax.swing.*;
 import java.awt.*;

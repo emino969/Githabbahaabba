@@ -1,11 +1,10 @@
 package GUI.Components;
 
 import GUI.PokerComponent;
-import GUI.Pictures.Images;
+import Pictures.Images;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TableComponent extends JComponent
@@ -18,7 +17,7 @@ public class TableComponent extends JComponent
     private Images imageHandler;
     private static final int BAR_SIZE = 20;
 
-    public TableComponent(final ArrayList<PlayerComponent> players, PokerComponent pokerComponent, final DealerComponent dealer, final int tableX,
+    public TableComponent(final List<PlayerComponent> players, PokerComponent pokerComponent, final DealerComponent dealer, final int tableX,
 			  final int tableY, final int width, final int height, Images imageHandler)
     {
 	this.players = players;
@@ -31,7 +30,7 @@ public class TableComponent extends JComponent
 	this.imageHandler = imageHandler;
     }
 
-    public TableComponent(final ArrayList<PlayerComponent> players, final PokerComponent pokerComponent,
+    public TableComponent(final List<PlayerComponent> players, final PokerComponent pokerComponent,
 			  final DealerComponent dealer, Images imageHandler)
     {
 	this.players = players;
@@ -39,6 +38,8 @@ public class TableComponent extends JComponent
 	this.dealer = dealer;
 	this.imageHandler = imageHandler;
     }
+
+
 
     public void drawTable(Graphics g)	{
 	int xPos,yPos;

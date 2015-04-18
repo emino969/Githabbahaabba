@@ -2,12 +2,8 @@ package GUI;
 
 import Money.Pot;
 import Person.Bot;
-import Person.BotTypes.BlackJackBot;
 import Person.Player;
 import Pictures.Images;
-import PokerRules.BlackJack.BlackJack;
-import Person.Player;
-import GUI.Pictures.Images;
 import Table.PokerGame;
 
 import javax.swing.*;
@@ -15,8 +11,8 @@ import java.awt.*;
 public class PokerFrame extends JFrame
 {
     private static final int closeOperation = EXIT_ON_CLOSE;
-    private static final int defaultWidth = 1600;
-    private static final int defaultHeight = 1200;
+    private static final int defaultWidth = 1400	;
+    private static final int defaultHeight = 800;
     private Images imageHandler;
     private PokerGame game;
 

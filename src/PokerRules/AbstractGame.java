@@ -4,9 +4,6 @@ import Person.Dealer;
 import Person.Person;
 import Table.PokerGame;
 
-import Person.Dealer;
-import Person.Person;
-import Table.PokerGame;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,19 +15,18 @@ import java.awt.event.ActionListener;
 public abstract class AbstractGame extends PokerGame
 {
     public AbstractGame(Dealer dealer) {
-
-    public AbstractGame(Dealer dealer, AbstractPokermoves pokerMoves) {
-	setDealer(dealer);
-	this.dealer.setGame(this);
-	final ActionListener move = new AbstractAction()
-	{
-	    @Override public void actionPerformed(ActionEvent e) {
-		runGameForward();
-	    }
-	};
-	clockTimer.addActionListener(move);
-	setOptions(getOptions());
+	    setDealer(dealer);
+	    this.dealer.setGame(this);
+	    final ActionListener move = new AbstractAction()
+	    {
+		@Override public void actionPerformed(ActionEvent e) {
+		    runGameForward();
+		}
+	    };
+	    clockTimer.addActionListener(move);
+	    setOptions(getOptions());
     }
+
 
     abstract public boolean gameFinished(); //Telling when the game is over
 

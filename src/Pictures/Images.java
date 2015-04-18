@@ -1,13 +1,14 @@
 package Pictures;
 
+import Cards.CardType;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
-import Cards.*;
 
 public class Images
 {
@@ -50,7 +51,7 @@ public class Images
 	}
     }
 
-    static public BufferedImage getBackground()	{
+    public BufferedImage getImageBackground() {
 	return imageBackground;
     }
 
@@ -67,10 +68,12 @@ public class Images
     }
 
     public BufferedImage getTable()	{
-
-    static public BufferedImage getPicture(CardType ct)	{
-	return cardTypesMap.get(ct);
+	return imageTable;
     }
+
+     public BufferedImage getPicture(CardType ct){
+	    return cardTypesMap.get(ct);
+	}
 
     static public int getPrefferedX(CardType ct)	{
 	switch(ct)	{

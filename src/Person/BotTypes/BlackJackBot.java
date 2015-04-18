@@ -19,7 +19,7 @@ public class BlackJackBot extends Person
     private BlackJack blackjack;
     public BlackJackBot(final String name, final Pot pot, final BlackJack blackJack) {
         super(name, pot);
-        this.blackjack = blackJack;
+        this.game = blackJack;
         this.rnd = new Random();
     }
     @Override public void turn(){

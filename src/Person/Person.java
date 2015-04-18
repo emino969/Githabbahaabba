@@ -17,7 +17,7 @@ public class Person
     protected PokerGame game = null;
     private PersonState state = PersonState.WAITING;
     private Pot defaultPot = new Pot(1000);
-    protected ArrayList<CardList> multipleHands;
+    protected List<CardList> multipleHands;
     protected int betHolder;
     protected int lastBet;
     private GameListener gl;
@@ -29,20 +29,20 @@ public class Person
 	this.multipleHands = new ArrayList<>();
 	this.lastBet = 0;
 	multipleHands.add(hand);
-	setGameListener();
+	//setGameListener();
     }
 
-    private void setGameListener()	{
+    /*private void setGameListener()	{
 	this.gl = new GameListener()	{
 	    @Override public void gameChanged()	{
-		if	(game.gameFinished())	{
+                if(game.gameFinished())	{
 		     setLastBet(0);
 		}
 	    }
 	};
 
 	PokerGame.addGameListener(gl);
-    }
+    }´*/
 
     public int getLastBet()	{
 	return lastBet;

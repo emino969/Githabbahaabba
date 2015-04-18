@@ -3,8 +3,6 @@ package Cards;
 import CardGameExceptions.NoSuchCardException;
 import Pictures.Images;
 
-import GUI.Pictures.Images;
-
 import javax.swing.*;
 import java.awt.*;
 
