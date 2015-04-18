@@ -5,7 +5,7 @@ import GUI.Components.PlayerComponent;
 import GUI.Components.TableComponent;
 import GameListeners.GameListener;
 import Person.Person;
-import Pictures.Images;
+import GUI.Pictures.Images;
 import Table.PokerGame;
 
 import javax.swing.*;

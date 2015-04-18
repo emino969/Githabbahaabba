@@ -2,7 +2,7 @@ package GUI.Components;
 
 import Cards.CardList;
 import Person.Person;
-import Pictures.Images;
+import GUI.Pictures.Images;
 
 import javax.swing.*;
 import java.awt.*;

@@ -2,7 +2,7 @@ package GUI;
 
 import Money.Pot;
 import Person.Player;
-import Pictures.Images;
+import GUI.Pictures.Images;
 import Table.PokerGame;
 
 import javax.swing.*;

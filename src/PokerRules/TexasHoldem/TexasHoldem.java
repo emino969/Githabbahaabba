@@ -1,13 +1,14 @@
 package PokerRules.TexasHoldem;
 
-import Cards.CardList;
 import Money.Pot;
 import Person.Person;
 import Person.PersonState;
 import PokerRules.AbstractGame;
+import PokerRules.CardGameAction;
 import Table.PokerGame;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TexasHoldem extends PokerGame
 {
@@ -34,27 +35,31 @@ public class TexasHoldem extends PokerGame
 		game.getCurrentPlayer().changePersonState(PersonState.LOSER);
 	    }
 
-	    @Override public ArrayList<String> getOptions(Person person)	{
-		ArrayList<String> options = new ArrayList<String>();
+	    @Override public ArrayList<CardGameAction> getOptions(Person person)	{
+		ArrayList<CardGameAction> options = new ArrayList<CardGameAction>();
 		if	(!person.isPersonState(PersonState.INACTIVE))	{
-		    options.add("Call");
+		    options.add(TexasHoldemAction.CALL);
 		    //options.add("Fold");
 		    if	(getHighestBet() != 2 * getMinimumBet()) {
-			options.add("Raise");
+			options.add(TexasHoldemAction.RAISE);
 		    }
 		}
 		return options;
 	    }
 
-	    @Override public void makeMove(String name)	{
-		if	(name.equals("Call"))	{
-		    this.call();
-		    game.getCurrentPlayer().changePersonState(PersonState.WAITING);
-		}	else if(name.equals("Raise"))	{
-		    raise();
-		    game.getCurrentPlayer().changePersonState(PersonState.WAITING);
-		}	else if(name.equals("Fold"))	{
-		    fold();
+	    @Override public void makeMove(CardGameAction cardGameAction)	{
+		switch((TexasHoldemAction) cardGameAction)	{
+		    case CALL:
+			this.call();
+   			game.getCurrentPlayer().changePersonState(PersonState.WAITING);
+			break;
+		    case RAISE:
+			raise();
+   			game.getCurrentPlayer().changePersonState(PersonState.WAITING);
+			break;
+		    case FOLD:
+			fold();
+			break;
 		}
 	    }
 
@@ -72,7 +77,7 @@ public class TexasHoldem extends PokerGame
 
 	    @Override public void getWinner() {
 		showCards();
-		ArrayList<Person> players = getActivePlayers();
+		List<Person> players = getActivePlayers();
 		players.sort(HHM);
 		players.get(0).changePersonState(PersonState.WINNER);
 		getDealer().givePot(players.get(0));
@@ -83,7 +88,6 @@ public class TexasHoldem extends PokerGame
 
 	    @Override public void startGame() {
 		dealOutNHiddenCards(2);
-		//activateWaitingDealer();
 		setCurrentPlayer(getPlayer());
 		//clockTimer.start();
 		HHM.setPokerGame(this);
@@ -122,10 +126,6 @@ public class TexasHoldem extends PokerGame
 		return !dealersTurn();
 	    }
 
-
-	    @Override public boolean yourTurn() {
-		return false;
-	    }
 
 	    @Override public void addPlayer(Person player)	{
 		player.setGame(this);

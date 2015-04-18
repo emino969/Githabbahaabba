@@ -1,4 +1,4 @@
-package Pictures;
+package GUI.Pictures;
 
 import Cards.CardType;
 
@@ -12,7 +12,9 @@ import java.util.Map;
 
 public class Images
 {
-    private BufferedImage imageClub, imageDiamond, imageHeart, imageSpade, imageBackground, imageTable;
+    private BufferedImage imageClub, imageDiamond, imageHeart, imageSpade,
+	    imageBackground, imageTable,
+	    imageRedPokerChip, imageBlackPokerChip, imageGreenPokerChip;
     private String filePath = "";
     private String clubPic = "club.gif";
     private String diamondPic = "diamond.png";
@@ -20,9 +22,9 @@ public class Images
     private String spadePic = "spade.gif";
     private String backgroundPic = "PokerBackground.jpg";
     private String tablePic = "TableBackground.jpg";
-    private String redPokerChip = "RedPokerChip.jpg";
-    private String getBlackPokerChip = "GreenPokerChip.jpg";
-    private String blackPokerChip = "BlackPokerChip.jpg.jpg";
+    private String redPokerChip = "redPokerChip.jpg";
+    private String greenPokerChip = "greenPokerChip.jpg";
+    private String blackPokerChip = "blackPokerChip.jpg.jpg";
     private Map<CardType, BufferedImage> cardTypesMap;
     private static final int CARD_IMAGE_X = 15 * 3 / 2;
     private static final int CARD_IMAGE_Y = 20 * 3 / 2;
@@ -38,6 +40,9 @@ public class Images
 
     private void getPictures()	{
 	try {
+	    this.imageRedPokerChip = ImageIO.read(new File(filePath + redPokerChip));
+	    this.imageGreenPokerChip = ImageIO.read(new File(filePath + greenPokerChip));
+	    this.imageBlackPokerChip = ImageIO.read(new File(filePath + blackPokerChip));
 	    this.imageClub = ImageIO.read(new File(filePath + clubPic));
 	    this.imageDiamond = ImageIO.read(new File(filePath + diamondPic));
 	    this.imageHeart = ImageIO.read(new File(filePath + heartPic));
@@ -52,6 +57,18 @@ public class Images
 
     public BufferedImage getBackground()	{
 	return imageBackground;
+    }
+
+    public BufferedImage getImageRedPokerChip() {
+	return imageRedPokerChip;
+    }
+
+    public BufferedImage getImageBlackPokerChip() {
+	return imageBlackPokerChip;
+    }
+
+    public BufferedImage getImageGreenPokerChip() {
+	return imageGreenPokerChip;
     }
 
     public BufferedImage getTable()	{

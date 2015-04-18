@@ -2,8 +2,8 @@ package PokerRules.TexasHoldem;
 
 import Cards.Card;
 import Cards.CardList;
+import Person.Person;
 import PokerRules.AbstractGame;
-import Person.*;
 
 import java.util.Comparator;
 import java.util.EnumMap;
