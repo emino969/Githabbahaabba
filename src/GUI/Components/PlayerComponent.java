@@ -142,8 +142,7 @@ public class PlayerComponent extends JComponent
 		money -= 25;
 	    }
 	    g.drawImage(image, x, y, 30, 30, this);
-	    x += 5;
-	    x += 5;
+	    x += 10;
 	}
     }
 }

@@ -75,8 +75,52 @@ public class DealerComponent extends JComponent
     }
     private void drawPot(Graphics g, final int x, final int y){
         g.setColor(BLACK);
-        g.drawString("Pot'o'gold: " + dealer.getTablePot().getAmount() + "$", x + 2* PERSON_RADIUS, y + 2*PERSON_RADIUS);
+        g.drawString("Pot'o'gold: " + dealer.getPot().getAmount() + "$", x + 2* PERSON_RADIUS, y + 2*PERSON_RADIUS);
+	drawDealerPot(g, x, y);
     }
+
+    private void drawDealerPot(final Graphics g, final int x, final int y) {
+	g.setColor(Color.RED);
+	g.drawRect(x + 2* PERSON_RADIUS, y + 2*PERSON_RADIUS, 200, 100);
+	drawChips(g, x + 2* PERSON_RADIUS, y + 2*PERSON_RADIUS);
+    }
+
+    private void drawChips(final Graphics g, int x, int y) {
+	int money = dealer.getPot().getAmount();
+	Image image;
+	int row = 0;
+	int chipRowCount = 0;
+	while (0 < money){
+	    image = getChipType(row);
+	    g.drawImage(image, x + chipRowCount* 10, y + row*30, 30, 30, this);
+	    money -= (25+ 25*row);
+	    chipRowCount ++ ;
+	    if(chipRowCount == 10){
+		chipRowCount = 0;
+		row ++;
+	    }
+	}
+     }
+
+    private Image getChipType(final int rows) {
+	Image image;
+	switch (rows){
+	    case 0:
+		image = imageHandler.getImageBlackPokerChip();
+		break;
+	    case 1:
+		image = imageHandler.getImageRedPokerChip();
+		break;
+	    case 2:
+		image = imageHandler.getImageGreenPokerChip();
+		break;
+	    default:
+		image = imageHandler.getImageBlackPokerChip();
+		break;
+	}
+	return image;
+    }
+
 
     private void drawDealerCards(final Graphics g, int x, int y)	{
 	for (int i = 0; i < dealer.getHand().getSize(); i++) {

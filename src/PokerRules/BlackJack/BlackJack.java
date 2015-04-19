@@ -369,7 +369,7 @@ public class BlackJack extends PokerGame
 	personMap.clear();
 	setStartingStates();
 	collectCards();
-	resetBets();
+	//resetBets();
 	deactivateDealer();
 	personMap.put(dealer, BlackJackHand.THIN);
 	setCurrentPlayer(getPlayer());
