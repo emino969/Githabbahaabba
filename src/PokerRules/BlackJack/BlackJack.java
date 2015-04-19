@@ -30,6 +30,7 @@ public class BlackJack extends PokerGame
     private static final int START_SIZE = 2;
     private static final int NUMBER_OF_DECKS = 8;
     private static final int DEALER_POT_AMOUNT = 1000;
+
     private ActionListener move =  new AbstractAction() {
     	    @Override public void actionPerformed(ActionEvent e)	{
     		runGameForward();
@@ -368,10 +369,18 @@ public class BlackJack extends PokerGame
 	personMap.clear();
 	setStartingStates();
 	collectCards();
+	resetBets();
 	deactivateDealer();
 	personMap.put(dealer, BlackJackHand.THIN);
 	setCurrentPlayer(getPlayer());
 	dealer.giveStartingCards();
 	notifyListeners();
+    }
+
+    private void resetBets() {
+	for (Person person: getOnlyPlayers()) {
+	    person.setLastBet(0);
+	    person.resetBet();
+	}
     }
 }

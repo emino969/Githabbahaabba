@@ -32,18 +32,6 @@ public class Person
 	//setGameListener();
     }
 
-    /*private void setGameListener()	{
-	this.gl = new GameListener()	{
-	    @Override public void gameChanged()	{
-                if(game.gameFinished())	{
-		     setLastBet(0);
-		}
-	    }
-	};
-
-	PokerGame.addGameListener(gl);
-    }´*/
-
     public int getLastBet()	{
 	return lastBet;
     }

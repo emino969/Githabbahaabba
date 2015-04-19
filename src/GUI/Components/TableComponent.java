@@ -53,7 +53,7 @@ public class TableComponent extends JComponent
 	for (PlayerComponent player : players) {
 	    yPos = getPrefferedYSeat(player);
 	    xPos = getPrefferedXSeat(player);
-	    player.drawPlayer(g, xPos, yPos, getTableSide(player));
+	    player.drawPlayer(g, xPos, yPos, getTableSide(player), tableX, tableY);
 	}
 	dealer.drawDealer(g, tableX - 30, tableY + height / 2 - 30);
     }

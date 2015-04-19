@@ -32,7 +32,7 @@ public class PlayerComponent extends JComponent
 	this.height = fm.getHeight() + PERSON_RECTANGLE * 4;
     }
 
-    public void drawPlayer(final Graphics g, int x, int y, TableSeat ts ) {
+    public void drawPlayer(final Graphics g, int x, int y, TableSeat ts, final int tableX, final int tableY) {
 	this.ts = ts;
         y -= personRadius;
 
@@ -116,11 +116,34 @@ public class PlayerComponent extends JComponent
     private void drawPlayerBetCircle(final Graphics g, int x ,int y){
 	g.setColor(Color.YELLOW);
 	if(ts.equals(TableSeat.FIRST_SIDE )) {
-	    g.drawOval(x - 100, y + 100, 50, 50);
+	    g.drawOval(x - 120,y + 100, 70, 70);
+	    drawChips(g, x-120, y + 100);
 	}else if(ts.equals(TableSeat.SECOND_SIDE)){
-	    g.drawOval(x - 150, y +  10, 50, 50);
+	    g.drawOval(x - 100, y - 80, 70, 70);
+	    drawChips(g, x - 100, y - 80);
 	}else{
-	    g.drawOval(x, y - 150, 50, 50);
+	    g.drawOval(x + 20, y - 100, 70, 70);
+	    drawChips(g, x + 20, y - 100);
+	}
+    }
+
+    private void drawChips(Graphics g, int x, int y) {
+	int money = person.getLastBet();
+	Image image = imageHandler.getImageBlackPokerChip();
+	while(0 < money){
+	    if(75 <= money){
+		image = imageHandler.getImageBlackPokerChip();
+		money -= 75;
+	    }else if(50 <= money) {
+		image = imageHandler.getImageRedPokerChip();
+		money -= 50;
+	    }else if(25 <= money){
+		image = imageHandler.getImageGreenPokerChip();
+		money -= 25;
+	    }
+	    g.drawImage(image, x, y, 30, 30, this);
+	    x += 5;
+	    x += 5;
 	}
     }
 }

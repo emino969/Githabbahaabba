@@ -22,9 +22,9 @@ public class Images
     private String spadePic = "spade.gif";
     private String backgroundPic = "PokerBackground.jpg";
     private String tablePic = "TableBackground.jpg";
-    private String redPokerChip = "redPokerChip.jpg";
-    private String greenPokerChip = "greenPokerChip.jpg";
-    private String blackPokerChip = "blackPokerChip.jpg.jpg";
+    private String redPokerChip = "redPokerChip.gif";
+    private String greenPokerChip = "greenPokerChip.gif";
+    private String blackPokerChip = "blackPokerChip.gif";
     private Map<CardType, BufferedImage> cardTypesMap;
     private static final int CARD_IMAGE_X = 15 * 3 / 2;
     private static final int CARD_IMAGE_Y = 20 * 3 / 2;
@@ -46,6 +46,9 @@ public class Images
 	    this.imageSpade = ImageIO.read(new File(filePath + spadePic));
 	    this.imageBackground = ImageIO.read(new File(filePath + backgroundPic));
 	    this.imageTable = ImageIO.read(new File(filePath + tablePic));
+	    this.imageRedPokerChip = ImageIO.read(new File(filePath + redPokerChip));
+	    this.imageBlackPokerChip = ImageIO.read(new File(filePath + blackPokerChip));
+	    this.imageGreenPokerChip = ImageIO.read(new File(filePath + greenPokerChip));
  	} catch (IOException ex) {
 	    System.out.println("CardPicture couldn't be read properly");
 	}
@@ -66,6 +69,7 @@ public class Images
     public BufferedImage getImageGreenPokerChip() {
 	return imageGreenPokerChip;
     }
+
 
     public BufferedImage getTable()	{
 	return imageTable;
