@@ -7,7 +7,6 @@ import Person.PersonState;
 import Person.Player;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Table
 {
@@ -41,7 +40,8 @@ public class Table
 	//Returns all the active Players
 	ArrayList<Person> persons = new ArrayList<Person>();
 	for	(Person person : players)	{
-	    if	(!(person.isPersonState(PersonState.INACTIVE) || person.isPersonState(PersonState.LOSER))) {
+	    if	(!(person.isPersonState(PersonState.INACTIVE) || person.isPersonState(PersonState.LOSER) ||
+	    person.isPersonState(PersonState.WINNER))) {
 		persons.add(person);
 	    }
 	}
@@ -49,15 +49,16 @@ public class Table
     }
 
     public Iterable<Person> getOnlyPlayers()	{//Everyone besides dealer
-	List<Person> tempPlayers = new ArrayList<Person>(players);
+	ArrayList<Person> tempPlayers = new ArrayList<Person>(players);
 	tempPlayers.remove(dealer);
 	return tempPlayers;
     }
 
     public Iterable<Person> getOnlyActivePlayers()	{
-	List<Person> persons = new ArrayList<Person>();
+	ArrayList<Person> persons = new ArrayList<Person>();
 	for	(Person person : players)	{
-	    if	(!(person.isPersonState(PersonState.INACTIVE) || person.isPersonState(PersonState.LOSER))) {
+	    if	(!(person.isPersonState(PersonState.INACTIVE) || person.isPersonState(PersonState.LOSER) ||
+	    person.isPersonState(PersonState.WINNER))) {
 		persons.add(person);
 	    }
 	}

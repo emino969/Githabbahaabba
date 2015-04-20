@@ -46,6 +46,7 @@ public class BlackJackBot extends Person
 	    } else {
 		BlackJackAction action = getBestMove();
 		game.getOptions().makeMove(action);
+		System.out.println(action);
 	    }
         }
         }

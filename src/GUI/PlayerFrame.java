@@ -40,12 +40,7 @@ public class PlayerFrame extends JToolBar
 		updateOptions();
 		buttonPanel.add(currentPot);
 		buttonPanel.add(handValue);
-
-		if(game.gameFinished())	{
-		    JOptionPane.showMessageDialog(null, "Click OK to restart");
-		}else{
-		    updateLabels();
-		}
+		updateLabels();
 	    }
 	};
 
@@ -69,7 +64,9 @@ public class PlayerFrame extends JToolBar
     }
 
     public void updateLabels()	{
-	currentPot.setText("  Current pot: " + player.getPot() + "$  " + "HandBet: " + player.getLastBet() + "$");
+	int handBet = player.getLastBet() + player.getBetHolder();
+	currentPot.setText("  Current pot: " + player.getPot() + "$  " +
+			   "  HandBet: " + handBet + "$");
 	handValue.setText(pokermoves.getHandValue(player));
     }
 }

@@ -3,7 +3,6 @@ package PokerRules;
 import Person.Dealer;
 import Person.Person;
 import Table.PokerGame;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,6 +53,7 @@ public abstract class AbstractGame extends PokerGame
 	if	(gameFinished())	{
 	    getWinner();
 	    notifyListeners();
+	    JOptionPane.showMessageDialog(null, "Click OK to continue");
 	    restartGame();
 	}
 
@@ -83,7 +83,7 @@ public abstract class AbstractGame extends PokerGame
 
     abstract public void dealerMove();
 
-    @Override public void addPlayer(Person person)	{
+    public void addPlayer(Person person)	{
 	person.setGame(this);
 	players.add(person);
     }

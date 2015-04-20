@@ -23,7 +23,6 @@ public class BlackJackDealer extends Dealer
 	    if (hand.getSumAceOnTop() < DEALER_LIMIT) {
 		game.getOptions().makeMove(BlackJackAction.HIT);
 	    } else {
-		game.getOptions().makeMove(BlackJackAction.STAND);
 		game.setIsOverState(true);
 	    }
 	}	else if(hand.getSize() == 2)	{

@@ -41,14 +41,14 @@ public class Person
     }
 
     public boolean bet(int amount)	{
-	if	(pot.getAmount() >= amount)	{
-	    pot.subtractAmount(amount);
+	if	(pot.getAmount() >= 0)	{
+	    //pot.subtractAmount(amount);
 	    game.getDealer().getTablePot().addAmount(amount);
 	    lastBet += amount;
+	    return true;
 	}	else	{
-	    throw new IllegalArgumentException("You don't have enough money!");
+	    return false;
 	}
-	return pot.getAmount() >= amount;
     }
 
     public void addHiddenCard(Card card)	{
@@ -155,5 +155,9 @@ public class Person
     public void resetBet() {
         pot.addAmount(betHolder);
         betHolder = 0;
+    }
+
+    public void resetLastBet()	{
+	lastBet = 0;
     }
 }

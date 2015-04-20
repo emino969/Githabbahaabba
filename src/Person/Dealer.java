@@ -13,7 +13,7 @@ public class Dealer extends Person
 	super("Dealer", pot);
 	this.thrownCards = new CardList();
 	this.gameCards = new CardList();
-	this.tablePot = pot;
+	this.tablePot = new Pot(0);
 	gameCards.createOrdinaryDeck();
 	gameCards.shuffleDeck();
 	changePersonState(PersonState.INACTIVE); //Default for Dealer

@@ -13,7 +13,7 @@ public class DealerComponent extends JComponent
     private Dealer dealer;
     private final static int PERSON_RADIUS = 50;
     private final static int CARD_SPACE_X = 25; //The space between the cards on the table if there is more than 1 card per player
-    // --Commented out by Inspection (2015-04-16 16:36):private final static int cardSpaceY = 15;
+    // --Commented out by Inspection (2015-04-16 16:36):private final static int CARD_SPACE_Y = 15;
     private final static int PERSON_RECTANGLE = 10;
     private final static int RECTANGLE_BAR = 2;
     private final static int FONT_SIZE = 20;
@@ -55,7 +55,7 @@ public class DealerComponent extends JComponent
 	g.drawString(name, x + PERSON_RECTANGLE - width, y + fm.getHeight());
 	g.drawString(String.valueOf(dealer.getPot().getAmount()) + '$', x + PERSON_RECTANGLE - width, y + 2 * fm.getHeight());
 
-        //g.fillOval(x, y, personRadius, personRadius);
+        //g.fillOval(x, y, PERSON_RADIUS, PERSON_RADIUS);
         //g.setColor(BLACK);
         //g.drawString(dealer.getName(), x, y);
        // addGolfCap(g ,x ,y); // this is essential to functionality of the dealer
@@ -64,7 +64,7 @@ public class DealerComponent extends JComponent
 // --Commented out by Inspection START (2015-04-16 16:36):
 //    private void addGolfCap(Graphics g, int x, int y){
 //        g.setColor(Color.BLUE);
-//        g.fillRect(x + personRadius- 10, y, personRadius/4, personRadius);
+//        g.fillRect(x + PERSON_RADIUS- 10, y, PERSON_RADIUS/4, PERSON_RADIUS);
 //    }
 // --Commented out by Inspection STOP (2015-04-16 16:36)
 
@@ -75,14 +75,14 @@ public class DealerComponent extends JComponent
     }
     private void drawPot(Graphics g, final int x, final int y){
         g.setColor(BLACK);
-        g.drawString("Pot'o'gold: " + dealer.getPot().getAmount() + "$", x + 2* PERSON_RADIUS, y + 2*PERSON_RADIUS);
+        //g.drawString("Pot'o'gold: " + dealer.getTablePot().getAmount() + "$", x + 2* PERSON_RADIUS, y + 2*PERSON_RADIUS);
 	drawDealerPot(g, x, y);
     }
 
     private void drawDealerPot(final Graphics g, final int x, final int y) {
 	g.setColor(Color.RED);
 	g.drawRect(x + 2* PERSON_RADIUS, y + 2*PERSON_RADIUS, 200, 100);
-	drawChips(g, x + 2* PERSON_RADIUS, y + 2*PERSON_RADIUS);
+	drawChips(g, x + 2* PERSON_RADIUS + 5, y + 2*PERSON_RADIUS + 5);
     }
 
     private void drawChips(final Graphics g, int x, int y) {

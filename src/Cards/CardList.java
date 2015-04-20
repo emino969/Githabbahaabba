@@ -11,6 +11,7 @@ public class CardList extends ArrayList<Card>
     public Iterable<Card> getCardList() {
         return cardList;
     }
+
     public boolean contains(Card card)  {
         return cardList.contains(card);
     }
@@ -23,12 +24,22 @@ public class CardList extends ArrayList<Card>
     }
 
     public boolean containsIntValue(Card card)	{
-	    for (Card c : cardList) {
-		if (c.getCardInt() == card.getCardInt()) {
-		    return true;
-		}
+	for (Card c : cardList) {
+	    if (c.getCardInt() == card.getCardInt()) {
+		return true;
 	    }
-	    return false;
+	}
+	return false;
+    }
+
+    public int countCardValue(CardValue cv)	{
+	int i = 0;
+	for (Card c : cardList) {
+	    if (c.getValue() == cv) {
+		i++;
+	    }
+	}
+	return i;
     }
 
     public int countIntValue(Card card)	{

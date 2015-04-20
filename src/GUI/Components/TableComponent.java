@@ -68,11 +68,11 @@ public class TableComponent extends JComponent
     private int getPrefferedXSeat(PlayerComponent player)	{
 	int playerIndex = players.indexOf(player);
 	if	(playerIndex <= 2)	{
-	    return 300 + getSpace() * (playerIndex + 1);
+	    return 200 + getSpace() * (playerIndex + 1);
 	}	else if(playerIndex >= 4)	{
-	    return (300 + getSpace() * 3) - getSpace() * (playerIndex - 4);
+	    return (200 + getSpace() * 3) - getSpace() * (playerIndex - 4);
 	}	else	{
-	    return tableX + width ;
+	    return tableX + width + BAR_SIZE ;
 	}
     }
 

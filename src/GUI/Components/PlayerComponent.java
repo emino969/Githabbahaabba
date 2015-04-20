@@ -6,6 +6,7 @@ import Pictures.Images;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class PlayerComponent extends JComponent
 {
@@ -17,6 +18,7 @@ public class PlayerComponent extends JComponent
     private final static int spaceBetweenHands = 5;
     private final static int PERSON_RECTANGLE = 10;
     private final static int RECTANGLE_BAR = 2;
+    private final static int BET_CIRCLE_RADIUS = 50;
     private Images imageHandler;
     private FontMetrics fm;
     private TableSeat ts;
@@ -93,12 +95,33 @@ public class PlayerComponent extends JComponent
     }
 
     private void drawPlayerCards(final Graphics g, int x, int y)	{
-	int numberOfHands = person.getHands().size();
-	int calculatedSizeX = numberOfHands * cardSpaceX + (numberOfHands - 1) * spaceBetweenHands;
-	for (int i = 0; i < numberOfHands; i++) {
-	    int currentX = x + (i - 1) * cardSpaceX + (i - 1) * spaceBetweenHands - calculatedSizeX / 2;
-	    CardList currentHand = person.getHands().get(i);
-	    drawHand(currentHand, g, currentX, y);
+	CardList currentHand = person.getHands().get(0);
+	drawHand(currentHand, g, recommendedX(ts, x), recommendedY(ts, y));
+    }
+
+    private int recommendedX(TableSeat ts, int x)	{
+	switch(ts)	{
+	    case FIRST_SIDE:
+		return x;
+	    case SECOND_SIDE:
+		return x - 40;
+	    case THIRD_SIDE:
+		return x + 20;
+	    default:
+		return -1;
+	}
+    }
+
+    private int recommendedY(TableSeat ts, int y)	{
+	switch(ts)	{
+	    case FIRST_SIDE:
+		return y;
+	    case SECOND_SIDE:
+		return y - 10;
+	    case THIRD_SIDE:
+		return y;
+	    default:
+		return -1;
 	}
     }
 
@@ -116,20 +139,21 @@ public class PlayerComponent extends JComponent
     private void drawPlayerBetCircle(final Graphics g, int x ,int y){
 	g.setColor(Color.YELLOW);
 	if(ts.equals(TableSeat.FIRST_SIDE )) {
-	    g.drawOval(x - 120,y + 100, 70, 70);
-	    drawChips(g, x-120, y + 100);
+	    g.drawOval(x - 120 + 50,y + 100, BET_CIRCLE_RADIUS, BET_CIRCLE_RADIUS);
+	    drawChips(g, x - 120 + 50, y + 100);
 	}else if(ts.equals(TableSeat.SECOND_SIDE)){
-	    g.drawOval(x - 100, y - 80, 70, 70);
-	    drawChips(g, x - 100, y - 80);
+	    g.drawOval(x - 100 + 20, y - 80, BET_CIRCLE_RADIUS, BET_CIRCLE_RADIUS);
+	    drawChips(g, x - 100 + 20, y - 80);
 	}else{
-	    g.drawOval(x + 20, y - 100, 70, 70);
-	    drawChips(g, x + 20, y - 100);
+	    g.drawOval(x + 20 + 70, y - 100 + 20, BET_CIRCLE_RADIUS, BET_CIRCLE_RADIUS);
+	    drawChips(g, x + 20 + 70, y - 100 + 20);
 	}
     }
 
     private void drawChips(Graphics g, int x, int y) {
-	int money = person.getLastBet();
+	int money = person.getLastBet() + person.getBetHolder();
 	Image image = imageHandler.getImageBlackPokerChip();
+	int i = 0;
 	while(0 < money){
 	    if(75 <= money){
 		image = imageHandler.getImageBlackPokerChip();
@@ -141,8 +165,8 @@ public class PlayerComponent extends JComponent
 		image = imageHandler.getImageGreenPokerChip();
 		money -= 25;
 	    }
-	    g.drawImage(image, x, y, 30, 30, this);
-	    x += 10;
+	    g.drawImage(image, x + 5 + 10 * (i % 4), y + 5 + 10 * (i / 4), 30, 30, this);
+	    i++;
 	}
     }
 }

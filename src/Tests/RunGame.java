@@ -10,7 +10,6 @@ public final class RunGame
     public static void main(String[] args) {
 	BlackJack blackJack = new BlackJack();
 	PokerFrame frame = new PokerFrame(blackJack);
-	//PokerFrame frame = new PokerFrame(texas.getGame());
 	frame.setVisible(true);
     }
 }
