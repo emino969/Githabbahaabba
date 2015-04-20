@@ -38,11 +38,11 @@ public class BlackJack extends AbstractGame
     		    actions.add(BlackJackAction.STAND);
     		    actions.add(BlackJackAction.HIT);
 
-    		    if	(isDoubleable()) {
+    		    if	(isDoubleable(person)) {
 			actions.add(BlackJackAction.DOUBLE);
 		    }
 
-		    if (isSurrendable())	{
+		    if (isSurrendable(person))	{
     			actions.add(BlackJackAction.SURRENDER);
     		    }
 
@@ -164,13 +164,12 @@ public class BlackJack extends AbstractGame
 	}
     }
 
-    private boolean isDoubleable()	{
-	return currentPlayer.getLastBet() <= currentPlayer.getPot().getAmount() &&
-		currentPlayer.getHand().getSize() == 2;
+    private boolean isDoubleable(Person person)	{
+	return person.getLastBet() <= person.getPot().getAmount() && person.getHand().getSize() == 2;
     }
 
-    private boolean isSurrendable()	{
-	return currentPlayer.getHand().getSize() == 2;
+    private boolean isSurrendable(Person person)	{
+	return person.getHand().getSize() == 2;
     }
 
     private void buyCards(Person person, int amount)	{

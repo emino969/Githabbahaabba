@@ -17,7 +17,6 @@ public class PlayerFrame extends JToolBar
     private AbstractPokermoves pokermoves;
     private JLabel currentPot;
     private JLabel handValue;
-    //private JTextField betField;
     private PokerGame game;
     private JPanel buttonPanel;
 

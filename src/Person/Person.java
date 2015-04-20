@@ -51,6 +51,10 @@ public class Person
 	}
     }
 
+    public boolean isBroke()	{
+	return pot.getAmount() == 0;
+    }
+
     public void addHiddenCard(Card card)	{
 	hand.addHiddenCard(card);
     }
@@ -138,8 +142,10 @@ public class Person
 
 
     public void addToBet(final int money) {
-        betHolder += money;
-        pot.subtractAmount(money);
+	if (pot.getAmount() >= money) {
+	    betHolder += money;
+	    pot.subtractAmount(money);
+	}
     }
 
     public int getBet() {
