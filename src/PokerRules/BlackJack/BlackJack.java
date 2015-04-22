@@ -1,6 +1,5 @@
 package PokerRules.BlackJack;
 
-import Cards.CardList;
 import Money.Pot;
 import Person.*;
 import PokerRules.AbstractGame;
@@ -113,11 +112,13 @@ public class BlackJack extends AbstractGame
     		int currentBet = currentPlayer.getLastBet();
     		makeBet(currentPlayer, currentBet);
     		currentPlayer.addHand();
-    		currentPlayer.getHandByIndex(1).addCard(currentPlayer.popCard()); //Gets one of the cards from the first hand
-    		currentPlayer.getHandByIndex(0).addCard(dealer.popCard());
-    		currentPlayer.getHandByIndex(1).addCard(dealer.popCard());
+		int lastHandIndex = currentPlayer.getHands().size() - 1;
+		int currentHandIndex = currentPlayer.getHands().indexOf(currentPlayer.getHand());
+    		currentPlayer.getHandByIndex(lastHandIndex).addCard(currentPlayer.popCard()); //Gets one of the cards from the first hand
+    		currentPlayer.getHandByIndex(currentHandIndex).addCard(dealer.popCard());
+    		currentPlayer.getHandByIndex(lastHandIndex).addCard(dealer.popCard());
 		currentPlayer.changePersonState(PersonState.WAITING);
-		currentPlayer.switchHand();
+		currentPlayer.setHand(currentPlayer.mappedHands.getLastHand());
 		notifyListeners();
     	    }
 

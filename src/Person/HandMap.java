@@ -83,4 +83,11 @@ public class HandMap
 	}
 	return maxSum;
      }
+
+    public CardList getLastHand()	{
+	for (int i = hands.size() - 1; i >= 0; i--)	{
+	    if (states.get(i) == PersonState.WAITING) return hands.get(i);
+	}
+	return null;
+    }
 }
