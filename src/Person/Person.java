@@ -17,19 +17,27 @@ public class Person
     protected PokerGame game = null;
     private PersonState state = PersonState.WAITING;
     private Pot defaultPot = new Pot(1000);
-    protected List<CardList> multipleHands;
     protected int betHolder;
     protected int lastBet;
+    public HandMap mappedHands;
     private GameListener gl;
 
     public Person(String name, Pot pot)	{
 	this.name = name;
 	this.pot = pot;
 	this.hand = new CardList(); //Primary hand
-	this.multipleHands = new ArrayList<>();
 	this.lastBet = 0;
-	multipleHands.add(hand);
+	this.mappedHands = new HandMap();
+	mappedHands.put(hand, state);
 	//setGameListener();
+    }
+
+    public boolean isTurnLeft()	{
+	return mappedHands.turnsLeft(hand);
+    }
+
+    public void switchHand()	{
+	hand = mappedHands.nextHand(hand);
     }
 
     public int getLastBet()	{
@@ -42,7 +50,6 @@ public class Person
 
     public boolean bet(int amount)	{
 	if	(pot.getAmount() >= 0)	{
-	    //pot.subtractAmount(amount);
 	    game.getDealer().getTablePot().addAmount(amount);
 	    lastBet += amount;
 	    return true;
@@ -68,11 +75,11 @@ public class Person
     }
 
     public void changePersonState(PersonState state){
-        this.state = state;
+	mappedHands.put(hand, state);
     }
 
     public PersonState getState() {
-        return state;
+        return getBestState();
     }
 
     public String getName() {
@@ -87,18 +94,23 @@ public class Person
 	return hand;
     }
 
+    public void clearAllHands()	{
+	mappedHands.clear();
+    }
+
     public List<CardList> getHands()	{
-	return multipleHands;
+	return mappedHands.getHands();
     }
 
     public CardList getHandByIndex(int index)	{
 	//0 is always the primary hand
-	return multipleHands.get(index);
+	return mappedHands.get(index);
     }
 
     public void addHand()	{
 	//Adds a empty CardList
-	multipleHands.add(new CardList());
+	CardList cl = new CardList();
+	mappedHands.put(cl, PersonState.WAITING);
     }
 
     public void addCard(Card card)	{
@@ -128,7 +140,22 @@ public class Person
     }
 
     public boolean isPersonState(PersonState st)	{
-	return state.equals(st);
+	return getBestState() == st;
+    }
+
+    public PersonState getBestState()	{ //Specialized for Black Jack
+	ArrayList<PersonState> states = mappedHands.getStates();
+	if (states.contains(PersonState.TURN))	{
+	    return PersonState.TURN;
+	}	else if(states.contains(PersonState.WINNER))	{
+	    return PersonState.WINNER;
+	}	else if(states.contains(PersonState.WAITING))	{
+	    return PersonState.WAITING;
+	}	else if(states.contains(PersonState.INACTIVE))	{
+	    return PersonState.INACTIVE;
+	}	else	{
+	    return PersonState.LOSER;
+	}
     }
 
     @Override public String toString() {
@@ -137,7 +164,7 @@ public class Person
         return "";
     }
     public boolean hasTurn(){
-        return state == PersonState.TURN;
+        return mappedHands.get(hand) == PersonState.TURN;
     }
 
 
@@ -165,5 +192,9 @@ public class Person
 
     public void resetLastBet()	{
 	lastBet = 0;
+    }
+
+    public void setHand(CardList cl)	{
+	this.hand = cl;
     }
 }

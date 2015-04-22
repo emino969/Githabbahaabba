@@ -95,12 +95,13 @@ public class PlayerComponent extends JComponent
     }
 
     private void drawPlayerCards(final Graphics g, int x, int y)	{
-	CardList currentHand = person.getHands().get(0);
-	drawHand(currentHand, g, recommendedX(ts, x), recommendedY(ts, y));
+	for (int i = 0; i < person.getHands().size(); i++) {
+	    drawHand(person.getHandByIndex(i), g, recommendedX(ts, x), recommendedY(ts, y, i));
+	}
     }
 
     private int recommendedX(TableSeat ts, int x)	{
-	switch(ts)	{
+	switch (ts) {
 	    case FIRST_SIDE:
 		return x;
 	    case SECOND_SIDE:
@@ -112,14 +113,14 @@ public class PlayerComponent extends JComponent
 	}
     }
 
-    private int recommendedY(TableSeat ts, int y)	{
-	switch(ts)	{
+    private int recommendedY(TableSeat ts, int y, int indexCardList)	{
+	switch (ts) {
 	    case FIRST_SIDE:
-		return y;
+		return y + 80 * indexCardList;
 	    case SECOND_SIDE:
-		return y - 10;
+		return y - 10 - 80 * indexCardList;
 	    case THIRD_SIDE:
-		return y;
+		return y - 80 * indexCardList;
 	    default:
 		return -1;
 	}

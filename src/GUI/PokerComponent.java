@@ -19,7 +19,7 @@ public class PokerComponent extends JComponent
     private PokerFrame frame; //Temporarily changed
     private TableComponent tableComponent;
     private Images imageHandler;
-    private static final int X_CONST = 70;
+    private static final int X_CONST = 140;
     private static final int Y_CONST = 90;
     private static final int ADJ_CONST = 50;
 
@@ -46,7 +46,7 @@ public class PokerComponent extends JComponent
 						  new DealerComponent(game.getDealer(), imageHandler),
 						  frame.getWidth()/4 - X_CONST,
 						  frame.getHeight()/3 - Y_CONST,
-						  frame.getWidth()/2 + X_CONST * 2,
+						  frame.getWidth()/2+ X_CONST * 2,
 						  frame.getHeight()/3 + ADJ_CONST * 2,
 						  imageHandler);
 	return table;

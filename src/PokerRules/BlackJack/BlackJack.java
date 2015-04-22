@@ -1,6 +1,6 @@
 package PokerRules.BlackJack;
 
-import Cards.CardValue;
+import Cards.CardList;
 import Money.Pot;
 import Person.*;
 import PokerRules.AbstractGame;
@@ -47,7 +47,7 @@ public class BlackJack extends AbstractGame
     		    }
 
     		    if	(isSplittable(person))	{
-    			//names.add("Split");
+    			actions.add(BlackJackAction.SPLIT);
     		    }
     		}
     		return actions;
@@ -69,7 +69,7 @@ public class BlackJack extends AbstractGame
     	 		doubleDown();
     	 		break;
     	 	    case SPLIT:
-    	 		hit();
+    	 		split();
     	 		break;
     	 	    case BET_25:
     	 		currentPlayer.addToBet(CHIP_25);
@@ -110,13 +110,15 @@ public class BlackJack extends AbstractGame
 
 
     	    @Override public void split()	{
-    		//Not completely added yet, WONT DO ANYTHING IF YOU PRESS SPLIT
-    		int currentBet = currentPlayer.getBetHolder();
+    		int currentBet = currentPlayer.getLastBet();
     		makeBet(currentPlayer, currentBet);
     		currentPlayer.addHand();
     		currentPlayer.getHandByIndex(1).addCard(currentPlayer.popCard()); //Gets one of the cards from the first hand
     		currentPlayer.getHandByIndex(0).addCard(dealer.popCard());
     		currentPlayer.getHandByIndex(1).addCard(dealer.popCard());
+		currentPlayer.changePersonState(PersonState.WAITING);
+		currentPlayer.switchHand();
+		notifyListeners();
     	    }
 
     	    @Override public void surrender()	{
@@ -128,17 +130,20 @@ public class BlackJack extends AbstractGame
     		currentPlayer.addToPot(loss);
     		currentPlayer.setLastBet(0);
     		currentPlayer.changePersonState(PersonState.LOSER);
+		notifyListeners();
     	    }
 
     	    @Override public void stand()	{
     		/** Do nothing */
     		currentPlayer.changePersonState(PersonState.INACTIVE);
+		notifyListeners();
     	    }
 
     	    @Override public void hit()	{
     		/** Add one card to player */
-    		getCurrentPlayer().addCard(dealer.popCard());
+    		currentPlayer.addCard(dealer.popCard());
     		currentPlayer.changePersonState(PersonState.WAITING);
+		notifyListeners();
     	    }
 
     	    @Override public void doubleDown()	{
@@ -147,6 +152,7 @@ public class BlackJack extends AbstractGame
 		stand();
 		currentPlayer.addToBet(currentPlayer.getLastBet());
 		makeBet(currentPlayer, currentPlayer.getBet());
+		notifyListeners();
     	    }
     	};
 
@@ -156,9 +162,9 @@ public class BlackJack extends AbstractGame
 
     private void updatePlayerState(Person person)	{
 	if (!person.equals(dealer) && !person.isPersonState(PersonState.LOSER)) {
-	    if (getLegalHandSum(person) > 21) {
+	    if (isPersonBusted(person)) {
 		person.changePersonState(PersonState.LOSER);
-	    } else if (getLegalHandSum(person) == 21 && person.getHand().getSize() == 2) {
+	    } else if (isBlackJack(person)) {
 		person.changePersonState(PersonState.WINNER); //Is black jack
 	    }
 	}
@@ -181,7 +187,7 @@ public class BlackJack extends AbstractGame
 	    currentPlayer.addToPot(amount);
 	    currentPlayer.resetBet();
 	    notifyListeners();
-	    throw new IllegalArgumentException("You can bet that amount!");
+	    throw new IllegalArgumentException("You can't bet that amount!");
 	}
     }
 
@@ -190,11 +196,11 @@ public class BlackJack extends AbstractGame
     }
 
     public int getLegalHandSum(Person person)	{
-	int numberOfAces = person.getHand().countCardValue(CardValue.TOP_ACE);
+	int numberOfAces = person.getHand().countIntValue(14);
 	int maxSum = person.getHand().getSumAceOnTop();
-	for (int i = 0; i < numberOfAces; i++) {
-	    if (maxSum > BLACKJACK_NUMBER && maxSum - i * 10 <= BLACKJACK_NUMBER)	{
-		maxSum = maxSum - i * 10;
+	for (int i = 1; i < numberOfAces + 1; i++) {
+	    if ((maxSum > BLACKJACK_NUMBER) && (maxSum - i * 10 <= BLACKJACK_NUMBER))	{
+		maxSum -= i * 10;
 	    }
 	}
 	return maxSum;
@@ -249,7 +255,7 @@ public class BlackJack extends AbstractGame
     }
 
     private boolean isBlackJack(Person person)	{
-	return person.getHand().getSize() == 2 && getLegalHandSum(person) == 21;
+	return getLegalHandSum(person) == 21 && person.getHand().getSize() == 2;
     }
 
     private boolean isPersonBusted(Person person)	{
@@ -318,5 +324,15 @@ public class BlackJack extends AbstractGame
 
     @Override public void dealerMove() {
 	setCurrentPlayer(dealer);
+    }
+
+    @Override protected void getNextPlayer()	{
+	if (currentPlayer.isTurnLeft())	{
+	    currentPlayer.switchHand();
+	    currentPlayer.changePersonState(PersonState.TURN);
+	}	else	{
+	    currentPlayer.switchHand();
+	    setCurrentPlayer(nextPerson());
+	}
     }
 }

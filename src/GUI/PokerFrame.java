@@ -1,7 +1,6 @@
 package GUI;
 
 import Money.Pot;
-import Person.Bot;
 import Person.BotTypes.BlackJackBot;
 import Person.Player;
 import Pictures.Images;

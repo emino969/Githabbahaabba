@@ -15,8 +15,8 @@ public class Player extends Person
 	JOptionPane.showMessageDialog(null, "YOUR OUT OF MONEY");
 	pot = new Pot(1000);
 	hand = new CardList();
-	multipleHands.clear();
-	multipleHands.add(hand);
+	clearAllHands();
+	mappedHands.put(hand, PersonState.WAITING);
 	game.getDealer().getPot().addAmount(getLastBet());
 	setLastBet(0);
 	getBet();
@@ -25,5 +25,6 @@ public class Player extends Person
 
     public void turn()	{
 	/** Välj ett drag */
+	System.out.println(this.getBestState());
     }
 }

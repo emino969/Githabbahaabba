@@ -1,5 +1,6 @@
 package Table;
 
+import Cards.CardList;
 import GameListeners.GameListener;
 import Person.*;
 import PokerRules.AbstractPokermoves;
@@ -53,7 +54,18 @@ public class PokerGame extends Table
     protected void collectCards()	{
 	/** Throw all the players cards to thrownCards  */
 	for	(Person player : getPlayers())	{
-	    player.throwCards();
+	    for (int i = 0; i < player.getHands().size(); i++)	{
+		throwCards(player.mappedHands.get(i));
+	    }
+	    player.clearAllHands();
+	    player.addHand();
+	    player.setHand(player.mappedHands.get(0));
+	}
+    }
+
+    private void throwCards(CardList hand)	{
+	while	(!hand.isEmpty()) {
+	    getDealer().addCardToThrownCards(hand.popCard());
 	}
     }
 
@@ -105,9 +117,7 @@ public class PokerGame extends Table
 
     public void restartGame()	{}
 
-    public void addPlayer(Person player)	{
-
-    }
+    public void addPlayer(Person player)	{}
 
     public void startGame()	{}
 }

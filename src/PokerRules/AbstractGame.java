@@ -60,16 +60,14 @@ public abstract class AbstractGame extends PokerGame
 	if	(currentPlayer.equals(getPlayer()))	{
 	    stopClock();
 	}
-
-
 	notifyListeners();
     }
 
-    private void getNextPlayer()	{
+    protected void getNextPlayer()	{
 	setCurrentPlayer(nextPerson());
      }
 
-    private Person nextPerson()	{
+    protected Person nextPerson()	{
 	if	(getActivePlayers().contains(currentPlayer)) {
 	    return getPersonByIndex((currentPlayerIndex + 1) % getActivePlayers().size());
 	}	else	{

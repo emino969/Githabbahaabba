@@ -1,7 +1,5 @@
 package Cards;
 
-import CardGameExceptions.NoSuchCardException;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,10 +30,20 @@ public class CardList extends ArrayList<Card>
 	return false;
     }
 
+    public int countIntValue(int value)	{
+	int i = 0;
+	for (Card c : cardList) {
+	    if (c.getCardInt() == value) {
+		i++;
+	    }
+	}
+	return i;
+    }
+
     public int countCardValue(CardValue cv)	{
 	int i = 0;
 	for (Card c : cardList) {
-	    if (c.getValue() == cv) {
+	    if (c.getValue().equals(cv)) {
 		i++;
 	    }
 	}
@@ -76,6 +84,24 @@ public class CardList extends ArrayList<Card>
 	for	(Card card : cardList)	{
 	    card.setVisible();
 	}
+    }
+
+    @Override public boolean equals(final Object o) {
+	if (this == o) return true;
+	if (!(o instanceof CardList)) return false;
+	if (!super.equals(o)) return false;
+
+	final CardList cards = (CardList) o;
+
+	if (cardList != null ? !cardList.equals(cards.cardList) : cards.cardList != null) return false;
+
+	return true;
+    }
+
+    @Override public int hashCode() {
+	int result = super.hashCode();
+	result = 31 * result + (cardList != null ? cardList.hashCode() : 0);
+	return result;
     }
 
     public void addHiddenCard(Card card)	{
