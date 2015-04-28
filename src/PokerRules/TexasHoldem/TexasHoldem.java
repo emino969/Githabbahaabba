@@ -12,7 +12,6 @@ import java.util.List;
 
 public class TexasHoldem extends AbstractGame
 {
-    //Test the AbstractGame here
     private AbstractGame game;
     private int smallBlind, highestBet, bigBlind;
     private final static int CHIP_25 = 25;
@@ -30,7 +29,7 @@ public class TexasHoldem extends AbstractGame
     	    @Override public void raise()	{
     		//currentPlayer.bet(2 * minBet);
 		int betAmount = currentPlayer.getBet();
-		if (betAmount > 0) {
+		if (betAmount > highestBet) {
 		    currentPlayer.bet(betAmount);
 		    setHighestBet(betAmount);
 		    currentPlayer.changePersonState(PersonState.WAITING);
