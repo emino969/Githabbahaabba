@@ -1,8 +1,8 @@
 package GUI;
 
+import PokerRules.AbstractGame;
 import PokerRules.BlackJack.BlackJack;
 import PokerRules.TexasHoldem.TexasHoldem;
-import Table.PokerGame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -68,8 +68,11 @@ public class StartMenu extends JFrame
 	add(texasHoldem, c);
     }
 
-    private void runGame(PokerGame game)	{
-	frame = new PokerFrame(game);
+    private void runGame(AbstractGame game) {
+	String playerName = "Guest";
+	//String inputString = JOptionPane.showInputDialog("Please Enter your name or leave empty and join as Guest");
+	//if (inputString != null && inputString != "") playerName = inputString;
+	frame = new PokerFrame(game, playerName);
 	frame.setVisible(true);
     }
 }

@@ -1,15 +1,20 @@
 package Table;
 
+import GameListeners.GameListener;
 import Money.Pot;
 import Person.Dealer;
 import Person.Person;
 import Person.PersonState;
 import Person.Player;
+import PokerRules.AbstractGame;
 
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Table
 {
+    static private List<GameListener> ListenerArray = new ArrayList<GameListener>();
     protected ArrayList<Person> players;
     private Pot tablePot;
     protected Dealer dealer = null;
@@ -17,6 +22,10 @@ public class Table
     public Table() {
 	this.players = new ArrayList<Person>();
         this.tablePot = new Pot(0);
+    }
+
+    static public void addGameListener(GameListener gl)	{
+	ListenerArray.add(gl);
     }
 
     public int getPlayersSize()	{
@@ -101,4 +110,11 @@ public class Table
 	this.dealer = dealer;
 	players.add(dealer);
     }
+
+    public void notifyListeners()	{
+	for(GameListener gl : ListenerArray)	{
+	    gl.gameChanged();
+	}
+    }
+
 }

@@ -1,13 +1,12 @@
 package PokerRules.TexasHoldem;
 
 import Money.Pot;
+import Person.BotTypes.TexasHoldEmBot;
 import Person.Person;
 import Person.PersonState;
 import PokerRules.AbstractGame;
 import PokerRules.AbstractPokermoves;
 import PokerRules.CardGameAction;
-import Table.PokerGame;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,16 +14,27 @@ public class TexasHoldem extends AbstractGame
 {
     //Test the AbstractGame here
     private AbstractGame game;
-    private int minBet, highestBet;
+    private int smallBlind, highestBet, bigBlind;
+    private final static int CHIP_25 = 25;
+    private final static int CHIP_50 = 50;
+    private final static int CHIP_75 = 75;
     private HoldemHandComparator handComparator = new HoldemHandComparator();
     private AbstractPokermoves moves = new HoldemMoves()	{
     	    @Override public void call()	{
-    		currentPlayer.bet(getHighestBet() - currentPlayer.getLastBet());
+		int betAmount = getHighestBet() - currentPlayer.getLastBet();
+		currentPlayer.addToBet(betAmount); //DO NOT UNDER ANY CIRCUMSTANCES USE PERSON.BET() DIRECTLY
+		currentPlayer.bet(currentPlayer.getBet());
+		currentPlayer.changePersonState(PersonState.WAITING);
     	    }
 
     	    @Override public void raise()	{
-    		currentPlayer.bet(2 * minBet);
-    		setHighestBet(2 * minBet);
+    		//currentPlayer.bet(2 * minBet);
+		int betAmount = currentPlayer.getBet();
+		if (betAmount > 0) {
+		    currentPlayer.bet(betAmount);
+		    setHighestBet(betAmount);
+		    currentPlayer.changePersonState(PersonState.WAITING);
+		}
     	    }
 
     	    @Override public void fold()	{
@@ -35,10 +45,10 @@ public class TexasHoldem extends AbstractGame
     		ArrayList<CardGameAction> options = new ArrayList<>();
     		if	(!person.isPersonState(PersonState.INACTIVE))	{
     		    options.add(TexasHoldemAction.CALL);
-    		    //options.add("Fold");
-    		    if	(highestBet != 2 * minBet) {
-    			options.add(TexasHoldemAction.RAISE);
-    		    }
+		    options.add(TexasHoldemAction.BET_25);
+		    options.add(TexasHoldemAction.BET_50);
+		    options.add(TexasHoldemAction.BET_75);
+		    options.add(TexasHoldemAction.RAISE);
     		}
     		return options;
     	    }
@@ -47,16 +57,26 @@ public class TexasHoldem extends AbstractGame
     		switch((TexasHoldemAction) cardGameMove)	{
     		    case CALL:
     			this.call();
-       			currentPlayer.changePersonState(PersonState.WAITING);
+			System.out.println("PLAYER " + currentPlayer.getName() + " CALLED");
     			break;
     		    case RAISE:
     			raise();
-       			currentPlayer.changePersonState(PersonState.WAITING);
+			System.out.println("PLAYER " + currentPlayer.getName() + " RAISED");
     			break;
     		    case FOLD:
     			fold();
     			break;
+		    case BET_25:
+			currentPlayer.addToBet(CHIP_25);
+			break;
+		    case BET_50:
+			currentPlayer.addToBet(CHIP_50);
+			break;
+		    case BET_75:
+			currentPlayer.addToBet(CHIP_75);
+			break;
     		}
+		notifyListeners();
     	    }
 
     	    @Override public String getHandValue(Person person) {
@@ -66,7 +86,8 @@ public class TexasHoldem extends AbstractGame
 
     public TexasHoldem(final int minBet) {
 	super(new TexasHoldemDealer(new Pot(1000)));
-	this.minBet = minBet;
+	this.smallBlind = minBet;
+	this.bigBlind = 2 * minBet;
 	this.highestBet = minBet;
 	handComparator.setPokerGame(this);
     }
@@ -87,7 +108,7 @@ public class TexasHoldem extends AbstractGame
     }
 
     @Override public void startGame() {
-	dealOutNHiddenCards(2);
+	dealer.dealOutNHiddenCards(2);
 	setCurrentPlayer(getPlayer());
 	//clockTimer.start();
 	handComparator.setPokerGame(this);
@@ -103,12 +124,23 @@ public class TexasHoldem extends AbstractGame
     @Override public void restartGame() {
 	setIsOverState(false);
 	clockTimer.setDelay(DELAY);
-	collectCards();
+	dealer.collectCards();
 	clearLastBets();
 	dealer.startNewGame();
 	setStartingStates();
 	setCurrentPlayer(getPlayer());
-	dealOutNHiddenCards(2);
+	dealer.dealOutNHiddenCards(2);
+    }
+
+    @Override public void addBots() {
+	TexasHoldEmBot PlayerBot = new TexasHoldEmBot("Bot", new Pot(1000),this);
+	TexasHoldEmBot SuperMario = new TexasHoldEmBot("SuperMario", new Pot(1000), this);
+	TexasHoldEmBot SuperBot = new TexasHoldEmBot("SuperBot", new Pot(1000), this);
+	TexasHoldEmBot SuperPlayer = new TexasHoldEmBot("SuperPlayer", new Pot(1000), this);
+	addPlayer(PlayerBot);
+	addPlayer(SuperMario);
+	addPlayer(SuperPlayer);
+	addPlayer(SuperBot);
     }
 
     @Override public boolean dealersTurn() {
@@ -138,7 +170,7 @@ public class TexasHoldem extends AbstractGame
 	for	(Person person : getActivePlayers())	{
 	    person.setLastBet(0);
 	}
-	highestBet = minBet;
+	highestBet = smallBlind;
     }
 
     public void showCards()	{
@@ -157,19 +189,15 @@ public class TexasHoldem extends AbstractGame
     	return highestBet;
         }
 
-    public int getMinimumBet()	{
-	return minBet;
-    }
-
-    public void setMinimumBet(int amount)	{
-	minBet = amount;
-    }
-
     public void setHighestBet(int amount)	{
 	highestBet = amount;
     }
 
-    public PokerGame getGame()	{
+    public AbstractGame getGame()	{
 	return game;
+    }
+
+    public HoldemHandComparator getHandComparator() {
+	return handComparator;
     }
 }

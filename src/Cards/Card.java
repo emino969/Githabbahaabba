@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Card {
-    private CardType cardType;
     private CardValue cardValue;
     private Color cardColor;
     private static final int CARD_SIZE_X = 50;
@@ -24,9 +23,10 @@ public class Card {
     private boolean isVisible;
     private FontMetrics fm;
     private Font font;
+    private CardSuit cardSuit;
 
-    public Card(final CardType cardType, final CardValue cardValue) {
-	this.cardType = cardType;
+    public Card(final CardSuit cardSuit, final CardValue cardValue) {
+	this.cardSuit = cardSuit;
 	this.cardValue = cardValue;
 	this.cardColor = getColorByCardType();
 	this.isVisible = true;
@@ -35,21 +35,19 @@ public class Card {
     }
 
     public Color getColorByCardType() {
-	if(cardType == CardType.CLUBS || cardType == CardType.SPADES) return Color.BLACK;
-	else if( cardType == CardType.HEARTS || cardType == CardType.DIAMONDS)return Color.RED;
-	throw new IllegalArgumentException("There is no such cardtype as" + cardType);
+	if(cardSuit == CardSuit.DONT_CARE) return Color.ORANGE;
+	    if (cardSuit == CardSuit.CLUBS || cardSuit == CardSuit.SPADES) return Color.BLACK;
+	    else if (cardSuit == CardSuit.HEARTS || cardSuit == CardSuit.DIAMONDS) return Color.RED;
+	    throw new IllegalArgumentException("There is no such cardtype as" + cardSuit);
     }
 
-    public CardType getCardType() {
-        return cardType;
-    }
 
-    public Comparable getValue() {
+    public CardValue getValue() {
         return cardValue;
     }
 
     @Override public String toString() {
-        return cardType + " " + cardValue;
+        return cardSuit + " " + cardValue;
     }
 
     private int getCardIntValue() throws NoSuchCardException {
@@ -96,13 +94,14 @@ public class Card {
 	}	else if(value == ACE_INT)	{
 	    return "A";
 	}	else	{
+	    System.out.println(value);
 	    return "-1";
 	}
     }
 
     public void draw(Graphics2D g, int X, int Y, JComponent comp, Images imageHandler)	{
-	final int IMAGE_X = imageHandler.getPrefferedX(cardType);
-	final int IMAGE_Y = imageHandler.getPrefferedY(cardType);
+	final int IMAGE_X = imageHandler.getPrefferedX(cardSuit);
+	final int IMAGE_Y = imageHandler.getPrefferedY(cardSuit);
 	this.fm = comp.getFontMetrics(new Font("Serif", Font.BOLD, FONT_SIZE));
 
 	if(isVisible) {
@@ -124,7 +123,7 @@ public class Card {
 			     X + CARD_SIZE_X / 2 + STRING_SPACE_FROM_MIDDLE + FONT_SPACE - getStringWidth(getSymbolFromInt(getCardIntValue())),
 			     Y + CARD_SIZE_Y - 5);
 
-		g.drawImage(imageHandler.getPicture(cardType),
+		g.drawImage(imageHandler.getPicture(cardSuit),
 			    X + CARD_SIZE_X / 2 - IMAGE_X / 2,
 			    Y + CARD_SIZE_Y / 2 - CARD_SPACE_PIC,
 			    IMAGE_X,
@@ -154,4 +153,8 @@ public class Card {
 	}
 	return pixelLength;
     }
+
+    public CardSuit getCardSuit() {
+	return cardSuit;
     }
+}

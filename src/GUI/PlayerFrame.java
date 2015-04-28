@@ -3,9 +3,10 @@ package GUI;
 import GameListeners.GameListener;
 import Person.PersonState;
 import Person.Player;
+import PokerRules.AbstractGame;
 import PokerRules.AbstractPokermoves;
 import PokerRules.CardGameAction;
-import Table.PokerGame;
+import Table.Table;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,10 +18,10 @@ public class PlayerFrame extends JToolBar
     private AbstractPokermoves pokermoves;
     private JLabel currentPot;
     private JLabel handValue;
-    private PokerGame game;
+    private AbstractGame game;
     private JPanel buttonPanel;
 
-    public PlayerFrame(final PokerGame game) {
+    public PlayerFrame(final AbstractGame game) {
 	this.game = game;
 	this.player = game.getPlayer();
 	this.currentPot = new JLabel("  Current pot:  " + player.getPot().getAmount() + "$  ");
@@ -43,7 +44,7 @@ public class PlayerFrame extends JToolBar
 	    }
 	};
 
-	PokerGame.addGameListener(gl);
+	Table.addGameListener(gl);
     }
 
     public void updateOptions()	{

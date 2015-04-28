@@ -1,6 +1,6 @@
 package Pictures;
 
-import Cards.CardType;
+import Cards.CardSuit;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -25,17 +25,17 @@ public class Images
     private String redPokerChip = "redPokerChip.gif";
     private String greenPokerChip = "greenPokerChip.gif";
     private String blackPokerChip = "blackPokerChip.gif";
-    private Map<CardType, BufferedImage> cardTypesMap;
+    private Map<CardSuit, BufferedImage> cardTypesMap;
     private static final int CARD_IMAGE_X = 15 * 3 / 2;
     private static final int CARD_IMAGE_Y = 20 * 3 / 2;
 
     public Images() {
 	getPictures();
-	this.cardTypesMap = new HashMap<CardType, BufferedImage>();
-	cardTypesMap.put(CardType.HEARTS, imageHeart);
-	cardTypesMap.put(CardType.SPADES, imageSpade);
-	cardTypesMap.put(CardType.DIAMONDS, imageDiamond);
-	cardTypesMap.put(CardType.CLUBS, imageClub);
+	this.cardTypesMap = new HashMap<CardSuit, BufferedImage>();
+	cardTypesMap.put(CardSuit.HEARTS, imageHeart);
+	cardTypesMap.put(CardSuit.SPADES, imageSpade);
+	cardTypesMap.put(CardSuit.DIAMONDS, imageDiamond);
+	cardTypesMap.put(CardSuit.CLUBS, imageClub);
     }
 
     private void getPictures()	{
@@ -75,11 +75,11 @@ public class Images
 	return imageTable;
     }
 
-     public BufferedImage getPicture(CardType ct){
+     public BufferedImage getPicture(CardSuit ct){
 	    return cardTypesMap.get(ct);
 	}
 
-    static public int getPrefferedX(CardType ct)	{
+    static public int getPrefferedX(CardSuit ct)	{
 	switch(ct)	{
 	    case DIAMONDS:
 		return CARD_IMAGE_X * 3 / 2;
@@ -88,7 +88,7 @@ public class Images
 	}
     }
 
-    static public int getPrefferedY(CardType ct)	{
+    static public int getPrefferedY(CardSuit ct)	{
 	switch(ct)	{
 	    case DIAMONDS:
 		return CARD_IMAGE_Y * 3 / 2;

@@ -1,8 +1,8 @@
 package PokerRules;
 
-import Person.Dealer;
-import Person.Person;
-import Table.PokerGame;
+import Person.*;
+import Table.Table;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,19 +11,30 @@ import java.awt.event.ActionListener;
  *  AbstractGame is the structure that all games should follow
  */
 
-public abstract class AbstractGame extends PokerGame
+public abstract class AbstractGame extends Table
 {
+    protected static final int DELAY = 1000; //8 sekunder
+    protected Person currentPlayer;
+    protected boolean isOverState;
+    protected int currentPlayerIndex;
+    protected Timer clockTimer;
+private AbstractPokermoves moves = null; //Get's assigned in subclass
+
     public AbstractGame(Dealer dealer) {
-	    setDealer(dealer);
-	    this.dealer.setGame(this);
+	 setDealer(dealer);
+	this.dealer.setGame(this);
+	this.currentPlayer = null;
+	this.currentPlayerIndex = -1;
 	    final ActionListener move = new AbstractAction()
 	    {
 		@Override public void actionPerformed(ActionEvent e) {
 		    runGameForward();
 		}
 	    };
-	    clockTimer.addActionListener(move);
-	    setOptions(getOptions());
+
+	this.clockTimer = new Timer(AbstractGame.DELAY, move); //The clockTimer that should be used in the subclasses also
+	clockTimer.setCoalesce(true);
+	setOptions(getOptions());
     }
 
 
@@ -34,6 +45,8 @@ public abstract class AbstractGame extends PokerGame
     abstract public void startGame();
 
     abstract public void restartGame();
+
+    abstract public void addBots();
 
     abstract public AbstractPokermoves getOptions(); //return options for PokerGame
 
@@ -89,5 +102,31 @@ public abstract class AbstractGame extends PokerGame
     public void nextMove() {
 	restartClock();
 	runGameForward();
+    }
+
+    public void setIsOverState(boolean state)	{
+	isOverState = state;
+    }
+
+    public void setCurrentPlayer(Person player)	{
+	this.currentPlayer = player;
+	this.currentPlayerIndex = getIndexByPerson(player);
+	player.changePersonState(PersonState.TURN);
+    }
+
+    public Person getCurrentPlayer()	{
+	return currentPlayer;
+    }
+
+    public void setOptions(AbstractPokermoves moves)	{
+	this.moves = moves;
+    }
+
+    public void stopClock()	{
+	clockTimer.stop();
+    }
+
+    public void restartClock()	{
+	clockTimer.restart();
     }
 }

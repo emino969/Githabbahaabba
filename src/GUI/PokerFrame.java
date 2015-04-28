@@ -1,11 +1,12 @@
 package GUI;
 
 import Money.Pot;
+import Person.Bot;
 import Person.BotTypes.BlackJackBot;
 import Person.Player;
 import Pictures.Images;
+import PokerRules.AbstractGame;
 import PokerRules.BlackJack.BlackJack;
-import Table.PokerGame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,29 +18,13 @@ public class PokerFrame extends JFrame
     private static final int defaultHeight = 800;
     private Images imageHandler;
 
-    public PokerFrame(PokerGame game) {
+    public PokerFrame(AbstractGame game, String playerName) {
 
-	Player Emil = new Player("Emil", new Pot(1000));
-
-	BlackJackBot PlayerBot = new BlackJackBot("Bot", new Pot(1000),(BlackJack) game);
-	BlackJackBot SuperMario = new BlackJackBot("SuperMario", new Pot(1000), (BlackJack) game);
-	BlackJackBot SuperBot = new BlackJackBot("SuperBot", new Pot(1000), (BlackJack) game);
-	BlackJackBot SuperPlayer = new BlackJackBot("SuperPlayer", new Pot(1000), (BlackJack) game);
-
-	/**
-	Bot PlayerBot = new Bot("Bot", new Pot(1000));
-	Bot SuperMario = new Bot("SuperMario", new Pot(1000));
-	Bot SuperBot = new Bot("SuperBot", new Pot(1000));
-	Bot SuperPlayer = new Bot("SuperPlayer", new Pot(1000));
-	 */
+	Player player = new Player(playerName, new Pot(1000));
 
 	this.imageHandler = new Images();
-
-	game.addPlayer(Emil);
-	game.addPlayer(PlayerBot);
-	game.addPlayer(SuperMario);
-	game.addPlayer(SuperBot);
-	game.addPlayer(SuperPlayer);
+	game.addPlayer(player);
+	game.addBots();
 	game.startGame();
 	//Dousn't kill itself when closed -->
 	//this.setDefaultCloseOperation(closeOperation);

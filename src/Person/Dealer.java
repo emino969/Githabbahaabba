@@ -37,6 +37,10 @@ public class Dealer extends Person
 	thrownCards.addCard(card);
     }
 
+    public CardList getThrownCards()	{
+	return thrownCards;
+    }
+
     public void startNewGame()	{
 	/** add all the thrownCards to hand and shuffle */
 	gameCards.addCardList(thrownCards);
@@ -53,6 +57,30 @@ public class Dealer extends Person
 	    person.addCard(popCard());
 	}
     }
+    public void dealOutNCards(int N)	{
+	int currentRound = 0;
+	while	(N > currentRound)	{
+	    for	(Person player : game.getActivePlayers())	{
+		player.addCard(this.popCard());
+	    }
+	    currentRound++;
+	}
+    }
+
+    public void dealOutNHiddenCards(int N)	{
+	int currentRound = 0;
+	while	(N > currentRound)	{
+	    for	(Person player : game.getActivePlayers())	{
+		if	(player.equals(game.getPlayer()))	{
+		    player.addCard(this.popCard());
+		}	else {
+		    player.addHiddenCard(this.popCard());
+		}
+	    }
+	    currentRound++;
+	}
+    }
+
 
     @Override public Card popCard()	{
 	if (gameCards.size() == 0) {
@@ -60,6 +88,23 @@ public class Dealer extends Person
 	    startNewGame();
 	}
 	return gameCards.popCard();
+    }
+    public void collectCards()	{
+	/** Throw all the players cards to thrownCards  */
+	for	(Person player : game.getPlayers())	{
+	    for (int i = 0; i < player.getHands().size(); i++)	{
+		throwCards(player.mappedHands.get(i));
+	    }
+	    player.clearAllHands();
+	    player.addHand();
+	    player.setHand(player.mappedHands.get(0));
+	}
+    }
+
+    private void throwCards(CardList hand)	{
+	while	(!hand.isEmpty()) {
+	    addCardToThrownCards(hand.popCard());
+	}
     }
 
     public void giveStartingCards()	{}

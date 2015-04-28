@@ -6,7 +6,8 @@ import GUI.Components.TableComponent;
 import GameListeners.GameListener;
 import Person.Person;
 import Pictures.Images;
-import Table.PokerGame;
+import PokerRules.AbstractGame;
+import Table.Table;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class PokerComponent extends JComponent
 {
     private final PlayerFrame playerFrame;
-    private PokerGame game;
+    private AbstractGame game;
     private PokerFrame frame; //Temporarily changed
     private TableComponent tableComponent;
     private Images imageHandler;
@@ -23,7 +24,7 @@ public class PokerComponent extends JComponent
     private static final int Y_CONST = 90;
     private static final int ADJ_CONST = 50;
 
-    public PokerComponent(PokerGame game, final PlayerFrame playerFrame, PokerFrame frame)	{
+    public PokerComponent(AbstractGame game, final PlayerFrame playerFrame, PokerFrame frame)	{
 	this.game = game;
 	this.frame = frame;
 	this.playerFrame = playerFrame;
@@ -34,7 +35,7 @@ public class PokerComponent extends JComponent
 		repaint();
 	    }
 	};
-	PokerGame.addGameListener(gl);
+	Table.addGameListener(gl);
     }
 
     private TableComponent buildTableComponent() {

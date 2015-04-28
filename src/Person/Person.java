@@ -4,7 +4,7 @@ import Cards.Card;
 import Cards.CardList;
 import GameListeners.GameListener;
 import Money.Pot;
-import Table.PokerGame;
+import PokerRules.AbstractGame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class Person
     protected String name;
     protected Pot pot;
     protected CardList hand;
-    protected PokerGame game = null;
+    protected AbstractGame game = null;
     private PersonState state = PersonState.WAITING;
     private Pot defaultPot = new Pot(1000);
     protected int betHolder;
@@ -121,7 +121,7 @@ public class Person
 	return hand.popCard();
     }
 
-    public void setGame(PokerGame game)	{
+    public void setGame(AbstractGame game)	{
 	this.game = game;
     }
 

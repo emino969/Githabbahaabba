@@ -1,21 +1,24 @@
 package Cards;
 
+import sun.invoke.empty.Empty;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class CardList extends ArrayList<Card>
 {
-    public Iterable<Card> getCardList() {
+    public ArrayList<Card> getCardList() {
         return cardList;
     }
 
     public boolean contains(Card card)  {
         return cardList.contains(card);
     }
-    private List<Card> cardList;
+    private ArrayList<Card> cardList;
     private static final int ACE_INT = 11;
     private static final int TEN_TO_KING_INT = 10;
+    private static final int BLACKJACK_NUMBER = 21;
 
     public CardList()   {
         this.cardList = new ArrayList<Card>();
@@ -40,6 +43,17 @@ public class CardList extends ArrayList<Card>
 	return i;
     }
 
+    public int getLegalHandSum()	{
+	int numberOfAces = countIntValue(14);
+	int maxSum = getSumAceOnTop();
+	for (int i = 1; i < numberOfAces + 1; i++) {
+	    if ((maxSum > BLACKJACK_NUMBER) && (maxSum - i * 10 <= BLACKJACK_NUMBER))	{
+		maxSum -= i * 10;
+	    }
+	}
+	return maxSum;
+     }
+
     public int countCardValue(CardValue cv)	{
 	int i = 0;
 	for (Card c : cardList) {
@@ -60,10 +74,10 @@ public class CardList extends ArrayList<Card>
 	    return i;
     }
 
-    public CardList getCopy(CardList cl)	{
+    public CardList getCopy()	{
 	CardList copy = new CardList();
-	for (int i = 0; i < cl.getSize(); i++) {
-	    copy.addCard(cl.getCardByIndex(i));
+	for (int i = 0; i < this.getSize(); i++) {
+	    copy.addCard(this.getCardByIndex(i));
 	}
 	return copy;
     }
@@ -130,14 +144,16 @@ public class CardList extends ArrayList<Card>
 	return cardList.get(index);
     }
 
-    public void setCardList(List<Card> cardList){
+    public void setCardList(CardList cardList){
           this.cardList = cardList;
     }
 
     public void createOrdinaryDeck(){
-	for (CardType cardType : CardType.values()) {
-	    for (CardValue cardValue : CardValue.values()) {
-		if(cardValue != CardValue.BOTTOM_ACE) cardList.add(new Card(cardType, cardValue));
+	for (CardSuit cardType : CardSuit.values()) {
+	    if(cardType != CardSuit.DONT_CARE) {
+		for (CardValue cardValue : CardValue.values()) {
+		    if (cardValue != CardValue.BOTTOM_ACE && cardValue != CardValue.DONT_CARE) cardList.add(new Card(cardType, cardValue));
+		}
 	    }
 	}
     }
@@ -218,5 +234,12 @@ public class CardList extends ArrayList<Card>
                 if(card.getValue() == cardValue) return true;
             }
             return false;
-        }}
+        }
+
+    public void addNCards(final Card cardOne, final int n) {
+	for (int i = 0; i< n; i++) {
+	    addCard(cardOne);
+	}
+    }
+}
 

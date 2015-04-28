@@ -80,7 +80,6 @@ public class DealerComponent extends JComponent
 
     private void drawDealerPot(final Graphics g, final int x, final int y) {
 	g.setColor(Color.RED);
-	g.drawRect(x + 2* PERSON_RADIUS, y + 2*PERSON_RADIUS, 200, 100);
 	drawChips(g, x + 2* PERSON_RADIUS + 5, y + 2*PERSON_RADIUS + 5);
     }
 

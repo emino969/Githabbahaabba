@@ -3,10 +3,10 @@ package Person.BotTypes;
 import Cards.CardValue;
 import Money.Pot;
 import Person.Person;
+import PokerRules.AbstractGame;
 import PokerRules.AbstractPokermoves;
 import PokerRules.BlackJack.BlackJack;
 import PokerRules.BlackJack.BlackJackAction;
-import Table.PokerGame;
 
 import java.util.Random;
 
@@ -56,7 +56,7 @@ public class BlackJackBot extends Person
         boolean soft = !handIsHard();
         int dealerHandValue = game.getDealer().getHand().getCard(0).getCardInt();
         if(10 < dealerHandValue ) dealerHandValue =10;
-        int playerHandvalue = blackJack.getLegalHandSum(this);
+        int playerHandvalue = hand.getLegalHandSum();
 	return getAction(dealerHandValue, playerHandvalue, soft);
     }
 
@@ -133,7 +133,7 @@ public class BlackJackBot extends Person
         return hand.containsCardValue(CardValue.TOP_ACE);
     }
 
-    @Override public void setGame(final PokerGame game) {
+    @Override public void setGame(final AbstractGame game) {
         this.blackJack = (BlackJack) game;
     }
 }

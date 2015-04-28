@@ -2,10 +2,12 @@ package PokerRules.TexasHoldem;
 
 public enum TexasHand
 {
-    PAIR, TWO_PAIR, TRIPLETS, STRAIGHT, FLUSH, FULL_HOUSE, QUADS, STRAIGHT_FLUSH, ROYAL_FLUSH, EMPTY;
+    HIGH_CARD, PAIR, TWO_PAIR, TRIPLETS, STRAIGHT, FLUSH, FULL_HOUSE, QUADS, STRAIGHT_FLUSH, ROYAL_FLUSH, EMPTY;
 
     @Override public String toString()	{
 	switch(this)	{
+	    case HIGH_CARD:
+		return "High Card";
 	    case PAIR:
 		return "One Pair";
 	    case TWO_PAIR:

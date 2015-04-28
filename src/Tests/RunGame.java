@@ -1,15 +1,16 @@
 package Tests;
 
 import GUI.PokerFrame;
-import PokerRules.BlackJack.BlackJack;
+import PokerRules.AbstractGame;
+import PokerRules.TexasHoldem.TexasHoldem;
 
 public final class RunGame
 {
     private RunGame() {}
 
     public static void main(String[] args) {
-	BlackJack blackJack = new BlackJack();
-	PokerFrame frame = new PokerFrame(blackJack);
+	AbstractGame texasHoldem = new TexasHoldem(25);
+	PokerFrame frame = new PokerFrame(texasHoldem, "Guest");
 	frame.setVisible(true);
     }
 }
