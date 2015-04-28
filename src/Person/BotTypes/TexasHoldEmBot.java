@@ -5,8 +5,6 @@ import Cards.CardList;
 import Cards.CardSuit;
 import Cards.CardValue;
 import Money.Pot;
-import Person.BotTypes.BehaviourState;
-import Person.BotTypes.Combinatorics;
 import Person.Person;
 import Person.PersonState;
 import PokerRules.AbstractPokermoves;
@@ -69,12 +67,11 @@ public class TexasHoldEmBot extends Person
 	double handWeight = 0;
 	int desiredMissingCardCount = 0;
 	for (TexasHand texasHand : TexasHand.values()) {
-	    CardList missingcards = missingCardsToHand(texasHand, hand);
-	    if (missingcards.getSize() <= desiredMissingCardCount && texasHand.ordinal() > desiredHand.ordinal()) {
+	    int missingcards = missingCardsToHand(texasHand, hand);
+	    if (missingcards <= desiredMissingCardCount && texasHand.ordinal() > desiredHand.ordinal()) {
 		desiredHand = texasHand;
 	    }
 	}
-	//System.out.println(desiredHand);
 	return desiredHand;
     }
 
@@ -93,7 +90,7 @@ public class TexasHoldEmBot extends Person
 
     }
 
-    private CardList missingCardsToHand(final TexasHand texasHand, CardList myHand) {
+    private int missingCardsToHand(final TexasHand texasHand, CardList myHand) {
 	//System.out.println(handComparator.getMissingCards(texasHand, myHand));
 	return handComparator.getMissingCards(texasHand, myHand);
     }

@@ -197,10 +197,10 @@ public class BlackJack extends AbstractGame
 	person.bet(amount);
     }
 
-    private boolean isSplittable(Person person)	{
+    public boolean isSplittable(Person person)	{
 	if	(person.getHand().getSize() == START_SIZE) {
-	    int firstCard = person.getHand().getCardByIndex(0).getCardInt();
-	    int secondCard = person.getHand().getCardByIndex(1).getCardInt();
+	    int firstCard = person.getHand().getCardByIndex(0).getCardIntValue();
+	    int secondCard = person.getHand().getCardByIndex(1).getCardIntValue();
 	    return firstCard == secondCard;
 	}	else	{
 	    return false;

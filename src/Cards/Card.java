@@ -1,6 +1,5 @@
 package Cards;
 
-import CardGameExceptions.NoSuchCardException;
 import Pictures.Images;
 
 import javax.swing.*;
@@ -50,7 +49,7 @@ public class Card {
         return cardSuit + " " + cardValue;
     }
 
-    private int getCardIntValue() throws NoSuchCardException {
+   /* private int getCardIntValue() throws NoSuchCardException {
         int i = 1;
         for (CardValue cardValue : CardValue.values()) {
             if(cardValue == this.cardValue){
@@ -59,15 +58,52 @@ public class Card {
             i ++;
         }
         throw new NoSuchCardException("There is no such Card");
-    }
+    }*/
 
-    public int getCardInt()	{
+   /* public int getCardInt()	{
 	try	{
 	    return this.getCardIntValue();
 	}	catch(NoSuchCardException e)	{
 	    e.printStackTrace();
 	    return -1;
 	}
+    }*/
+    public int getCardIntValue() {
+	switch (cardValue) {
+	    case BOTTOM_ACE:
+		return 1;
+	    case TWO:
+		return 2;
+	    case THREE:
+		return 3;
+	    case FOUR:
+		return 4;
+	    case FIVE:
+		return 5;
+	    case SIX:
+		return 6;
+	    case SEVEN:
+		return 7;
+	    case EIGHT:
+		return 8;
+	    case NINE:
+		return 9;
+	    case TEN:
+		return 10;
+	    case JACK:
+		return 11;
+	    case QUEEN:
+		return 12;
+	    case KING:
+		return 13;
+	    case TOP_ACE:
+		return 14;
+	    default:
+		return -1;
+
+
+	}
+
     }
 
     public void setNonVisible()	{
@@ -114,25 +150,20 @@ public class Card {
 	    g.setFont(font);
             g.setColor(cardColor);
 
-	    try{
-		g.drawString(getSymbolFromInt(getCardIntValue()),
-			     X + CARD_SIZE_X / 2 - STRING_SPACE_FROM_MIDDLE - FONT_SPACE,
-			     Y + CARD_SPACE_TOP);
+	    g.drawString(getSymbolFromInt(getCardIntValue()),
+			 X + CARD_SIZE_X / 2 - STRING_SPACE_FROM_MIDDLE - FONT_SPACE,
+			 Y + CARD_SPACE_TOP);
 
-		g.drawString(getSymbolFromInt(getCardIntValue()),
-			     X + CARD_SIZE_X / 2 + STRING_SPACE_FROM_MIDDLE + FONT_SPACE - getStringWidth(getSymbolFromInt(getCardIntValue())),
-			     Y + CARD_SIZE_Y - 5);
+	    g.drawString(getSymbolFromInt(getCardIntValue()),
+			 X + CARD_SIZE_X / 2 + STRING_SPACE_FROM_MIDDLE + FONT_SPACE - getStringWidth(getSymbolFromInt(getCardIntValue())),
+			 Y + CARD_SIZE_Y - 5);
 
-		g.drawImage(imageHandler.getPicture(cardSuit),
-			    X + CARD_SIZE_X / 2 - IMAGE_X / 2,
-			    Y + CARD_SIZE_Y / 2 - CARD_SPACE_PIC,
-			    IMAGE_X,
-			    IMAGE_Y,
-			    comp);
-
-            }catch (NoSuchCardException e) {
-		e.printStackTrace();
-	    }
+	    g.drawImage(imageHandler.getPicture(cardSuit),
+			X + CARD_SIZE_X / 2 - IMAGE_X / 2,
+			Y + CARD_SIZE_Y / 2 - CARD_SPACE_PIC,
+			IMAGE_X,
+			IMAGE_Y,
+			comp);
 
 	    Font newFont = new Font("Serif", Font.BOLD, FONT_SIZE);
 	    g.setFont(newFont);

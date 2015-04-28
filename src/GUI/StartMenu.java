@@ -39,7 +39,7 @@ public class StartMenu extends JFrame
 
 	texasHoldem.addActionListener(new ActionListener()	{
 	    @Override public void actionPerformed(ActionEvent e)	{
-		runGame(new TexasHoldem(10));
+		runGame(new TexasHoldem());
 	    }
 	});
 

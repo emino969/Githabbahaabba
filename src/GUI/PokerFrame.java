@@ -1,12 +1,9 @@
 package GUI;
 
 import Money.Pot;
-import Person.Bot;
-import Person.BotTypes.BlackJackBot;
 import Person.Player;
 import Pictures.Images;
 import PokerRules.AbstractGame;
-import PokerRules.BlackJack.BlackJack;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +24,7 @@ public class PokerFrame extends JFrame
 	game.addBots();
 	game.startGame();
 	//Dousn't kill itself when closed -->
-	//this.setDefaultCloseOperation(closeOperation);
+//	this.setDefaultCloseOperation(closeOperation);
 	setSize(new Dimension(defaultWidth, defaultHeight));
 	setContentPane(new JLabel(imageHandler.getBackgroundImageIcon()));
 	setLayout(new BorderLayout());

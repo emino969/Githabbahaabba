@@ -19,8 +19,8 @@ public class HoldemHandComparator implements Comparator<Person>
     private Comparator<Card> cardComp = new Comparator<Card>()
     	{
     	    @Override public int compare(final Card o1, final Card o2) {
-		int i1 = o1.getCardInt();
-		int i2 = o2.getCardInt();
+		int i1 = o1.getCardIntValue();
+		int i2 = o2.getCardIntValue();
     		return intComp.compare(i1, i2);
     	    }
     	};
@@ -103,8 +103,8 @@ public class HoldemHandComparator implements Comparator<Person>
 
 	/** The cardlist cl1, cl2 needs to get the complete texashand  */
 
-	int cardInt1 = getHighestCard(cl1).getCardInt();
-	int cardInt2 = getHighestCard(cl2).getCardInt();
+	int cardInt1 = getHighestCard(cl1).getCardIntValue();
+	int cardInt2 = getHighestCard(cl2).getCardIntValue();
 	if (cardInt1 < cardInt2)	{
 	    return 1;
 	}	else if(cardInt1 == cardInt2)	{
@@ -123,7 +123,7 @@ public class HoldemHandComparator implements Comparator<Person>
     private Card getHighestCard(CardList hand)	{
 	Card c1 = hand.getCardByIndex(0);
 	Card c2 = hand.getCardByIndex(1);
-	if	(c1.getCardInt() > c2.getCardInt())	{
+	if	(c1.getCardIntValue() > c2.getCardIntValue())	{
 	    return c1;
 	}	else	{
 	    return c2;
@@ -159,7 +159,7 @@ public class HoldemHandComparator implements Comparator<Person>
 	cl.addCard(c1);
 	cl.addCard(c2);
 	int pairs = 0;
-	for (Card card : cl) {
+	for (Card card : cl.getCopy().getCardList()) {
 	    int cardCount = cl.countIntValue(card);
 	    if(cardCount == 2) {
 		cl.removeCard(card);
@@ -189,15 +189,8 @@ public class HoldemHandComparator implements Comparator<Person>
     }
     */
  public int cardsToTriplets(CardList hand) {
-	int missingCards = 0;
-	int cardsToQuads = cardsToQuads(hand);
-     	System.out.printf(String.valueOf(cardsToQuads));
-	int i = cardsToQuads - 1; // i = number of cards missing to triplet
-	if (0 < i) {
-	  cardsToQuads--;
-	  missingCards = cardsToQuads;
-	}
-	return missingCards;
+     int missingCards = cardsToQuads(hand) - 1;
+     return missingCards;
 
  }
 
@@ -222,7 +215,7 @@ return cardsToTriplets(hand) == 0;
     	return isOnePair(hand) && isTriplets(hand) && !hand.getCard(0).equals(hand.getCard(1));
         }
 
-    /**public int cardsToStraight(CardList hand, boolean checkForColour) {
+    public int cardsToStraight(CardList hand, CardSuit cardSuit) {
 	CardList straight = new CardList();
 	CardList missingCards = new CardList();
 	CardList cl = game.getDealer().getHand().getCopy();
@@ -237,18 +230,16 @@ return cardsToTriplets(hand) == 0;
 		if (!hand.containsCardValue(CardValue.getValueFromInt(card))) {
 		    straight.addCard(new Card(CardSuit.DONT_CARE, CardValue.getValueFromInt(card)));
 		}
-	    }
-	    //missingcards has no cards to begin with, so for algorithm to work it has to have a starting value och a straighthand
-	    if (straight.getSize() < missingCards.getSize() && (straight.getSize() == 0) || missingCards.getSize() == 0) {
-		if(checkForColour)
-		missingCards = straight;
+		//missingcards has no cards to begin with, so for algorithm to work it has to have a starting value och a straighthand
+		if (straight.getSize() < missingCards.getSize() && (straight.getSize() == 0) || missingCards.getSize() == 0)
+		    missingCards = straight;
 	    }
 	}
-	return missingCards.size();
+	return missingCards.getSize();
     }
-     */
 
-    public int cardsToStraight(CardList hand, CardSuit suit)	{
+
+    /*public int cardsToStraight(CardList hand, CardSuit suit)	{
 	int foundCards = 0;
 	int greatestStair = 0;
 	int FULL_STAIR = 5;
@@ -256,9 +247,9 @@ return cardsToTriplets(hand) == 0;
 	for (int i = 1; i < cards.size(); i++) {
 	    if (foundCards == 5) {
 		return FULL_STAIR - foundCards;
-	    }	else if (Math.abs(cards.get(i).getCardInt() - cards.get(i - 1).getCardInt()) == 1 &&
+	    }	else if (Math.abs(cards.get(i).getCardIntValue() - cards.get(i - 1).getCardIntValue()) == 1 &&
 			      (suit == CardSuit.DONT_CARE ||
-			       (suit == hand.get(i).getCardSuit() && suit == hand.get(i-1).getCardSuit())))	{
+			       (suit == hand.getCardList().get(i).getCardSuit() && suit == hand.getCardList().get(i-1).getCardSuit())))	{
 		foundCards++;
 	    }	else	{
 		if (greatestStair < foundCards)	{
@@ -268,15 +259,15 @@ return cardsToTriplets(hand) == 0;
 	    }
 	}
 	return FULL_STAIR - greatestStair;
-    }
+    }*/
 
     private ArrayList<Card> turnHandToInts(CardList hand)	{
 	ArrayList<Card> cards = new ArrayList<>();
 	CardList cl = game.getDealer().getHand().getCopy();
 	cl.addCard(hand.getCardByIndex(0));
 	cl.addCard(hand.getCardByIndex(1));
-	cl.sort(cardComp);
-	return cl;
+	cl.getCardList().sort(cardComp);
+	return cl.getCardList();
     }
 
     public boolean isStraight(CardList hand) {
@@ -304,10 +295,9 @@ return cardsToTriplets(hand) == 0;
 	return (sum1 >= 5 || sum2 >= 5);
     }*/
     public int cardsToFlush(CardList hand) {
-   	CardList missingCards = new CardList();
    	Card cardOne = hand.getCardByIndex(0);
    	Card cardTwo = hand.getCardByIndex(1);
-   	CardList cardList = game.getDealer().getHand().getCopy();
+   	CardList cardList = getTableDeck();
    	cardList.addCard(cardOne);
    	cardList.addCard(cardTwo);
    	int cardOneSum = 0;
@@ -325,31 +315,30 @@ return cardsToTriplets(hand) == 0;
    	    higher = cardTwoSum;
    	    cardOne = cardTwo;
    	}
-   	missingCards.addNCards(cardOne, higher);
-   	return missingCards.size();
+   	return higher;
        }
 
     public int cardsToQuads(CardList hand) {
-    	CardList missingCards = new CardList();
-    	Card c1 = hand.getCardByIndex(0);
-    	Card c2 = hand.getCardByIndex(1);
-    	CardList cl = game.getDealer().getHand().getCopy();
-    	cl.addCard(c1);
-    	cl.addCard(c2);
-    	int c1Count = cl.countIntValue(c1);
-    	int c2Count = cl.countIntValue(c2);
-    	if (c1Count < c2Count && 4 < c2Count) missingCards.addNCards(c2, c2Count);
-    	else if (c1Count < 4) missingCards.addNCards(c1, 4 - c1Count - 1);
-    	return missingCards.size();
+	Card cardOne = hand.getCardByIndex(0);
+	Card cardTwo = hand.getCardByIndex(1);
+	CardList cl = getTableDeck();
+	cl.addCard(cardOne);
+	cl.addCard(cardTwo);
+	int highestCardCount = 0;
+	Card highestCard = new Card(CardSuit.DONT_CARE, CardValue.BOTTOM_ACE);
+	for (Card card : cl.getCardList()) {
+	    int cardCount = cl.countIntValue(card);
+	    if(highestCardCount < cardCount || highestCardCount == cardCount && card.getCardIntValue() < highestCard.getCardIntValue()){
+		highestCard = card;
+		highestCardCount = cardCount;
+	    }
+	}
+	if(4 < highestCardCount) highestCardCount = 4;
+    	return 4 - highestCardCount;
         }
 
     public boolean isQuads(CardList hand)	{
-	Card c1 = hand.getCardByIndex(0);
-	Card c2 = hand.getCardByIndex(1);
-	CardList cl = getTableDeck();
-	cl.addCard(c1);
-	cl.addCard(c2);
-	return cl.countIntValue(c1) == 4 || cl.countIntValue(c2) == 4;
+	return cardsToQuads(hand) == 0;
     }
     public boolean isStraightFlush(CardList hand) {
     	return isStraight(hand) && isFlush(hand);
@@ -384,8 +373,8 @@ return cardsToTriplets(hand) == 0;
     public int cardsToRoyalFlush(CardList hand)	{
 	int biggestStair = cardsToStraight(hand, CardSuit.HEARTS);
 	if (biggestStair == 0) {
-	    hand.sort(cardComp);
-	    return 10 - hand.get(hand.size() - 1).getCardInt();
+	    hand.getCardList().sort(cardComp);
+	    return 10 - hand.getCardList().get(hand.getSize() - 1).getCardIntValue();
 	}	else	{
 	    return 5;
 	}
@@ -425,4 +414,5 @@ return cardsToTriplets(hand) == 0;
 		return -1;
 	}
     }
+
 }

@@ -83,7 +83,7 @@ public class Dealer extends Person
 
 
     @Override public Card popCard()	{
-	if (gameCards.size() == 0) {
+	if (gameCards.getSize() == 0) {
 	    //add the thrown cards and shuffle
 	    startNewGame();
 	}
