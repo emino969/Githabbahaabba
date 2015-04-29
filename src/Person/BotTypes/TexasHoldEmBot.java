@@ -26,6 +26,7 @@ public class TexasHoldEmBot extends Person
     private Random rnd = null;
     private BehaviourState behaviourState = null;
     private final static int MAX_DECK_CARDS = 52;
+    private boolean raiseThisRound = false;
 
     public TexasHoldEmBot(final String name, final Pot pot, TexasHoldem texasHoldem) {
 	super(name, pot);
@@ -41,9 +42,12 @@ public class TexasHoldEmBot extends Person
     @Override public void turn() {
 	AbstractPokermoves abstractPokermoves = game.getOptions();
 	if (this.hasTurn()) {
+	    if(raiseThisRound) abstractPokermoves.makeMove(TexasHoldemAction.CALL);
 	    if (game.getDealer().getHand().getCopy().getSize() <= 3) {
 		abstractPokermoves.makeMove(TexasHoldemAction.CALL);
 	    } else {
+		TexasHoldemAction texasHoldemAction = getBestMove();
+		if(texasHoldemAction == TexasHoldemAction.RAISE) raiseThisRound = true;
 		abstractPokermoves.makeMove(getBestMove());
 	    }
 	}

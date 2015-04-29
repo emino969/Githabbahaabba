@@ -59,7 +59,7 @@ private AbstractPokermoves moves = null; //Get's assigned in subclass
 
 	if(dealersTurn() && !gameFinished()) {
 	    dealerMove();
-	}	else	{
+	}	else if(!gameFinished())	{
 	    getNextPlayer();
 	}
 

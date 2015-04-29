@@ -41,7 +41,7 @@ public class HoldemHandComparator implements Comparator<Person>
     @Override public int compare(Person p1, Person p2){
 	TexasHand th1 = getTexasHand(p1.getHand());
 	TexasHand th2 = getTexasHand(p2.getHand());
-	if	(getValue(th1) < getValue(th2))	{
+	if	(getValue(th1) < getValue(th2) || p1.getHand().getSumAceOnTop() < p2.getHand().getSumAceOnTop())	{
 	    return 1;
 	}	else if	(getValue(th1) == getValue(th2))	{
 	    return compareSameHands(p1.getHand(), p2.getHand());

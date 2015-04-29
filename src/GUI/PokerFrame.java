@@ -20,8 +20,8 @@ public class PokerFrame extends JFrame
 	Player player = new Player(playerName, new Pot(1000));
 
 	this.imageHandler = new Images();
+	game.addBots(); //bots before player for increased graphics swag
 	game.addPlayer(player);
-	game.addBots();
 	game.startGame();
 	//Dousn't kill itself when closed -->
 //	this.setDefaultCloseOperation(closeOperation);
