@@ -21,10 +21,9 @@ public class TexasHoldem extends AbstractGame
     private HoldemHandComparator handComparator = new HoldemHandComparator();
     private AbstractPokermoves moves = new HoldemMoves()	{
     	    @Override public void call()	{
-		System.out.println("highestBet: "  + highestBet);
-		System.out.println("lastbet: " + currentPlayer.getLastBet());
 		currentPlayer.resetBet(); //reset the current proposed bet
 		int betAmount = getHighestBet() - currentPlayer.getLastBet();
+		if(currentPlayer.getPot().getAmount() < betAmount) fold();
 		currentPlayer.addToBet(betAmount);
 		currentPlayer.bet(currentPlayer.getBet());
 		currentPlayer.changePersonState(PersonState.WAITING);
@@ -34,6 +33,7 @@ public class TexasHoldem extends AbstractGame
     	    @Override public void raise()	{
 		int betAmount = currentPlayer.getBet() + highestBet - currentPlayer.getLastBet();
 		if(25 < betAmount){
+		    currentPlayer.getBet();
 		    currentPlayer.bet(betAmount);
 		    addToHighestBet(betAmount);
 		    currentPlayer.changePersonState(PersonState.WAITING);
@@ -114,7 +114,7 @@ public class TexasHoldem extends AbstractGame
     }
 
     @Override public void startGame() {
-	dealer.dealOutNHiddenCards(2);
+	dealer.dealOutNCards(2);
 	setCurrentPlayer(getPlayer());
 	//clockTimer.start();
 	handComparator.setPokerGame(this);
@@ -151,7 +151,6 @@ public class TexasHoldem extends AbstractGame
     }
 
     @Override public boolean dealersTurn() {
-	System.out.println(playersFinished);
 	for	(Person person : getOnlyActivePlayers())	{
 	    if	((person.getLastBet() != highestBet) || !(playersFinished >= getActivePlayers().size()))	{
 		return false;

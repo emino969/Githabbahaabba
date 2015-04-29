@@ -18,7 +18,7 @@ public class testTexasHandComparator
 	cardList.addCard(card4);
 	cardList.addCard(card5);
 	HoldemHandComparator handComparator = new HoldemHandComparator();
-	int hand = handComparator.cardsToStraight(cardList, CardSuit.DONT_CARE);
+	int hand = handComparator.cardsToStraight(cardList);//, CardSuit.DONT_CARE);
 
 	System.out.println("cards to quad : " + handComparator.cardsToQuads(cardList));
 	System.out.println("is quad : " + handComparator.isQuads(cardList));

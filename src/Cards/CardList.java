@@ -159,6 +159,14 @@ public class CardList
 	shuffleDeck();
 	shuffleDeck();
     }
+    public int countSuit(CardSuit suit){
+	int cardCount = 0;
+	for (Card card : cardList) {
+	    if (card.getCardSuit().equals(suit)) cardCount++;
+	}
+
+	return cardCount;
+    }
 
     public void createBlackJackDeck(int nDecks)	{
 	for (int i = 0; i < nDecks; i++) {
