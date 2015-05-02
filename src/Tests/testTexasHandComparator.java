@@ -1,9 +1,9 @@
 package Tests;
 
-import Cards.Card;
-import Cards.CardList;
-import Cards.CardSuit;
-import Cards.CardValue;
+import card.Card;
+import card.CardList;
+import card.CardSuit;
+import card.CardValue;
 import PokerRules.TexasHoldem.HoldemHandComparator;
 
 public class testTexasHandComparator

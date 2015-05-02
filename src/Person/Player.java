@@ -1,6 +1,6 @@
 package Person;
 
-import Cards.CardList;
+import card.CardList;
 import Money.Pot;
 
 import javax.swing.*;

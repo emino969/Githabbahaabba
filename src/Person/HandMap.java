@@ -1,6 +1,6 @@
 package Person;
 
-import Cards.CardList;
+import card.CardList;
 import java.util.ArrayList;
 import java.util.List;
 

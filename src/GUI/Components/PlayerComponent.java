@@ -1,6 +1,6 @@
 package GUI.Components;
 
-import Cards.CardList;
+import card.CardList;
 import Person.Person;
 import Pictures.Images;
 

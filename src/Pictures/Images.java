@@ -1,6 +1,6 @@
 package Pictures;
 
-import Cards.CardSuit;
+import card.CardSuit;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

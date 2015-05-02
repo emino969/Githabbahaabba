@@ -1,4 +1,4 @@
-package CardGameExceptions;
+package cardgameexception;
 
 public class NoSuchCardException extends Exception
 {

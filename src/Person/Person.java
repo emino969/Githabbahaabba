@@ -1,7 +1,7 @@
 package Person;
 
-import Cards.Card;
-import Cards.CardList;
+import card.Card;
+import card.CardList;
 import GameListeners.GameListener;
 import Money.Pot;
 import PokerRules.AbstractGame;

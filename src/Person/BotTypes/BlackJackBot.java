@@ -1,6 +1,6 @@
 package Person.BotTypes;
 
-import Cards.CardValue;
+import card.CardValue;
 import Money.Pot;
 import Person.Person;
 import PokerRules.AbstractGame;
