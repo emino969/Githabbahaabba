@@ -2,7 +2,7 @@ package gui;
 
 import gui.components.PokerComponent;
 import money.Pot;
-import person.Player;
+import Person.Player;
 import pictures.Images;
 import pokerrules.AbstractGame;
 

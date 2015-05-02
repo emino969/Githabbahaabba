@@ -1,10 +1,10 @@
 package table;
 
 import gamelisteners.GameListener;
-import person.Dealer;
-import person.Person;
-import person.PersonState;
-import person.Player;
+import Person.Dealer;
+import Person.Person;
+import Person.PersonState;
+import Person.Player;
 
 import java.util.ArrayList;
 import java.util.Collection;

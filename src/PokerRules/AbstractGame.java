@@ -1,8 +1,8 @@
 package pokerrules;
 
-import person.Dealer;
-import person.Person;
-import person.PersonState;
+import Person.Dealer;
+import Person.Person;
+import Person.PersonState;
 import table.Table;
 
 import javax.swing.*;

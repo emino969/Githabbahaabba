@@ -3,7 +3,7 @@ package gui.components;
 import gamelisteners.GameListener;
 import gui.PlayerFrame;
 import gui.PokerFrame;
-import person.Person;
+import Person.Person;
 import pictures.Images;
 import pokerrules.AbstractGame;
 import table.Table;

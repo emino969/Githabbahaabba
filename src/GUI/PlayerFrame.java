@@ -1,8 +1,8 @@
 package gui;
 
 import gamelisteners.GameListener;
-import person.PersonState;
-import person.Player;
+import Person.PersonState;
+import Person.Player;
 import pokerrules.AbstractGame;
 import pokerrules.AbstractPokermoves;
 import pokerrules.CardGameAction;
