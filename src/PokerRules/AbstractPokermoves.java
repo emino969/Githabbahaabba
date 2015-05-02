@@ -1,6 +1,6 @@
 package pokerrules;
 
-import Person.Person;
+import person.Person;
 
 import java.util.List;
 
