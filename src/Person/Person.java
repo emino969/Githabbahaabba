@@ -3,7 +3,7 @@ package Person;
 import cards.Card;
 import cards.CardList;
 import GameListeners.GameListener;
-import Money.Pot;
+import money.Pot;
 import pokerrules.AbstractGame;
 
 import java.util.ArrayList;

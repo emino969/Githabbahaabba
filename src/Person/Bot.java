@@ -1,6 +1,6 @@
 package Person;
 
-import Money.Pot;
+import money.Pot;
 import pokerrules.AbstractPokermoves;
 import pokerrules.CardGameAction;
 

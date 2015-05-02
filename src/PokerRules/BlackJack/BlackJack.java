@@ -1,9 +1,9 @@
 package pokerrules.blackjack;
 
-import Money.Pot;
-import person.BotTypes.BlackJackBot;
-import person.Person;
-import person.PersonState;
+import money.Pot;
+import Person.bottypes.BlackJackBot;
+import Person.Person;
+import Person.PersonState;
 import pokerrules.AbstractGame;
 import pokerrules.AbstractPokermoves;
 import pokerrules.CardGameAction;

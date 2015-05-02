@@ -1,7 +1,7 @@
 package pokerrules.texasholdem;
 
-import Money.Pot;
-import person.Dealer;
+import money.Pot;
+import Person.Dealer;
 
 public class TexasHoldemDealer extends Dealer
 {
