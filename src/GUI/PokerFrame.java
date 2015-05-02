@@ -16,7 +16,6 @@ public class PokerFrame extends JFrame
     private Images imageHandler;
 
     public PokerFrame(AbstractGame game, String playerName) {
-
 	Player player = new Player(playerName, new Pot(1000));
 
 	this.imageHandler = new Images();

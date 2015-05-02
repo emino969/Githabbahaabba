@@ -63,11 +63,9 @@ public class TexasHoldem extends AbstractGame
     		switch((TexasHoldemAction) cardGameMove)	{
     		    case CALL:
     			this.call();
-			System.out.println("PLAYER " + currentPlayer.getName() + " CALLED");
     			break;
     		    case RAISE:
     			raise();
-			System.out.println("PLAYER " + currentPlayer.getName() + " RAISED");
     			break;
     		    case FOLD:
     			fold();
@@ -133,9 +131,9 @@ public class TexasHoldem extends AbstractGame
 	dealer.collectCards();
 	clearLastBets();
 	dealer.startNewGame();
+	deactivateDealer();
 	setStartingStates();
 	setCurrentPlayer(getPlayer());
-	deactivateDealer();
 	dealer.dealOutNHiddenCards(2);
     }
 
