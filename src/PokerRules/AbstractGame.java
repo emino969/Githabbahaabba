@@ -1,7 +1,9 @@
-package PokerRules;
+package pokerrules;
 
-import Person.*;
-import Table.Table;
+import Person.Dealer;
+import Person.Person;
+import Person.PersonState;
+import table.Table;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

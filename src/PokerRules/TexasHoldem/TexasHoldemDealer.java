@@ -1,4 +1,4 @@
-package PokerRules.TexasHoldem;
+package pokerrules.texasholdem;
 
 import Money.Pot;
 import Person.Dealer;

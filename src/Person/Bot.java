@@ -1,8 +1,8 @@
 package Person;
 
 import Money.Pot;
-import PokerRules.AbstractPokermoves;
-import PokerRules.CardGameAction;
+import pokerrules.AbstractPokermoves;
+import pokerrules.CardGameAction;
 
 import java.util.Random;
 

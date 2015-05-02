@@ -1,6 +1,6 @@
-package PokerRules.BlackJack;
+package pokerrules.blackjack;
 
-import PokerRules.AbstractPokermoves;
+import pokerrules.AbstractPokermoves;
 
 public interface BlackJackMoves extends AbstractPokermoves
 {

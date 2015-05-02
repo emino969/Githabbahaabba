@@ -1,8 +1,8 @@
 package GUI;
 
-import PokerRules.AbstractGame;
-import PokerRules.BlackJack.BlackJack;
-import PokerRules.TexasHoldem.TexasHoldem;
+import pokerrules.AbstractGame;
+import pokerrules.blackjack.BlackJack;
+import pokerrules.texasholdem.TexasHoldem;
 
 import javax.swing.*;
 import java.awt.*;

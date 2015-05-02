@@ -1,6 +1,6 @@
 package GUI.Components;
 
-import Pictures.Images;
+import pictures.Images;
 
 import javax.swing.*;
 import java.awt.*;

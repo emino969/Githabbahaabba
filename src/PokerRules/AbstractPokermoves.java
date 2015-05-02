@@ -1,4 +1,4 @@
-package PokerRules;
+package pokerrules;
 
 import Person.Person;
 

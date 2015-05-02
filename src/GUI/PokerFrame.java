@@ -3,8 +3,8 @@ package GUI;
 import GUI.Components.PokerComponent;
 import Money.Pot;
 import Person.Player;
-import Pictures.Images;
-import PokerRules.AbstractGame;
+import pictures.Images;
+import pokerrules.AbstractGame;
 
 import javax.swing.*;
 import java.awt.*;

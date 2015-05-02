@@ -1,6 +1,6 @@
-package card;
+package cards;
 
-import Pictures.Images;
+import pictures.Images;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package PokerRules;
+package pokerrules;
 
 public interface CardGameAction
 {

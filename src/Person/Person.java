@@ -1,10 +1,10 @@
 package Person;
 
-import card.Card;
-import card.CardList;
+import cards.Card;
+import cards.CardList;
 import GameListeners.GameListener;
 import Money.Pot;
-import PokerRules.AbstractGame;
+import pokerrules.AbstractGame;
 
 import java.util.ArrayList;
 import java.util.List;

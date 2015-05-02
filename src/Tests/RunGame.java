@@ -1,8 +1,8 @@
-package Tests;
+package tests;
 
 import GUI.PokerFrame;
-import PokerRules.AbstractGame;
-import PokerRules.TexasHoldem.TexasHoldem;
+import pokerrules.AbstractGame;
+import pokerrules.texasholdem.TexasHoldem;
 
 public final class RunGame
 {

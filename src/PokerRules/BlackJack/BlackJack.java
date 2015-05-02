@@ -1,11 +1,12 @@
-package PokerRules.BlackJack;
+package pokerrules.blackjack;
 
 import Money.Pot;
-import Person.*;
 import Person.BotTypes.BlackJackBot;
-import PokerRules.AbstractGame;
-import PokerRules.AbstractPokermoves;
-import PokerRules.CardGameAction;
+import Person.Person;
+import Person.PersonState;
+import pokerrules.AbstractGame;
+import pokerrules.AbstractPokermoves;
+import pokerrules.CardGameAction;
 import java.util.ArrayList;
 
 /**

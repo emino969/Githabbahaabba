@@ -1,7 +1,7 @@
 package Person;
 
-import card.Card;
-import card.CardList;
+import cards.Card;
+import cards.CardList;
 import Money.Pot;
 
 public class Dealer extends Person

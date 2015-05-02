@@ -1,10 +1,10 @@
-package Tests;
+package tests;
 
-import card.Card;
-import card.CardList;
-import card.CardSuit;
-import card.CardValue;
-import PokerRules.TexasHoldem.HoldemHandComparator;
+import cards.Card;
+import cards.CardList;
+import cards.CardSuit;
+import cards.CardValue;
+import pokerrules.texasholdem.HoldemHandComparator;
 
 public class testTexasHandComparator
 {

@@ -1,6 +1,6 @@
-package PokerRules.BlackJack;
+package pokerrules.blackjack;
 
-import PokerRules.CardGameAction;
+import pokerrules.CardGameAction;
 
 public enum BlackJackAction implements CardGameAction
 {

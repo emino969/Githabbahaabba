@@ -3,10 +3,10 @@ package GUI;
 import GameListeners.GameListener;
 import Person.PersonState;
 import Person.Player;
-import PokerRules.AbstractGame;
-import PokerRules.AbstractPokermoves;
-import PokerRules.CardGameAction;
-import Table.Table;
+import pokerrules.AbstractGame;
+import pokerrules.AbstractPokermoves;
+import pokerrules.CardGameAction;
+import table.Table;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -1,12 +1,12 @@
 package Person.BotTypes;
 
-import card.CardValue;
+import cards.CardValue;
 import Money.Pot;
 import Person.Person;
-import PokerRules.AbstractGame;
-import PokerRules.AbstractPokermoves;
-import PokerRules.BlackJack.BlackJack;
-import PokerRules.BlackJack.BlackJackAction;
+import pokerrules.AbstractGame;
+import pokerrules.AbstractPokermoves;
+import pokerrules.blackjack.BlackJack;
+import pokerrules.blackjack.BlackJackAction;
 
 import java.util.Random;
 

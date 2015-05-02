@@ -1,4 +1,4 @@
-package Table;
+package table;
 
 import GameListeners.GameListener;
 import Person.Dealer;

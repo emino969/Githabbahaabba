@@ -1,12 +1,12 @@
-package PokerRules.TexasHoldem;
+package pokerrules.texasholdem;
 
 import Money.Pot;
 import Person.BotTypes.TexasHoldEmBot;
 import Person.Person;
 import Person.PersonState;
-import PokerRules.AbstractGame;
-import PokerRules.AbstractPokermoves;
-import PokerRules.CardGameAction;
+import pokerrules.AbstractGame;
+import pokerrules.AbstractPokermoves;
+import pokerrules.CardGameAction;
 
 import java.util.ArrayList;
 import java.util.List;

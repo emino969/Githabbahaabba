@@ -1,11 +1,11 @@
-package PokerRules.TexasHoldem;
+package pokerrules.texasholdem;
 
-import card.Card;
-import card.CardList;
-import card.CardSuit;
-import card.CardValue;
+import cards.Card;
+import cards.CardList;
+import cards.CardSuit;
+import cards.CardValue;
 import Person.Person;
-import PokerRules.AbstractGame;
+import pokerrules.AbstractGame;
 
 import java.util.ArrayList;
 import java.util.Comparator;

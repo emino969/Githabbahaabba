@@ -1,6 +1,6 @@
-package PokerRules.TexasHoldem;
+package pokerrules.texasholdem;
 
-import PokerRules.CardGameAction;
+import pokerrules.CardGameAction;
 
 public enum TexasHoldemAction implements CardGameAction
 {

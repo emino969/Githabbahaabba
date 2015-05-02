@@ -1,8 +1,8 @@
 package GUI.Components;
 
-import card.CardList;
+import cards.CardList;
 import Person.Person;
-import Pictures.Images;
+import pictures.Images;
 
 import javax.swing.*;
 import java.awt.*;

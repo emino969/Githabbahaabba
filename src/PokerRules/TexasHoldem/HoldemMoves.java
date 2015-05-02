@@ -1,6 +1,6 @@
-package PokerRules.TexasHoldem;
+package pokerrules.texasholdem;
 
-import PokerRules.AbstractPokermoves;
+import pokerrules.AbstractPokermoves;
 
 public interface HoldemMoves extends AbstractPokermoves
 {

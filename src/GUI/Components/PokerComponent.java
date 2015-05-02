@@ -4,9 +4,9 @@ import GameListeners.GameListener;
 import GUI.PlayerFrame;
 import GUI.PokerFrame;
 import Person.Person;
-import Pictures.Images;
-import PokerRules.AbstractGame;
-import Table.Table;
+import pictures.Images;
+import pokerrules.AbstractGame;
+import table.Table;
 
 import javax.swing.*;
 import java.awt.*;

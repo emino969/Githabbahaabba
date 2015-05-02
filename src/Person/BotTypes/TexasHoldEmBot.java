@@ -1,17 +1,17 @@
 package Person.BotTypes;
 
-import card.Card;
-import card.CardList;
-import card.CardSuit;
-import card.CardValue;
+import cards.Card;
+import cards.CardList;
+import cards.CardSuit;
+import cards.CardValue;
 import Money.Pot;
 import Person.Person;
 import Person.PersonState;
-import PokerRules.AbstractPokermoves;
-import PokerRules.TexasHoldem.HoldemHandComparator;
-import PokerRules.TexasHoldem.TexasHand;
-import PokerRules.TexasHoldem.TexasHoldem;
-import PokerRules.TexasHoldem.TexasHoldemAction;
+import pokerrules.AbstractPokermoves;
+import pokerrules.texasholdem.HoldemHandComparator;
+import pokerrules.texasholdem.TexasHand;
+import pokerrules.texasholdem.TexasHoldem;
+import pokerrules.texasholdem.TexasHoldemAction;
 /**
  *
  */
