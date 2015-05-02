@@ -2,20 +2,64 @@ package pokerrules.blackjack;
 
 import pokerrules.CardGameAction;
 
+/**
+ *
+ */
 public enum BlackJackAction implements CardGameAction
 {
     HIT,
+    /**
+     *
+     */
     STAND,
+    /**
+     *
+     */
     SPLIT,
+    /**
+     *
+     */
     DOUBLE,
+    /**
+     *
+     */
     BET_25,
+    /**
+     *
+     */
     BET_50,
+    /**
+     *
+     */
     BET_75,
+    /**
+     *
+     */
     DOUBLE_HIT,
+    /**
+     *
+     */
     DOUBLE_STAND,
+    /**
+     *
+     */
     DOUBLE_SURRENDER,
+    /**
+     *
+     */
     SURRENDER,
-    SURRENDER_HIT, BET, RESET_BET;
+    /**
+     *
+     */
+    SURRENDER_HIT,
+    /**
+     *
+     */
+    BET,
+    /**
+     *
+     */
+    RESET_BET;
 
     BlackJackAction() {
 

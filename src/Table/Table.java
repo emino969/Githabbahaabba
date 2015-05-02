@@ -9,7 +9,9 @@ import Person.Player;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
+/**
+ *
+ */
 public class Table
 {
     static private Collection<GameListener> listenerList = new ArrayList<>();

@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 
 import static java.awt.Color.BLACK;
+/**
+ *
+ */
 
 public class DealerComponent extends JComponent
 {
@@ -16,6 +19,8 @@ public class DealerComponent extends JComponent
     private final static int PERSON_RECTANGLE = 10;
     private final static int RECTANGLE_BAR = 2;
     private final static int FONT_SIZE = 20;
+    private final static int CHIP_RADIUS = 30;
+    private final static int GREEN_CHIP_VALUE = 25;
     private int width, height;
     private String name;
     private Images imageHandler;
@@ -44,11 +49,11 @@ public class DealerComponent extends JComponent
 	}
 
 	g.setFont(new Font("Serif", Font.BOLD, FONT_SIZE));
-	g.fillRoundRect(x - width, y, width, height, 10, 10);
+	g.fillRoundRect(x - width, y, width, height, PERSON_RECTANGLE, PERSON_RECTANGLE);
 
 	g.setColor(BLACK);
 	g.fillRoundRect(x + RECTANGLE_BAR / 2 - width, y + RECTANGLE_BAR / 2,
-			width - RECTANGLE_BAR, height - RECTANGLE_BAR, 10, 10);
+			width - RECTANGLE_BAR, height - RECTANGLE_BAR, PERSON_RECTANGLE,PERSON_RECTANGLE );
 
 	g.setColor(Color.WHITE);
 	g.drawString(name, x + PERSON_RECTANGLE - width, y + fm.getHeight());
@@ -89,8 +94,8 @@ public class DealerComponent extends JComponent
 	int chipRowCount = 0;
 	while (0 < money){
 	    Image image = getChipType(row);
-	    g.drawImage(image, x + chipRowCount* 10, y + row * 30, 30, 30, this);
-	    money -= (25+ 25*row);
+	    g.drawImage(image, x + chipRowCount* 10, y + row * CHIP_RADIUS, CHIP_RADIUS, CHIP_RADIUS, this);
+	    money -= (GREEN_CHIP_VALUE + GREEN_CHIP_VALUE * row);
 	    chipRowCount ++ ;
 	    if(chipRowCount == 10){
 		chipRowCount = 0;

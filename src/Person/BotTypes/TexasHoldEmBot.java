@@ -4,7 +4,7 @@ import cards.Card;
 import cards.CardList;
 import cards.CardSuit;
 import cards.CardValue;
-import Money.Pot;
+import money.Pot;
 import Person.Person;
 import Person.PersonState;
 import pokerrules.AbstractPokermoves;

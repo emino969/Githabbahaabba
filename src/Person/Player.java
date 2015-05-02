@@ -4,7 +4,9 @@ import cards.CardList;
 import money.Pot;
 
 import javax.swing.*;
-
+/**
+ *
+ */
 public class Player extends Person
 {
     public Player(String name, Pot pot) {

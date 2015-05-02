@@ -4,7 +4,9 @@ import pictures.Images;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ *
+ */
 public class Card {
     private CardValue cardValue;
     private Color cardColor;

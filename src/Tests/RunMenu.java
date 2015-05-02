@@ -1,7 +1,9 @@
 package tests;
 
 import gui.StartMenu;
-
+/**
+ *
+ */
 public final class RunMenu
 {
     private RunMenu() {}

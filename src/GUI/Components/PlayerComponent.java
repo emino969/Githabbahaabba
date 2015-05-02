@@ -6,7 +6,9 @@ import pictures.Images;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ *
+ */
 public class PlayerComponent extends JComponent
 {
     private Person person;
@@ -17,6 +19,7 @@ public class PlayerComponent extends JComponent
     private final static int RECTANGLE_BAR = 2;
     private final static int BET_CIRCLE_RADIUS = 50;
     private final static int BLACK_CHIP_VALUE = 75;
+    private final static int BORDER_THICKNESS = 10;
     private final static int RED_CHIP_VALUE = 50;
     private final static int GREEN_CHIP_VALUE = 25;
     private Images imageHandler;
@@ -56,10 +59,10 @@ public class PlayerComponent extends JComponent
 
 	//MAKE BOXES WITH INFO
 	g.setFont(new Font("Serif", Font.BOLD, FONT_SIZE));
-	g.fillRoundRect(x, y, width, height, 10, 10);
+	g.fillRoundRect(x, y, width, height, BORDER_THICKNESS, BORDER_THICKNESS);
 
 	g.setColor(Color.BLACK);
-	g.fillRoundRect(x + RECTANGLE_BAR / 2, y + RECTANGLE_BAR / 2, width - RECTANGLE_BAR, height - RECTANGLE_BAR, 10, 10);
+	g.fillRoundRect(x + RECTANGLE_BAR / 2, y + RECTANGLE_BAR / 2, width - RECTANGLE_BAR, height - RECTANGLE_BAR, BORDER_THICKNESS, BORDER_THICKNESS);
 
 	g.setColor(Color.WHITE);
 	g.drawString(name, x + PERSON_RECTANGLE, y + fm.getHeight());
@@ -106,9 +109,9 @@ public class PlayerComponent extends JComponent
 	    case FIRST_SIDE:
 		return x;
 	    case SECOND_SIDE:
-		return x - 40;
+		return x - PERSON_RADIUS;
 	    case THIRD_SIDE:
-		return x + 20;
+		return x + CARD_SPACE;
 	    default:
 		return -1;
 	}
@@ -117,11 +120,11 @@ public class PlayerComponent extends JComponent
     private int recommendedY(TableSeat ts, int y, int indexCardList)	{
 	switch (ts) {
 	    case FIRST_SIDE:
-		return y + 80 * indexCardList;
+		return y + 2*PERSON_RADIUS * indexCardList;
 	    case SECOND_SIDE:
-		return y - 10 - 80 * indexCardList;
+		return y - 10 - 2*PERSON_RADIUS * indexCardList;
 	    case THIRD_SIDE:
-		return y - 80 * indexCardList;
+		return y - 2*PERSON_RADIUS * indexCardList;
 	    default:
 		return -1;
 	}
@@ -130,25 +133,25 @@ public class PlayerComponent extends JComponent
     private void drawHand(CardList cl, final Graphics g, int x, int y)	{
 	for (int i = 0; i < cl.getSize(); i++) {
 	    if	(ts.equals(TableSeat.FIRST_SIDE)) {
-		cl.getCardByIndex(i).draw((Graphics2D) g, x + i * CARD_SPACE, y + 80, this, imageHandler);
+		cl.getCardByIndex(i).draw((Graphics2D) g, x + i * CARD_SPACE, y + 2*PERSON_RADIUS, this, imageHandler);
 	    }	else if(ts.equals(TableSeat.SECOND_SIDE))	{
-		cl.getCardByIndex(i).draw((Graphics2D) g, x - i * CARD_SPACE - 25, y, this, imageHandler);
+		cl.getCardByIndex(i).draw((Graphics2D) g, x - i * CARD_SPACE - CHIP_RADIUS, y, this, imageHandler);
 	    }	else	{
-		cl.getCardByIndex(i).draw((Graphics2D) g, x - i * CARD_SPACE, y - 90, this, imageHandler);
+		cl.getCardByIndex(i).draw((Graphics2D) g, x - i * CARD_SPACE, y - 2*PERSON_RADIUS, this, imageHandler);
 	    }
 	}
     }
     private void drawPlayerBetCircle(final Graphics g, int x ,int y){
 	g.setColor(Color.YELLOW);
 	if(ts.equals(TableSeat.FIRST_SIDE )) {
-	    g.drawOval(x - 120 + PERSON_RADIUS,y + PERSON_RADIUS*2, BET_CIRCLE_RADIUS, BET_CIRCLE_RADIUS);
-	    drawChips(g, x - 120 + PERSON_RADIUS, y + PERSON_RADIUS*2);
+	    g.drawOval(x - 2*PERSON_RADIUS + PERSON_RADIUS,y + PERSON_RADIUS*2, BET_CIRCLE_RADIUS, BET_CIRCLE_RADIUS);
+	    drawChips(g, x - 2*PERSON_RADIUS + PERSON_RADIUS, y + PERSON_RADIUS*2);
 	}else if(ts.equals(TableSeat.SECOND_SIDE)){
-	    g.drawOval(x - PERSON_RADIUS*2 + 20, y - 80, BET_CIRCLE_RADIUS, BET_CIRCLE_RADIUS);
-	    drawChips(g, x - PERSON_RADIUS*2 + 20, y - 80);
+	    g.drawOval(x - PERSON_RADIUS*2 + CARD_SPACE, y - 2*PERSON_RADIUS, BET_CIRCLE_RADIUS, BET_CIRCLE_RADIUS);
+	    drawChips(g, x - PERSON_RADIUS*2 + CARD_SPACE, y - 2*PERSON_RADIUS);
 	}else{
-	    g.drawOval(x + 20 + 70, y - PERSON_RADIUS*2 + 20, BET_CIRCLE_RADIUS, BET_CIRCLE_RADIUS);
-	    drawChips(g, x + 20 + 70, y - PERSON_RADIUS*2 + 20);
+	    g.drawOval(x + CARD_SPACE + 70, y - PERSON_RADIUS*2 + CARD_SPACE, BET_CIRCLE_RADIUS, BET_CIRCLE_RADIUS);
+	    drawChips(g, x + CARD_SPACE + 70, y - PERSON_RADIUS*2 + CARD_SPACE);
 	}
     }
 

@@ -1,4 +1,7 @@
 package cardgameexception;
+/**
+ *
+ */
 
 public class NoSuchCardException extends Exception
 {

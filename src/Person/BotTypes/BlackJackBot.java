@@ -1,7 +1,7 @@
 package Person.BotTypes;
 
 import cards.CardValue;
-import Money.Pot;
+import money.Pot;
 import Person.Person;
 import pokerrules.AbstractGame;
 import pokerrules.AbstractPokermoves;

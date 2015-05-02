@@ -1,5 +1,7 @@
 package money;
-
+/**
+ *
+ */
 public class Pot {
     private int amount;
 

@@ -3,6 +3,9 @@ package Person;
 import cards.Card;
 import cards.CardList;
 import money.Pot;
+/**
+ *
+ */
 
 public class Dealer extends Person
 {

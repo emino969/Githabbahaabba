@@ -5,7 +5,9 @@ import pokerrules.AbstractPokermoves;
 import pokerrules.CardGameAction;
 
 import java.util.Random;
-
+/**
+ *
+ */
 public class Bot extends Person
 {
     public Bot(String name, Pot pot)	{

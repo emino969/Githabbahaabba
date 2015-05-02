@@ -1,7 +1,9 @@
 package pokerrules.blackjack;
 
 import pokerrules.AbstractPokermoves;
-
+/**
+ *
+ */
 public interface BlackJackMoves extends AbstractPokermoves
 {
     public void hit();

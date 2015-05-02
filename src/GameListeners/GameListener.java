@@ -1,4 +1,7 @@
 package gamelisteners;
+/**
+ *
+ */
 
 public interface GameListener
 {

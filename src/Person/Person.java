@@ -8,6 +8,9 @@ import pokerrules.AbstractGame;
 
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * 
+ */
 
 public class Person
 {

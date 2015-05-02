@@ -5,7 +5,9 @@ import cards.CardList;
 import cards.CardSuit;
 import cards.CardValue;
 import pokerrules.texasholdem.HoldemHandComparator;
-
+/**
+ *
+ */
 public class testTexasHandComparator
 {
     private testTexasHandComparator() {}

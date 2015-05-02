@@ -1,7 +1,7 @@
 package pokerrules.texasholdem;
 
 import money.Pot;
-import Person.bottypes.TexasHoldEmBot;
+import Person.BotTypes.TexasHoldEmBot;
 import Person.Person;
 import Person.PersonState;
 import pokerrules.AbstractGame;

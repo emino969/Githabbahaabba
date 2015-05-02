@@ -5,7 +5,9 @@ import pictures.Images;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-
+/**
+ *
+ */
 public class TableComponent extends JComponent
 {
     private List<PlayerComponent> players;

@@ -2,7 +2,9 @@ package cards;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
+/**
+ *
+ */
 public class CardList
 {
     public ArrayList<Card> getCardList() {

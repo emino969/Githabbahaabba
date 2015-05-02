@@ -1,4 +1,10 @@
 package cardgameexception;
+/**
+ *
+ */
+/**
+ *
+ */
 
 public class NoSuchPlayer extends Exception
 {

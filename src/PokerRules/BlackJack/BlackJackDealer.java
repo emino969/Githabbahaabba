@@ -2,7 +2,9 @@ package pokerrules.blackjack;
 
 import money.Pot;
 import Person.Dealer;
-
+/**
+ *
+ */
 public class BlackJackDealer extends Dealer
 {
     private final static int DEALER_LIMIT = 17;
@@ -29,7 +31,7 @@ public class BlackJackDealer extends Dealer
 
     @Override public void turn() {
 	if (hand.isAllCardsVisible()) {
-	    if (hand.getSumAceOnTop() < DEALER_LIMIT && !hitSoft17 || hand.getLegalHandSum() < 17 && hitSoft17) {
+	    if (hand.getSumAceOnTop() < DEALER_LIMIT && !hitSoft17 || hand.getLegalHandSum() < DEALER_LIMIT && hitSoft17) {
 		game.getOptions().makeMove(BlackJackAction.HIT);
 	    } else {
 		game.setIsOverState(true);

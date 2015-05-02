@@ -2,7 +2,9 @@ package pokerrules.texasholdem;
 
 import money.Pot;
 import Person.Dealer;
-
+/**
+ *
+ */
 public class TexasHoldemDealer extends Dealer
 {
     private int round;

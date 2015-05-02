@@ -8,7 +8,9 @@ import pokerrules.AbstractGame;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ *
+ */
 public class PokerFrame extends JFrame
 {
     private static final int DEFAULT_WIDTH = 1400;
