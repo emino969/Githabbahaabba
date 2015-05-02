@@ -12,8 +12,6 @@ import PokerRules.TexasHoldem.HoldemHandComparator;
 import PokerRules.TexasHoldem.TexasHand;
 import PokerRules.TexasHoldem.TexasHoldem;
 import PokerRules.TexasHoldem.TexasHoldemAction;
-
-import java.util.Random;
 /**
  *
  */
@@ -21,18 +19,14 @@ public class TexasHoldEmBot extends Person
 {
     private HoldemHandComparator handComparator;
     private CardList idealHand = new CardList();
-    private TexasHoldem texasHoldem;
     private TexasHand desiredHand = null;
-    private Random rnd = null;
     private BehaviourState behaviourState = null;
     private final static int MAX_DECK_CARDS = 52;
     private boolean raiseThisRound = false;
 
     public TexasHoldEmBot(final String name, final Pot pot, TexasHoldem texasHoldem) {
 	super(name, pot);
-	this.rnd = new Random();
 	this.game = texasHoldem;
-	this.texasHoldem = texasHoldem;
 	this.handComparator = texasHoldem.getHandComparator();
 	this.desiredHand = TexasHand.HIGH_CARD;
 	this.behaviourState = BehaviourState.NEUTRAL;
@@ -54,9 +48,6 @@ public class TexasHoldEmBot extends Person
 	changePersonState(PersonState.WAITING);
     }
 
-    public void setBehaviourState(final BehaviourState behaviourState) {
-	this.behaviourState = behaviourState;
-    }
 
     public TexasHoldemAction getBestMove() {
 	TexasHand myHand = handComparator.getTexasHand(hand);
@@ -68,7 +59,6 @@ public class TexasHoldEmBot extends Person
     }
 
     private TexasHand getDesiredHand() {
-	double handWeight = 0;
 	int desiredMissingCardCount = 0;
 	for (TexasHand texasHand : TexasHand.values()) {
 	    int missingcards = missingCardsToHand(texasHand, hand);
@@ -87,7 +77,7 @@ public class TexasHoldEmBot extends Person
 	int pos = 1;
 	for (Card card : hand.getCardList()) {
 	    int cardCount = game.getDealer().getTableDeck().getCopy().countCardValue(card.getValue());
-	    pos *= Combinatorics.choose(cardsLeft, 4 - cardCount);
+	    pos *= (int) Combinatorics.choose(cardsLeft, 4 - cardCount);
 	    cardsLeft--;
 	}
 	return pos / totPos;

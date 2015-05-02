@@ -13,7 +13,7 @@ public class Card {
     private static final int STRING_SPACE_FROM_MIDDLE = CARD_SIZE_X / 2 - 20;
     private static final int FONT_SPACE = 15;
     private static final int FONT_SIZE = 20;
-    private static final int KNIGHT_INT = 11;
+    private static final int JACK_INT = 11;
     private static final int QUEEN_INT = 12;
     private static final int KING_INT = 13;
     private static final int ACE_INT = 14;
@@ -35,9 +35,9 @@ public class Card {
 
     public Color getColorByCardType() {
 	if(cardSuit == CardSuit.DONT_CARE) return Color.ORANGE;
-	    if (cardSuit == CardSuit.CLUBS || cardSuit == CardSuit.SPADES) return Color.BLACK;
-	    else if (cardSuit == CardSuit.HEARTS || cardSuit == CardSuit.DIAMONDS) return Color.RED;
-	    throw new IllegalArgumentException("There is no such cardtype as" + cardSuit);
+	if (cardSuit == CardSuit.CLUBS || cardSuit == CardSuit.SPADES) return Color.BLACK;
+	else if (cardSuit == CardSuit.HEARTS || cardSuit == CardSuit.DIAMONDS) return Color.RED;
+	throw new IllegalArgumentException("There is no such cardtype as" + cardSuit);
     }
 
 
@@ -91,13 +91,13 @@ public class Card {
 	    case TEN:
 		return 10;
 	    case JACK:
-		return 11;
+		return JACK_INT;
 	    case QUEEN:
-		return 12;
+		return QUEEN_INT;
 	    case KING:
-		return 13;
+		return KING_INT;
 	    case TOP_ACE:
-		return 14;
+		return ACE_INT;
 	    default:
 		return -1;
 
@@ -121,7 +121,7 @@ public class Card {
     private String getSymbolFromInt(int value)	{
 	if	(value <= 10)	{
 	    return String.valueOf(value);
-	}	else if(value == KNIGHT_INT)	{
+	}	else if(value == JACK_INT)	{
 	    return "J";
 	}	else if(value == QUEEN_INT)	{
 	    return "Q";
@@ -135,34 +135,34 @@ public class Card {
 	}
     }
 
-    public void draw(Graphics2D g, int X, int Y, JComponent comp, Images imageHandler)	{
-	final int IMAGE_X = imageHandler.getPrefferedX(cardSuit);
-	final int IMAGE_Y = imageHandler.getPrefferedY(cardSuit);
+    public void draw(Graphics2D g, int x, int y, JComponent comp, Images imageHandler)	{
+	final int imageX = imageHandler.getPrefferedX(cardSuit);
+	final int imageY = imageHandler.getPrefferedY(cardSuit);
 	this.fm = comp.getFontMetrics(new Font("Serif", Font.BOLD, FONT_SIZE));
 
 	if(isVisible) {
 	    g.setColor(Color.WHITE);
-	    g.fillRoundRect(X, Y, CARD_SIZE_X, CARD_SIZE_Y, 10, 10);
+	    g.fillRoundRect(x, y, CARD_SIZE_X, CARD_SIZE_Y, 10, 10);
 
 	    g.setColor(Color.BLACK);
-	    g.drawRoundRect(X, Y, CARD_SIZE_X, CARD_SIZE_Y, 10, 10);
+	    g.drawRoundRect(x, y, CARD_SIZE_X, CARD_SIZE_Y, 10, 10);
 
 	    g.setFont(font);
             g.setColor(cardColor);
 
 	    g.drawString(getSymbolFromInt(getCardIntValue()),
-			 X + CARD_SIZE_X / 2 - STRING_SPACE_FROM_MIDDLE - FONT_SPACE,
-			 Y + CARD_SPACE_TOP);
+			 x + CARD_SIZE_X / 2 - STRING_SPACE_FROM_MIDDLE - FONT_SPACE,
+			 y + CARD_SPACE_TOP);
 
 	    g.drawString(getSymbolFromInt(getCardIntValue()),
-			 X + CARD_SIZE_X / 2 + STRING_SPACE_FROM_MIDDLE + FONT_SPACE - getStringWidth(getSymbolFromInt(getCardIntValue())),
-			 Y + CARD_SIZE_Y - 5);
+			 x + CARD_SIZE_X / 2 + STRING_SPACE_FROM_MIDDLE + FONT_SPACE - getStringWidth(getSymbolFromInt(getCardIntValue())),
+			 y + CARD_SIZE_Y - 5);
 
 	    g.drawImage(imageHandler.getPicture(cardSuit),
-			X + CARD_SIZE_X / 2 - IMAGE_X / 2,
-			Y + CARD_SIZE_Y / 2 - CARD_SPACE_PIC,
-			IMAGE_X,
-			IMAGE_Y,
+			x + CARD_SIZE_X / 2 - imageX / 2,
+			y + CARD_SIZE_Y / 2 - CARD_SPACE_PIC,
+			imageX,
+			imageY,
 			comp);
 
 	    Font newFont = new Font("Serif", Font.BOLD, FONT_SIZE);
@@ -170,17 +170,17 @@ public class Card {
 
         } else{
 	    g.setColor(Color.BLUE);
-	    g.fillRoundRect(X, Y, CARD_SIZE_X, CARD_SIZE_Y, 10, 10);
+	    g.fillRoundRect(x, y, CARD_SIZE_X, CARD_SIZE_Y, 10, 10);
 
 	    g.setColor(Color.BLACK);
-	    g.drawRoundRect(X, Y, CARD_SIZE_X, CARD_SIZE_Y, 10, 10);
+	    g.drawRoundRect(x, y, CARD_SIZE_X, CARD_SIZE_Y, 10, 10);
             }
 	}
 
-    public int getStringWidth(CharSequence string)	{
+    public int getStringWidth(CharSequence anyString)	{
 	int pixelLength = 0;
-	for (int i = 0; i < string.length(); i++) {
-	    pixelLength += fm.charWidth(string.charAt(i));
+	for (int i = 0; i < anyString.length(); i++) {
+	    pixelLength += fm.charWidth(anyString.charAt(i));
 	}
 	return pixelLength;
     }

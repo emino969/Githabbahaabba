@@ -22,9 +22,9 @@ public enum BlackJackAction implements CardGameAction
     }
 
     @Override public String toString() {
-        String string = super.toString();
-        String replacement =  String.valueOf(string.charAt(0));
-        String lowerString = string.toLowerCase();
+        String enumString = super.toString();
+        String replacement =  String.valueOf(enumString.charAt(0));
+        String lowerString = enumString.toLowerCase();
         lowerString = lowerString.replaceFirst(String.valueOf(lowerString.charAt(0)),replacement);
         return lowerString;
     }

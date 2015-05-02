@@ -10,12 +10,13 @@ import PokerRules.AbstractGame;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumMap;
+import java.util.Objects;
 
 public class HoldemHandComparator implements Comparator<Person>
 {
-    private AbstractGame game;
-    private EnumMap<TexasHand, Integer> hands;
-    private int MAX_HAND_SUM = 60;
+    private AbstractGame game = null;
+    private EnumMap<TexasHand, Integer> hands = null;
+    private static final int MAX_HAND_SUM = 60;
     private Comparator<Card> cardComp = new Comparator<Card>()
     	{
     	    @Override public int compare(final Card o1, final Card o2) {
@@ -30,7 +31,7 @@ public class HoldemHandComparator implements Comparator<Person>
 	@Override public int compare(final Integer o1, final Integer o2) {
 	    if (o1 > o2)	{
 		return 1;
-	    }	else if(o1 == o2)	{
+	    }	else if(Objects.equals(o1, o2))	{
 		return 0;
 	    }	else	{
 		return -1;
@@ -53,7 +54,7 @@ public class HoldemHandComparator implements Comparator<Person>
 
     public void setPokerGame(AbstractGame game)	{
 	this.game = game;
-	this.hands = new EnumMap<TexasHand, Integer>(TexasHand.class);
+	this.hands = new EnumMap<>(TexasHand.class);
 	initiateMap();
     }
 
@@ -285,7 +286,6 @@ return cardsToTriplets(hand) == 0;
     }*/
 
     private ArrayList<Card> turnHandToInts(CardList hand)	{
-	ArrayList<Card> cards = new ArrayList<>();
 	CardList cl = game.getDealer().getHand().getCopy();
 	cl.addCard(hand.getCardByIndex(0));
 	cl.addCard(hand.getCardByIndex(1));

@@ -8,6 +8,8 @@ import PokerRules.TexasHoldem.HoldemHandComparator;
 
 public class testTexasHandComparator
 {
+    private testTexasHandComparator() {}
+
     public static void main(String[] args) {
 	CardList cardList = new CardList();
 	Card card1 = new Card(CardSuit.CLUBS, CardValue.THREE);

@@ -20,7 +20,7 @@ public class Person
     protected int betHolder;
     protected int lastBet;
     public HandMap mappedHands;
-    private GameListener gl;
+    private GameListener gl = null;
 
     public Person(String name, Pot pot)	{
 	this.name = name;
@@ -31,6 +31,7 @@ public class Person
 	mappedHands.put(hand, state);
 	//setGameListener();
     }
+
 
     public boolean isTurnLeft()	{
 	return mappedHands.turnsLeft(hand);
@@ -48,13 +49,10 @@ public class Person
 	lastBet = amount;
     }
 
-    public boolean bet(int amount)	{
+    public void bet(int amount)	{
 	if	(pot.getAmount() >= 0)	{
 	    game.getDealer().getTablePot().addAmount(amount);
 	    lastBet += amount;
-	    return true;
-	}	else	{
-	    return false;
 	}
     }
 
@@ -159,7 +157,7 @@ public class Person
     }
 
     @Override public String toString() {
-        System.out.println("Name: " + name + " -- Pot: " + pot + "");
+        System.out.println("Name: " + name + " -- Pot: " + pot);
         System.out.println(hand);
         return "";
     }

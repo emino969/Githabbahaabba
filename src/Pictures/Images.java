@@ -12,9 +12,9 @@ import java.util.Map;
 
 public class Images
 {
-    private BufferedImage imageClub, imageDiamond, imageHeart, imageSpade,
-	    imageBackground, imageTable,
-	    imageRedPokerChip, imageBlackPokerChip, imageGreenPokerChip;
+    private BufferedImage imageClub = null, imageDiamond = null, imageHeart = null, imageSpade = null,
+	    imageBackground = null, imageTable = null,
+	    imageRedPokerChip = null, imageBlackPokerChip = null, imageGreenPokerChip = null;
     private String filePath = "";
     private String clubPic = "club.gif";
     private String diamondPic = "diamond.png";
@@ -31,7 +31,7 @@ public class Images
 
     public Images() {
 	getPictures();
-	this.cardTypesMap = new HashMap<CardSuit, BufferedImage>();
+	this.cardTypesMap = new HashMap<>();
 	cardTypesMap.put(CardSuit.HEARTS, imageHeart);
 	cardTypesMap.put(CardSuit.SPADES, imageSpade);
 	cardTypesMap.put(CardSuit.DIAMONDS, imageDiamond);

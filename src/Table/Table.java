@@ -1,31 +1,27 @@
 package Table;
 
 import GameListeners.GameListener;
-import Money.Pot;
 import Person.Dealer;
 import Person.Person;
 import Person.PersonState;
 import Person.Player;
-import PokerRules.AbstractGame;
 
-import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Table
 {
-    static private List<GameListener> ListenerArray = new ArrayList<GameListener>();
+    static private Collection<GameListener> listenerList = new ArrayList<>();
     protected ArrayList<Person> players;
-    private Pot tablePot;
     protected Dealer dealer = null;
 
     public Table() {
-	this.players = new ArrayList<Person>();
-        this.tablePot = new Pot(0);
+	this.players = new ArrayList<>();
     }
 
     static public void addGameListener(GameListener gl)	{
-	ListenerArray.add(gl);
+	listenerList.add(gl);
     }
 
     public int getPlayersSize()	{
@@ -45,9 +41,9 @@ public class Table
 	return -1;
     }
 
-    public ArrayList<Person> getActivePlayers()	{
+    public List<Person> getActivePlayers()	{
 	//Returns all the active Players
-	ArrayList<Person> persons = new ArrayList<Person>();
+	ArrayList<Person> persons = new ArrayList<>();
 	for	(Person person : players)	{
 	    if	(!(person.isPersonState(PersonState.INACTIVE) || person.isPersonState(PersonState.LOSER) ||
 	    person.isPersonState(PersonState.WINNER))) {
@@ -58,13 +54,13 @@ public class Table
     }
 
     public Iterable<Person> getOnlyPlayers()	{//Everyone besides dealer
-	ArrayList<Person> tempPlayers = new ArrayList<Person>(players);
+	List<Person> tempPlayers = new ArrayList<>(players);
 	tempPlayers.remove(dealer);
 	return tempPlayers;
     }
 
     public Iterable<Person> getOnlyActivePlayers()	{
-	ArrayList<Person> persons = new ArrayList<Person>();
+	List<Person> persons = new ArrayList<>();
 	for	(Person person : players)	{
 	    if	(!(person.isPersonState(PersonState.INACTIVE) || person.isPersonState(PersonState.LOSER) ||
 	    person.isPersonState(PersonState.WINNER))) {
@@ -80,7 +76,7 @@ public class Table
     }
 
     public Iterable<Person> getPlayers()	{
-	return new ArrayList<Person>(players);
+	return new ArrayList<>(players);
     }
 
     public Dealer getDealer()	{
@@ -112,7 +108,7 @@ public class Table
     }
 
     public void notifyListeners()	{
-	for(GameListener gl : ListenerArray)	{
+	for(GameListener gl : listenerList)	{
 	    gl.gameChanged();
 	}
     }

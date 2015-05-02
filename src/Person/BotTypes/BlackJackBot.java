@@ -21,7 +21,6 @@ public class BlackJackBot extends Person
     private BlackJackAction[][]splitArray;
     private BlackJackAction[][] softHandArray;
     private BlackJackAction[][] hardHandArray;
-    private static final int HV_1 = 1;
     private static final int HV_2 = 2;
     private static final int HV_3 = 3;
     private static final int HV_4 = 4;
@@ -39,9 +38,6 @@ public class BlackJackBot extends Person
     private static final int HV_16 = 16;
     private static final int HV_17 = 17;
     private static final int HV_18 = 18;
-    private static final int HV_19 = 19;
-    private static final int HV_20 = 20;
-    private static final int HV_21 = 21;
 
 
 
@@ -97,7 +93,7 @@ public class BlackJackBot extends Person
             return optionArray[hand.getCard(0).getCardIntValue() - HV_2][dealerHandValue - HV_2];
         }
         else if (soft) optionArray  = softHandArray;
-        else optionArray = buildhardHandOptionArray();
+        else optionArray = hardHandArray;
         return optionArray[playerHandValue - HV_4][dealerHandValue - HV_2];
     }
 
@@ -105,9 +101,9 @@ public class BlackJackBot extends Person
         StringBuilder stringBuilder = new StringBuilder();
         int i= 2;
         for (BlackJackAction[] blackJackAction : optionArray) {
-            stringBuilder.append(i+":");
+            stringBuilder.append(i).append(":");
             for (BlackJackAction jackAction : blackJackAction) {
-                stringBuilder.append("|" +jackAction +"|");
+                stringBuilder.append("|").append(jackAction).append("|");
             }
             stringBuilder.append("\n");
             i++;
@@ -123,11 +119,11 @@ public class BlackJackBot extends Person
     }
     private BlackJackAction[][] buildSplitActionArray() {
 
-        BlackJackAction[][] optionArray = new BlackJackAction[12][13];
+        BlackJackAction[][] optionArray = new BlackJackAction[HV_11][HV_12];
         int dealerHandValue = HV_2;
         int playerCardValue = HV_2;
-        for (int c = 0; c < optionArray.length; c++) {
-            for (int r = 0; r < optionArray[c].length; r++) {
+        for (int column = 0; column < optionArray.length; column++) {
+            for (int row = 0; row < optionArray[column].length; row++) {
                 BlackJackAction actionBlock = BlackJackAction.SPLIT;
                 if (playerCardValue == HV_4) actionBlock = BlackJackAction.HIT;
                 if (dealerHandValue == HV_7 && playerCardValue == HV_6) actionBlock = BlackJackAction.HIT;
@@ -136,7 +132,7 @@ public class BlackJackBot extends Person
                 if (playerCardValue == HV_9 && HV_10 <= dealerHandValue) actionBlock = BlackJackAction.STAND;
                 if(HV_10 < playerCardValue && playerCardValue != HV_14) actionBlock = BlackJackAction.HIT;
                 dealerHandValue++;
-                optionArray[c][r] = actionBlock;
+                optionArray[column][row] = actionBlock;
             }
             dealerHandValue = HV_2;
             playerCardValue++;
@@ -149,8 +145,8 @@ public class BlackJackBot extends Person
         BlackJackAction[][] optionArray = new BlackJackAction[HV_18][HV_10];
         int dealerHandValue = HV_2;
         int playerHandValue = HV_4;
-        for (int c = 0; c < optionArray.length; c++) {
-            for (int r = 0; r < optionArray[c].length; r++) {
+        for (int column = 0; column < optionArray.length; column++) {
+            for (int row = 0; row < optionArray[column].length; row++) {
                 BlackJackAction actionBlock = BlackJackAction.STAND;
                 if (playerHandValue <= HV_17 || playerHandValue == HV_18 && HV_9 <= dealerHandValue) actionBlock = BlackJackAction.HIT;
                 if(dealerHandValue <=HV_6) {
@@ -160,7 +156,7 @@ public class BlackJackBot extends Person
                     if((playerHandValue == HV_13 || playerHandValue == HV_14) && HV_5 <= dealerHandValue ) actionBlock = BlackJackAction.DOUBLE_HIT;
                 }
                 dealerHandValue++;
-                optionArray[c][r] = actionBlock;
+                optionArray[column][row] = actionBlock;
             }
             dealerHandValue = HV_2;
             playerHandValue++;
@@ -171,8 +167,8 @@ public class BlackJackBot extends Person
         BlackJackAction[][] optionArray = new BlackJackAction[HV_18][HV_10];
         int dealerHandValue = HV_2;
         int playerHandValue = HV_4;
-        for (int c = 0; c < optionArray.length; c++) {
-            for (int r = 0; r < optionArray[c].length; r++) {
+        for (int column = 0; column < optionArray.length; column++) {
+            for (int row = 0; row < optionArray[column].length; row++) {
                 BlackJackAction actionBlock = BlackJackAction.STAND;
                 if (playerHandValue <= HV_11) actionBlock = BlackJackAction.HIT;
                 if (playerHandValue <= HV_3) actionBlock = BlackJackAction.HIT;
@@ -184,7 +180,7 @@ public class BlackJackBot extends Person
                 if(playerHandValue  == HV_11 && dealerHandValue <=HV_10) actionBlock = BlackJackAction.DOUBLE_HIT;
 
                 dealerHandValue++;
-                optionArray[c][r] = actionBlock;
+                optionArray[column][row] = actionBlock;
             }
             dealerHandValue = HV_2;
             playerHandValue++;

@@ -8,7 +8,6 @@ import java.util.List;
  * The methods all player needs to make a move
  */
 
-import java.util.List;
 
 public interface AbstractPokermoves
 {

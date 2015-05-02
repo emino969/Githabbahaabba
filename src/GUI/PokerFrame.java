@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.Components.PokerComponent;
 import Money.Pot;
 import Person.Player;
 import Pictures.Images;
@@ -10,9 +11,8 @@ import java.awt.*;
 
 public class PokerFrame extends JFrame
 {
-    private static final int closeOperation = EXIT_ON_CLOSE;
-    private static final int defaultWidth = 1400;
-    private static final int defaultHeight = 800;
+    private static final int DEFAULT_WIDTH = 1400;
+    private static final int DEFAULT_HEIGHT = 800;
     private Images imageHandler;
 
     public PokerFrame(AbstractGame game, String playerName) {
@@ -24,7 +24,7 @@ public class PokerFrame extends JFrame
 	game.startGame();
 	//Dousn't kill itself when closed -->
 //	this.setDefaultCloseOperation(closeOperation);
-	setSize(new Dimension(defaultWidth, defaultHeight));
+	setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 	setContentPane(new JLabel(imageHandler.getBackgroundImageIcon()));
 	setLayout(new BorderLayout());
 

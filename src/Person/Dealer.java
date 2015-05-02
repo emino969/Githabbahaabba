@@ -52,14 +52,14 @@ public class Dealer extends Person
 	return tablePot;
     }
 
-    public void giveNCardsToPlayer(Person person, int N)	{
-	for (int i = 0; i < N; i++) {
+    public void giveNCardsToPlayer(Person person, int n)	{
+	for (int i = 0; i < n; i++) {
 	    person.addCard(popCard());
 	}
     }
-    public void dealOutNCards(int N)	{
+    public void dealOutNCards(int n)	{
 	int currentRound = 0;
-	while	(N > currentRound)	{
+	while	(n > currentRound)	{
 	    for	(Person player : game.getActivePlayers())	{
 		player.addCard(this.popCard());
 	    }
@@ -67,9 +67,9 @@ public class Dealer extends Person
 	}
     }
 
-    public void dealOutNHiddenCards(int N)	{
+    public void dealOutNHiddenCards(int n)	{
 	int currentRound = 0;
-	while	(N > currentRound)	{
+	while	(n > currentRound)	{
 	    for	(Person player : game.getActivePlayers())	{
 		if	(player.equals(game.getPlayer()))	{
 		    player.addCard(this.popCard());
@@ -100,6 +100,7 @@ public class Dealer extends Person
 	    player.setHand(player.mappedHands.get(0));
 	}
     }
+
 
     private void throwCards(CardList hand)	{
 	while	(!hand.isEmpty()) {

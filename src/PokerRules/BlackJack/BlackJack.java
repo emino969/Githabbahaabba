@@ -8,16 +8,19 @@ import PokerRules.AbstractPokermoves;
 import PokerRules.CardGameAction;
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class BlackJack extends AbstractGame
 {
     private static final int CHIP_25 = 25;
     private static final int CHIP_50 = 50;
     private static final int CHIP_75 = 75;
-    private static final int BLACKJACK_NUMBER = 21;
     private static final int START_SIZE = 2;
+    private static final int BLACK_JACK = 21;
     private static final int NUMBER_OF_DECKS = 8;
     private static final int DEALER_POT_AMOUNT = 1000;
-    private BlackJackMoves moves = new BlackJackMoves()	{
+    private AbstractPokermoves moves = new BlackJackMoves()	{
     	    @Override public String getHandValue(Person person)	{
     		if	(isBlackJack(person)) {
     		    return " Hand:  BLACKJACK  ";
@@ -54,8 +57,8 @@ public class BlackJack extends AbstractGame
     	    }
 
 
-    	    @Override  public void makeMove(CardGameAction blackJackAction) {
-    	 	switch((BlackJackAction) blackJackAction){
+    	    @Override  public void makeMove(CardGameAction cardGameAction) {
+    	 	switch((BlackJackAction) cardGameAction){
     	 	    case HIT:
     	 		hit();
     	 		break;
@@ -102,7 +105,8 @@ public class BlackJack extends AbstractGame
 			currentPlayer.resetBet();
 			currentPlayer.resetLastBet();
 			notifyListeners();
-    	 	    default:
+			break;
+		    default:
     			break;
     	 	}
 		updatePlayerState(currentPlayer);
@@ -247,15 +251,15 @@ public class BlackJack extends AbstractGame
     }
 
     private boolean isBlackJack(Person person)	{
-	return person.getHand().getLegalHandSum() == 21 && person.getHand().getSize() == 2;
+	return person.getHand().getLegalHandSum() == BLACK_JACK && person.getHand().getSize() == 2;
     }
 
     private boolean isPersonBusted(Person person)	{
-	return person.getHand().getLegalHandSum() > 21;
+	return person.getHand().getLegalHandSum() > BLACK_JACK;
     }
 
     private boolean isDealerBusted()	{
-	return dealer.getHand().getSumAceOnTop() > 21 ;
+	return dealer.getHand().getSumAceOnTop() > BLACK_JACK ;
     }
 
     private void makeToLoser(Person person)	{
@@ -303,14 +307,14 @@ public class BlackJack extends AbstractGame
     }
 
     @Override public void addBots() {
-	BlackJackBot PlayerBot = new BlackJackBot("Bot", new Pot(1000),this);
-	BlackJackBot SuperMario = new BlackJackBot("SuperMario", new Pot(1000), this);
-	BlackJackBot SuperBot = new BlackJackBot("SuperBot", new Pot(1000), this);
-	BlackJackBot SuperPlayer = new BlackJackBot("SuperPlayer", new Pot(1000), this);
-	addPlayer(PlayerBot);
-	addPlayer(SuperMario);
-	addPlayer(SuperPlayer);
-	addPlayer(SuperBot);
+	BlackJackBot playerBot = new BlackJackBot("Bot", new Pot(1000),this);
+	BlackJackBot superMario = new BlackJackBot("SuperMario", new Pot(1000), this);
+	BlackJackBot superBot = new BlackJackBot("SuperBot", new Pot(1000), this);
+	BlackJackBot superPlayer = new BlackJackBot("SuperPlayer", new Pot(1000), this);
+	addPlayer(playerBot);
+	addPlayer(superMario);
+	addPlayer(superPlayer);
+	addPlayer(superBot);
     }
 
     @Override public AbstractPokermoves getOptions() {

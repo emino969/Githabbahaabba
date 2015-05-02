@@ -11,9 +11,9 @@ import java.awt.event.ActionListener;
 
 public class StartMenu extends JFrame
 {
-    private static final int closeOperation = EXIT_ON_CLOSE;
-    private static final int defaultWidth = 400;
-    private static final int defaultHeight = 400;
+    private static final int CLOSE_OPERATION = EXIT_ON_CLOSE;
+    private static final int DEFAULT_WIDTH = 400;
+    private static final int DEFAULT_HEIGHT = 400;
     private final static String WELCOME_TEXT = "SELECT A GAME";
     private JButton blackJack;
     private JButton texasHoldem;
@@ -43,29 +43,29 @@ public class StartMenu extends JFrame
 	    }
 	});
 
-	setDefaultCloseOperation(closeOperation);
-	setSize(new Dimension(defaultWidth, defaultHeight));
+	setDefaultCloseOperation(CLOSE_OPERATION);
+	setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 	setLayout(new GridBagLayout());
 	setOptions();
     }
 
     private void setOptions()	{
-	GridBagConstraints c = new GridBagConstraints();
+	GridBagConstraints constraints = new GridBagConstraints();
 
-	c.fill = GridBagConstraints.HORIZONTAL;
-	c.weighty = 0;
-	c.gridy = 0;
-	add(labelMessage, c);
+	constraints.fill = GridBagConstraints.HORIZONTAL;
+	constraints.weighty = 0;
+	constraints.gridy = 0;
+	add(labelMessage, constraints);
 
-	c.fill = GridBagConstraints.HORIZONTAL;
-	c.weighty = 1;
-	c.gridy = 1;
-	add(blackJack, c);
+	constraints.fill = GridBagConstraints.HORIZONTAL;
+	constraints.weighty = 1;
+	constraints.gridy = 1;
+	add(blackJack, constraints);
 
-	c.fill = GridBagConstraints.HORIZONTAL;
-	c.weighty = 0;
-	c.gridy = 2;
-	add(texasHoldem, c);
+	constraints.fill = GridBagConstraints.HORIZONTAL;
+	constraints.weighty = 0;
+	constraints.gridy = 2;
+	add(texasHoldem, constraints);
     }
 
     private void runGame(AbstractGame game) {

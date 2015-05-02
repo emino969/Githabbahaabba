@@ -85,12 +85,11 @@ public class DealerComponent extends JComponent
 
     private void drawChips(final Graphics g, int x, int y) {
 	int money = dealer.getPot().getAmount();
-	Image image;
 	int row = 0;
 	int chipRowCount = 0;
 	while (0 < money){
-	    image = getChipType(row);
-	    g.drawImage(image, x + chipRowCount* 10, y + row*30, 30, 30, this);
+	    Image image = getChipType(row);
+	    g.drawImage(image, x + chipRowCount* 10, y + row * 30, 30, 30, this);
 	    money -= (25+ 25*row);
 	    chipRowCount ++ ;
 	    if(chipRowCount == 10){
@@ -126,10 +125,10 @@ public class DealerComponent extends JComponent
 	}
     }
 
-    public int getStringWidth(CharSequence string)	{
+    public int getStringWidth(CharSequence anyString)	{
 	int pixelLength = 0;
-	for (int i = 0; i < string.length(); i++) {
-	    pixelLength += fm.charWidth(string.charAt(i));
+	for (int i = 0; i < anyString.length(); i++) {
+	    pixelLength += fm.charWidth(anyString.charAt(i));
 	}
 	return pixelLength;
     }

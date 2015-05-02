@@ -1,6 +1,5 @@
 package GUI.Components;
 
-import GUI.PokerComponent;
 import Pictures.Images;
 
 import javax.swing.*;
@@ -42,7 +41,6 @@ public class TableComponent extends JComponent
 
 
     public void drawTable(Graphics g)	{
-	int xPos,yPos;
 	g.setColor(Color.BLACK);
 	g.fillRect(tableX - BAR_SIZE, tableY - BAR_SIZE, width + BAR_SIZE * 2, height + BAR_SIZE * 2);
 	g.drawImage(imageHandler.getTable(), tableX, tableY, width, height, this);
@@ -51,9 +49,9 @@ public class TableComponent extends JComponent
 	int yPos = tableY;
 	 */
 	for (PlayerComponent player : players) {
-	    yPos = getPrefferedYSeat(player);
-	    xPos = getPrefferedXSeat(player);
-	    player.drawPlayer(g, xPos, yPos, getTableSide(player), tableX, tableY);
+	    int yPos = getPrefferedYSeat(player);
+	    int xPos = getPrefferedXSeat(player);
+	    player.drawPlayer(g, xPos, yPos, getTableSide(player));
 	}
 	dealer.drawDealer(g, tableX - 30, tableY + height / 2 - 30);
     }

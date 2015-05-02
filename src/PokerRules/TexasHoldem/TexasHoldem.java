@@ -7,12 +7,13 @@ import Person.PersonState;
 import PokerRules.AbstractGame;
 import PokerRules.AbstractPokermoves;
 import PokerRules.CardGameAction;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TexasHoldem extends AbstractGame
 {
-    private AbstractGame game;
+    private AbstractGame game = null;
     private int smallBlind, highestBet, bigBlind;
     private final static int CHIP_25 = 25;
     private final static int CHIP_50 = 50;
@@ -59,8 +60,8 @@ public class TexasHoldem extends AbstractGame
     		return options;
     	    }
 
-    	    @Override public void makeMove(CardGameAction cardGameMove)	{
-    		switch((TexasHoldemAction) cardGameMove)	{
+    	    @Override public void makeMove(CardGameAction cardGameAction)	{
+    		switch((TexasHoldemAction) cardGameAction)	{
     		    case CALL:
     			this.call();
     			break;
@@ -138,14 +139,14 @@ public class TexasHoldem extends AbstractGame
     }
 
     @Override public void addBots() {
-	TexasHoldEmBot PlayerBot = new TexasHoldEmBot("Bot", new Pot(1000),this);
-	TexasHoldEmBot SuperMario = new TexasHoldEmBot("SuperMario", new Pot(1000), this);
-	TexasHoldEmBot SuperBot = new TexasHoldEmBot("SuperBot", new Pot(1000), this);
-	TexasHoldEmBot SuperPlayer = new TexasHoldEmBot("SuperPlayer", new Pot(1000), this);
-	addPlayer(PlayerBot);
-	addPlayer(SuperMario);
-	addPlayer(SuperPlayer);
-	addPlayer(SuperBot);
+	TexasHoldEmBot playerBot = new TexasHoldEmBot("Bot", new Pot(1000),this);
+	TexasHoldEmBot superMario = new TexasHoldEmBot("SuperMario", new Pot(1000), this);
+	TexasHoldEmBot superBot = new TexasHoldEmBot("SuperBot", new Pot(1000), this);
+	TexasHoldEmBot superPlayer = new TexasHoldEmBot("SuperPlayer", new Pot(1000), this);
+	addPlayer(playerBot);
+	addPlayer(superMario);
+	addPlayer(superPlayer);
+	addPlayer(superBot);
     }
 
     @Override public boolean dealersTurn() {
@@ -162,9 +163,9 @@ public class TexasHoldem extends AbstractGame
     }
 
 
-    @Override public void addPlayer(Person player)	{
-	player.setGame(this);
-	players.add(player);
+    @Override public void addPlayer(Person person)	{
+	person.setGame(this);
+	players.add(person);
     }
 
     @Override public AbstractPokermoves getOptions()	{

@@ -18,9 +18,8 @@ public abstract class AbstractGame extends Table
     protected boolean isOverState;
     protected int currentPlayerIndex;
     protected Timer clockTimer;
-private AbstractPokermoves moves = null; //Get's assigned in subclass
 
-    public AbstractGame(Dealer dealer) {
+    protected AbstractGame(Dealer dealer) {
 	 setDealer(dealer);
 	this.dealer.setGame(this);
 	this.currentPlayer = null;
@@ -34,7 +33,6 @@ private AbstractPokermoves moves = null; //Get's assigned in subclass
 
 	this.clockTimer = new Timer(AbstractGame.DELAY, move); //The clockTimer that should be used in the subclasses also
 	clockTimer.setCoalesce(true);
-	setOptions(getOptions());
     }
 
 
@@ -118,9 +116,6 @@ private AbstractPokermoves moves = null; //Get's assigned in subclass
 	return currentPlayer;
     }
 
-    public void setOptions(AbstractPokermoves moves)	{
-	this.moves = moves;
-    }
 
     public void stopClock()	{
 	clockTimer.stop();

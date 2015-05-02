@@ -2,6 +2,7 @@ package Person;
 
 import Cards.CardList;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HandMap
 {
@@ -45,7 +46,7 @@ public class HandMap
 	hands.remove(hand);
     }
 
-    public ArrayList<CardList> getHands()	{
+    public List<CardList> getHands()	{
 	return hands;
     }
 

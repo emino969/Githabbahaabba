@@ -9,31 +9,19 @@ public class CardList
         return cardList;
     }
 
-    public boolean contains(Card card)  {
-        return cardList.contains(card);
-    }
     private ArrayList<Card> cardList;
     private static final int ACE_INT = 11;
     private static final int TEN_TO_KING_INT = 10;
     private static final int BLACKJACK_NUMBER = 21;
 
     public CardList()   {
-        this.cardList = new ArrayList<Card>();
-    }
-
-    public boolean containsIntValue(Card card)	{
-	for (Card c : cardList) {
-	    if (c.getCardIntValue() == card.getCardIntValue()) {
-		return true;
-	    }
-	}
-	return false;
+        this.cardList = new ArrayList<>();
     }
 
     public int countIntValue(int value)	{
 	int i = 0;
-	for (Card c : cardList) {
-	    if (c.getCardIntValue() == value) {
+	for (Card card : cardList) {
+	    if (card.getCardIntValue() == value) {
 		i++;
 	    }
 	}
@@ -41,7 +29,7 @@ public class CardList
     }
 
     public int getLegalHandSum()	{
-	int numberOfAces = countIntValue(14);
+	int numberOfAces = countIntValue(ACE_INT);
 	int maxSum = getSumAceOnTop();
 	for (int i = 1; i < numberOfAces + 1; i++) {
 	    if ((maxSum > BLACKJACK_NUMBER) && (maxSum - i * 10 <= BLACKJACK_NUMBER))	{
@@ -53,18 +41,18 @@ public class CardList
 
     public int countCardValue(CardValue cv)	{
 	int i = 0;
-	for (Card c : cardList) {
-	    if (c.getValue().equals(cv)) {
+	for (Card card : cardList) {
+	    if (card.getValue().equals(cv)) {
 		i++;
 	    }
 	}
 	return i;
     }
 
-    public int countIntValue(Card card)	{
+    public int countIntValue(Card card2)	{
 	int i = 0;
-	    for (Card c : cardList) {
-		if (c.getCardIntValue() == card.getCardIntValue()) {
+	    for (Card card1 : cardList) {
+		if (card1.getCardIntValue() == card2.getCardIntValue()) {
 		    i++;
 		}
 	    }
@@ -141,10 +129,6 @@ public class CardList
 	return cardList.get(index);
     }
 
-    public void setCardList(ArrayList<Card> cardList){
-          this.cardList = cardList;
-    }
-
     public void createOrdinaryDeck(){
 	for (CardSuit cardType : CardSuit.values()) {
 	    if(cardType != CardSuit.DONT_CARE) {
@@ -174,11 +158,10 @@ public class CardList
 	}
     }
 
-    public CardList addCardList(CardList cl)	{
+    public void addCardList(CardList cl)	{
 	for (int i = 0; i < cl.getSize(); i++) {
 	    cardList.add(cl.getCard(i));
 	}
-	return cl;
     }
 
     public void shuffleDeck()   {
@@ -201,6 +184,27 @@ public class CardList
 	return cardList.get(index);
     }
 
+
+
+    @Override public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Card card : cardList) {
+            stringBuilder.append(card).append(" ");
+        }
+        return stringBuilder.toString();    }
+
+    public boolean containsCardValue(final CardValue cardValue) {
+            for (Card card : cardList) {
+                if(card.getValue() == cardValue) return true;
+            }
+            return false;
+        }
+
+    public void addNCards(final Card cardOne, final int n) {
+	for (int i = 0; i< n; i++) {
+	    addCard(cardOne);
+	}
+    }
     public int getSumAceOnTop()	{
 	int sum = 0;
 	for (int i = 0; i < this.getSize(); i++) {
@@ -231,26 +235,6 @@ public class CardList
 		}
 	    }
 	return sum;
-    }
-
-    @Override public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Card card : cardList) {
-            stringBuilder.append(card).append(" ");
-        }
-        return stringBuilder.toString();    }
-
-    public boolean containsCardValue(final CardValue cardValue) {
-            for (Card card : cardList) {
-                if(card.getValue() == cardValue) return true;
-            }
-            return false;
-        }
-
-    public void addNCards(final Card cardOne, final int n) {
-	for (int i = 0; i< n; i++) {
-	    addCard(cardOne);
-	}
     }
 }
 

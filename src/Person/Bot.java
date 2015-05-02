@@ -13,10 +13,10 @@ public class Bot extends Person
     }
 
     @Override public void turn()	{
-	AbstractPokermoves APm = game.getOptions();
+	AbstractPokermoves abstractPokermoves = game.getOptions();
 	Random rand = new Random();
-	CardGameAction nextMove = APm.getOptions(this).get(rand.nextInt(APm.getOptions(this).size()));
-	APm.makeMove(nextMove);
+	CardGameAction nextMove = abstractPokermoves.getOptions(this).get(rand.nextInt(abstractPokermoves.getOptions(this).size()));
+	abstractPokermoves.makeMove(nextMove);
     }
 
     private int betAmount() {

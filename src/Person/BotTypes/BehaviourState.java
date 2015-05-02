@@ -2,7 +2,7 @@ package Person.BotTypes;
 /**
  * State reffering to a bots behaviour, dictating how risky they play.
  */
-public enum BehaviourState
+enum BehaviourState
 {
     /**
      * the bot acts carefully, betting conservatively, playing on lower odds.
