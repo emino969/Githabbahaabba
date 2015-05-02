@@ -1,9 +1,9 @@
 package pokerrules.texasholdem;
 
 import Money.Pot;
-import Person.BotTypes.TexasHoldEmBot;
-import Person.Person;
-import Person.PersonState;
+import person.BotTypes.TexasHoldEmBot;
+import person.Person;
+import person.PersonState;
 import pokerrules.AbstractGame;
 import pokerrules.AbstractPokermoves;
 import pokerrules.CardGameAction;

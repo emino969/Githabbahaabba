@@ -4,7 +4,7 @@ import cards.Card;
 import cards.CardList;
 import cards.CardSuit;
 import cards.CardValue;
-import Person.Person;
+import person.Person;
 import pokerrules.AbstractGame;
 
 import java.util.ArrayList;

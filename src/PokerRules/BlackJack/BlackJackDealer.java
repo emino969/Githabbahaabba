@@ -1,7 +1,7 @@
 package pokerrules.blackjack;
 
 import Money.Pot;
-import Person.Dealer;
+import person.Dealer;
 
 public class BlackJackDealer extends Dealer
 {
