@@ -1,4 +1,4 @@
-package GameListeners;
+package gamelisteners;
 
 public interface GameListener
 {

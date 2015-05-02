@@ -1,6 +1,6 @@
 package tests;
 
-import GUI.PokerFrame;
+import gui.PokerFrame;
 import pokerrules.AbstractGame;
 import pokerrules.texasholdem.TexasHoldem;
 

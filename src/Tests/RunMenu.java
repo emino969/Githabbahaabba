@@ -1,6 +1,6 @@
 package tests;
 
-import GUI.StartMenu;
+import gui.StartMenu;
 
 public final class RunMenu
 {

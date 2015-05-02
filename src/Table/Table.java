@@ -1,6 +1,6 @@
 package table;
 
-import GameListeners.GameListener;
+import gamelisteners.GameListener;
 import Person.Dealer;
 import Person.Person;
 import Person.PersonState;

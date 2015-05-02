@@ -1,4 +1,4 @@
-package GUI.Components;
+package gui.components;
 
 import Person.Dealer;
 import pictures.Images;

@@ -1,8 +1,8 @@
-package GUI.Components;
+package gui.components;
 
-import GameListeners.GameListener;
-import GUI.PlayerFrame;
-import GUI.PokerFrame;
+import gamelisteners.GameListener;
+import gui.PlayerFrame;
+import gui.PokerFrame;
 import Person.Person;
 import pictures.Images;
 import pokerrules.AbstractGame;

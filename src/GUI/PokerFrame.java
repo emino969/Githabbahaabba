@@ -1,6 +1,6 @@
-package GUI;
+package gui;
 
-import GUI.Components.PokerComponent;
+import gui.components.PokerComponent;
 import money.Pot;
 import Person.Player;
 import pictures.Images;

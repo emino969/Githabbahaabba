@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import pokerrules.AbstractGame;
 import pokerrules.blackjack.BlackJack;

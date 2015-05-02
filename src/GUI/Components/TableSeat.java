@@ -1,4 +1,4 @@
-package GUI.Components;
+package gui.components;
 
 public enum TableSeat
 {
