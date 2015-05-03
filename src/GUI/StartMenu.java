@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 /**
- *
+ * startmenu handles startmenu and its deriving components, its buttons and the initializing of correct game.
  */
 public class StartMenu extends JFrame
 {

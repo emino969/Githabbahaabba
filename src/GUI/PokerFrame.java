@@ -9,7 +9,7 @@ import pokerrules.AbstractGame;
 import javax.swing.*;
 import java.awt.*;
 /**
- *
+ * PokerFrame is the main frame for the cardgame, it contains the pokercomponent and its derivatives.
  */
 public class PokerFrame extends JFrame
 {

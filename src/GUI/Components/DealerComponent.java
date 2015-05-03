@@ -7,7 +7,7 @@ import java.awt.*;
 
 import static java.awt.Color.BLACK;
 /**
- *
+ * dealercomponent is a graphical representaton of a dealer, tablepot, tabledeck.
  */
 
 public class DealerComponent extends JComponent

@@ -5,7 +5,7 @@ import pictures.Images;
 import javax.swing.*;
 import java.awt.*;
 /**
- *
+ *  Card class represents a card in a traditional 52 card deck
  */
 public class Card {
     private CardValue cardValue;

@@ -4,7 +4,7 @@ import cards.Card;
 import cards.CardList;
 import money.Pot;
 /**
- *
+ * dealer handles dealing nad collection of cards, dealing out and storing of tablepot
  */
 
 public class Dealer extends Person

@@ -3,7 +3,7 @@ package cards;
 import java.util.ArrayList;
 import java.util.Collections;
 /**
- *
+ * a cardlist is a generic list of any size of cards.
  */
 public class CardList
 {

@@ -13,7 +13,7 @@ import pokerrules.texasholdem.TexasHand;
 import pokerrules.texasholdem.TexasHoldem;
 import pokerrules.texasholdem.TexasHoldemAction;
 /**
- *
+ * a texasholdembot
  */
 public class TexasHoldEmBot extends Person
 {

@@ -1,6 +1,6 @@
 package money;
 /**
- *
+ * pot is an object representing a stash of money
  */
 public class Pot {
     private int amount;

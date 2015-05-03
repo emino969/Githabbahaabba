@@ -7,7 +7,7 @@ import pictures.Images;
 import javax.swing.*;
 import java.awt.*;
 /**
- *
+ * playercomponent handles graphical representation of if a player ( AI or HUMAN) handles drawing of chips, hand name etc
  */
 public class PlayerComponent extends JComponent
 {

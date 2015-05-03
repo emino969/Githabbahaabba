@@ -6,7 +6,7 @@ import pokerrules.CardGameAction;
 
 import java.util.Random;
 /**
- *
+ * bot defines generic behaviour relying on random moves.
  */
 public class Bot extends Person
 {

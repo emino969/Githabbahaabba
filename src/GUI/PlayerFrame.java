@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 /**
- *
+ * playerframe handles the human players options was well as its status texts in the buttonpanel
  */
 public class PlayerFrame extends JToolBar
 {

@@ -1,6 +1,6 @@
 package gui.components;
 /**
- *
+ * Used to identify a fixed position around the tablecomponent
  */
 public enum TableSeat
 {

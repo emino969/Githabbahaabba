@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 /**
- *
+ * Pokercomponent is the main component class, other compnents derive from the construction of this one
  */
 public class PokerComponent extends JComponent
 {
