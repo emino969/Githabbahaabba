@@ -112,6 +112,7 @@ public class Table
     public void notifyListeners()	{
 	for(GameListener gl : listenerList)	{
 	    gl.gameChanged();
+	    System.out.println(gl.getClass().getName());
 	}
     }
 
