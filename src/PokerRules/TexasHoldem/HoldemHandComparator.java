@@ -291,6 +291,7 @@ return cardsToTriplets(hand) == 0;
 	}
 	return (sum1 >= 5 || sum2 >= 5);
     }*/
+
     public int cardsToFlush(CardList hand) {
    	Card cardOne = hand.getCardByIndex(0);
    	Card cardTwo = hand.getCardByIndex(1);

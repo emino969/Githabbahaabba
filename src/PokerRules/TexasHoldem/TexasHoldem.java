@@ -38,7 +38,7 @@ public class TexasHoldem extends AbstractGame
     	    @Override public void raise()	{
 		int betHolder = currentPlayer.getBet();
 		int betAmount =  highestBet - currentPlayer.getLastBet() + betHolder;
-		if(25 < betAmount){
+		if(25 <= betAmount){
 		    currentPlayer.bet(betAmount);
 		    addToHighestBet(betAmount);
 		    currentPlayer.changePersonState(PersonState.WAITING);

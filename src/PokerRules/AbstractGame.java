@@ -2,7 +2,6 @@ package PokerRules;
 
 import Person.*;
 import Table.Table;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,15 +17,14 @@ public abstract class AbstractGame extends Table
     protected boolean isOverState;
     protected int currentPlayerIndex;
     protected Timer clockTimer;
-private AbstractPokermoves moves = null; //Get's assigned in subclass
+    private AbstractPokermoves moves = null; //Get's assigned in subclass
 
     public AbstractGame(Dealer dealer) {
 	 setDealer(dealer);
 	this.dealer.setGame(this);
 	this.currentPlayer = null;
 	this.currentPlayerIndex = -1;
-	    final ActionListener move = new AbstractAction()
-	    {
+	final ActionListener move = new AbstractAction() {
 		@Override public void actionPerformed(ActionEvent e) {
 		    runGameForward();
 		}

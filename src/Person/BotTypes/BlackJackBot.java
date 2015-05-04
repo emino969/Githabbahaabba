@@ -58,7 +58,6 @@ public class BlackJackBot extends Person
     }
     @Override public void turn(){
 	if(this.hasTurn()) {
-            printOptionArrays();
             AbstractPokermoves aca = game.getOptions();
             if (hand.isEmpty()) {
                 int betOption = rnd.nextInt(3);
