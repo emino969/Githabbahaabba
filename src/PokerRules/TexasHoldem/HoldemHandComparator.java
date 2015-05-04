@@ -18,9 +18,9 @@ public class HoldemHandComparator implements Comparator<Person>
     private int MAX_HAND_SUM = 60;
     private Comparator<Card> cardComp = new Comparator<Card>()
     	{
-    	    @Override public int compare(final Card o1, final Card o2) {
-		int i1 = o1.getCardIntValue();
-		int i2 = o2.getCardIntValue();
+    	    @Override public int compare(final Card card1, final Card card2) {
+		int i1 = card1.getCardIntValue();
+		int i2 = card2.getCardIntValue();
     		return intComp.compare(i1, i2);
     	    }
     	};
@@ -41,9 +41,11 @@ public class HoldemHandComparator implements Comparator<Person>
     @Override public int compare(Person p1, Person p2){
 	TexasHand th1 = getTexasHand(p1.getHand());
 	TexasHand th2 = getTexasHand(p2.getHand());
-	if	(getValue(th1) < getValue(th2) || p1.getHand().getSumAceOnTop() < p2.getHand().getSumAceOnTop())	{
+	if	(getValue(th1) < getValue(th2))	{
 	    return 1;
 	}	else if	(getValue(th1) == getValue(th2))	{
+	    if(p1.getHand().getSumAceOnTop() < p2.getHand().getSumAceOnTop()) return 1;
+	    if(p2.getHand().getSumAceOnTop() < p1.getHand().getSumAceOnTop()) return -1;
 	    return compareSameHands(p1.getHand(), p2.getHand());
 	}	else	{
 	    return -1;
@@ -134,12 +136,7 @@ public class HoldemHandComparator implements Comparator<Person>
         }
 
     public boolean isOnePair(CardList hand) {
-	Card c1 = hand.getCardByIndex(0);
-	Card c2 = hand.getCardByIndex(1);
-	CardList cl = getTableDeck();
-	cl.addCard(c1);
-	cl.addCard(c2);
-	return (cl.countIntValue(c1) == 2 || cl.countIntValue(c2) == 2);
+	return cardsToPair(hand) == 0;
     }
 /*
     public boolean isTwoPair(CardList hand)	{

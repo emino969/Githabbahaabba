@@ -43,7 +43,7 @@ public class TexasHoldEmBot extends Person
 	AbstractPokermoves abstractPokermoves = game.getOptions();
 	if (this.hasTurn()) {
 	    if(raiseThisRound) abstractPokermoves.makeMove(TexasHoldemAction.CALL);
-	    if (game.getDealer().getHand().getCopy().getSize() <= 3) {
+	    else if (game.getDealer().getHand().getCopy().getSize() <= 3) {
 		abstractPokermoves.makeMove(TexasHoldemAction.CALL);
 	    } else {
 		TexasHoldemAction texasHoldemAction = getBestMove();
@@ -51,7 +51,6 @@ public class TexasHoldEmBot extends Person
 		abstractPokermoves.makeMove(getBestMove());
 	    }
 	}
-	changePersonState(PersonState.WAITING);
     }
 
     public void setBehaviourState(final BehaviourState behaviourState) {
@@ -101,7 +100,6 @@ public class TexasHoldEmBot extends Person
 
     private void updateBehaviour(final int myhandValue, final int desiredHandValue) {
 	double average = (myhandValue + desiredHandValue) / 2; // average € [HIGH_CARD.ordinal(), ROYAL_FLUSH.ordinal()}
-	//System.out.println("average" + average);
 	if (average < 3) {
 	    this.behaviourState = BehaviourState.CAREFUL;
 	}

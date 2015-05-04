@@ -317,12 +317,12 @@ public class BlackJack extends AbstractGame
 	return moves;
     }
 
-    @Override public boolean dealersTurn() {
+    @Override public boolean isDealersTurn() {
 	return getActivePlayers().isEmpty();
     }
 
     @Override public boolean playersTurn() {
-	return !dealersTurn();
+	return !isDealersTurn();
     }
 
     @Override public void dealerMove() {

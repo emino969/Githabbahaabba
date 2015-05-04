@@ -21,8 +21,14 @@ public class TexasHoldem extends AbstractGame
     private HoldemHandComparator handComparator = new HoldemHandComparator();
     private AbstractPokermoves moves = new HoldemMoves()	{
     	    @Override public void call()	{
+		int betAmount;
 		currentPlayer.resetBet(); //reset the current proposed bet
-		int betAmount = getHighestBet() - currentPlayer.getLastBet();
+		if (highestBet == 0)	{
+		    betAmount = smallBlind;
+		    setHighestBet(25);
+		}	else	{
+		    betAmount = getHighestBet() - currentPlayer.getLastBet();
+		}
 		currentPlayer.addToBet(betAmount);
 		currentPlayer.bet(currentPlayer.getBet());
 		currentPlayer.changePersonState(PersonState.WAITING);
@@ -30,12 +36,13 @@ public class TexasHoldem extends AbstractGame
     	    }
 
     	    @Override public void raise()	{
-		int betAmount = currentPlayer.getBet() + highestBet - currentPlayer.getLastBet();
+		int betHolder = currentPlayer.getBet();
+		int betAmount =  highestBet - currentPlayer.getLastBet() + betHolder;
 		if(25 < betAmount){
 		    currentPlayer.bet(betAmount);
 		    addToHighestBet(betAmount);
 		    currentPlayer.changePersonState(PersonState.WAITING);
-		    playersFinished = 0;
+		    playersFinished = 1;
 		}	else	{
 		    call();
 		}
@@ -43,11 +50,13 @@ public class TexasHoldem extends AbstractGame
 
     	    @Override public void fold()	{
     		currentPlayer.changePersonState(PersonState.LOSER);
+		playersFinished--;
     	    }
 
     	    @Override public ArrayList<CardGameAction> getOptions(Person person)	{
     		ArrayList<CardGameAction> options = new ArrayList<>();
     		if	(!person.isPersonState(PersonState.INACTIVE))	{
+		    options.add(TexasHoldemAction.FOLD);
     		    options.add(TexasHoldemAction.CALL);
 		    options.add(TexasHoldemAction.BET_25);
 		    options.add(TexasHoldemAction.BET_50);
@@ -90,7 +99,7 @@ public class TexasHoldem extends AbstractGame
 	super(new TexasHoldemDealer(new Pot(1000)));
 	this.smallBlind = 25;
 	this.bigBlind = 2 * 25;
-	this.highestBet = 25;
+	this.highestBet = 0;
 	handComparator.setPokerGame(this);
     }
 
@@ -112,27 +121,26 @@ public class TexasHoldem extends AbstractGame
     @Override public void startGame() {
 	dealer.dealOutNHiddenCards(2);
 	setCurrentPlayer(getPlayer());
-	//clockTimer.start();
-	handComparator.setPokerGame(this);
     }
 
     @Override public void dealerMove()	{
 	getCurrentPlayer().changePersonState(PersonState.WAITING);
 	getDealer().turn();
-	setCurrentPlayer(getPlayer());
+	getNextPlayer();
 	playersFinished = 0;
     }
 
     @Override public void restartGame() {
 	setIsOverState(false);
-	clockTimer.setDelay(DELAY);
 	dealer.collectCards();
 	clearLastBets();
+	setHighestBet(0);
 	dealer.startNewGame();
 	deactivateDealer();
 	setStartingStates();
 	setCurrentPlayer(getPlayer());
 	dealer.dealOutNHiddenCards(2);
+	playersFinished = 0;
     }
 
     @Override public void addBots() {
@@ -146,9 +154,9 @@ public class TexasHoldem extends AbstractGame
 	addPlayer(SuperBot);
     }
 
-    @Override public boolean dealersTurn() {
+    @Override public boolean isDealersTurn() {
 	for	(Person person : getOnlyActivePlayers())	{
-	    if	((person.getLastBet() != highestBet) || !(playersFinished >= getActivePlayers().size()))	{
+	    if	((person.getLastBet() != highestBet) || (playersFinished < getOnlyActivePlayers().size()))	{
 		return false;
 	    }
 	}
@@ -156,7 +164,7 @@ public class TexasHoldem extends AbstractGame
     }
 
     @Override public boolean playersTurn() {
-	return !dealersTurn();
+	return !isDealersTurn();
     }
 
 
@@ -170,10 +178,9 @@ public class TexasHoldem extends AbstractGame
     }
 
     public void clearLastBets()	{
-	for	(Person person : getActivePlayers())	{
+	for	(Person person : getOnlyPlayers())	{
 	    person.setLastBet(0);
 	}
-	highestBet += smallBlind;
     }
 
     public void showCards()	{

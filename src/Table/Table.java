@@ -6,9 +6,6 @@ import Person.Dealer;
 import Person.Person;
 import Person.PersonState;
 import Person.Player;
-import PokerRules.AbstractGame;
-
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,14 +60,8 @@ public class Table
 	return tempPlayers;
     }
 
-    public Iterable<Person> getOnlyActivePlayers()	{
-	ArrayList<Person> persons = new ArrayList<Person>();
-	for	(Person person : players)	{
-	    if	(!(person.isPersonState(PersonState.INACTIVE) || person.isPersonState(PersonState.LOSER) ||
-	    person.isPersonState(PersonState.WINNER))) {
-		persons.add(person);
-	    }
-	}
+    public ArrayList<Person> getOnlyActivePlayers()	{
+	ArrayList<Person> persons = getActivePlayers();
 	persons.remove(dealer);
 	return persons;
     }

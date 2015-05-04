@@ -57,17 +57,20 @@ private AbstractPokermoves moves = null; //Get's assigned in subclass
 	    currentPlayer.turn();
 	}
 
-	if(dealersTurn() && !gameFinished()) {
+	if(isDealersTurn() && !gameFinished()) {
 	    dealerMove();
 	}	else if(!gameFinished())	{
 	    getNextPlayer();
 	}
 
 	if	(gameFinished())	{
+	    clockTimer.stop();
 	    getWinner();
 	    notifyListeners();
-	    JOptionPane.showMessageDialog(null, "Click OK to continue");
-	    restartGame();
+	    int answer = JOptionPane.showConfirmDialog(null ,"Wold you like to restart?");
+	    if(answer == JOptionPane.YES_OPTION) restartGame();
+	    if(answer == JOptionPane.NO_OPTION) ;
+	    else ;
 	}
 
 	if	(currentPlayer.equals(getPlayer()))	{
@@ -88,7 +91,7 @@ private AbstractPokermoves moves = null; //Get's assigned in subclass
 	}
     }
 
-    abstract public boolean dealersTurn();
+    abstract public boolean isDealersTurn();
 
     abstract public boolean playersTurn();
 
