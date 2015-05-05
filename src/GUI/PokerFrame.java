@@ -18,7 +18,7 @@ public class PokerFrame extends JFrame
     public PokerFrame(AbstractGame game, String playerName) {
 	Player player = new Player(playerName, new Pot(1000));
 
-	this.imageHandler = new Images();
+	this.imageHandler = Images.getInstance();
 	game.addBots(); //bots before player for increased graphics swag
 	game.addPlayer(player);
 	game.startGame();

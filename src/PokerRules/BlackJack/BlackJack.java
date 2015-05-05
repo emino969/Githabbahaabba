@@ -284,6 +284,7 @@ public class BlackJack extends AbstractGame
 		makeToLoser(person);
 	    }
 	}
+	assert false : getOnlyPlayers();
     }
 
     @Override public void startGame() {

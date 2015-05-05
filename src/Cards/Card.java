@@ -1,5 +1,6 @@
 package Cards;
 
+import CardGameExceptions.NoSuchCardException;
 import Pictures.Images;
 
 import javax.swing.*;
@@ -49,26 +50,16 @@ public class Card {
         return cardSuit + " " + cardValue;
     }
 
-   /* private int getCardIntValue() throws NoSuchCardException {
-        int i = 1;
-        for (CardValue cardValue : CardValue.values()) {
-            if(cardValue == this.cardValue){
-                return i;
-            }
-            i ++;
-        }
-        throw new NoSuchCardException("There is no such Card");
-    }*/
-
-   /* public int getCardInt()	{
-	try	{
-	    return this.getCardIntValue();
-	}	catch(NoSuchCardException e)	{
+    public int getCardIntValue(){
+	try{
+	    return getCardInt();
+	}catch(NoSuchCardException e){
 	    e.printStackTrace();
-	    return -1;
 	}
-    }*/
-    public int getCardIntValue() {
+	return -1;
+    }
+
+    private int getCardInt() throws NoSuchCardException{
 	switch (cardValue) {
 	    case BOTTOM_ACE:
 		return 1;
@@ -98,10 +89,10 @@ public class Card {
 		return 13;
 	    case TOP_ACE:
 		return 14;
+	    case DONT_CARE:
+		return 0;
 	    default:
-		return -1;
-
-
+		throw new NoSuchCardException("there is no cardtype with this cardint");
 	}
 
     }

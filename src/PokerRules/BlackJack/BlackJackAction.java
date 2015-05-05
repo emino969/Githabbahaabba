@@ -17,9 +17,7 @@ public enum BlackJackAction implements CardGameAction
     SURRENDER,
     SURRENDER_HIT, BET, RESET_BET;
 
-    BlackJackAction() {
-
-    }
+    BlackJackAction() {}
 
     @Override public String toString() {
         String string = super.toString();

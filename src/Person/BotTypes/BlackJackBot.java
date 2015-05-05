@@ -1,5 +1,6 @@
 package Person.BotTypes;
 
+import CardGameExceptions.CardGameActionException;
 import Cards.CardValue;
 import Money.Pot;
 import Person.Person;
@@ -59,26 +60,32 @@ public class BlackJackBot extends Person
     @Override public void turn(){
 	if(this.hasTurn()) {
             AbstractPokermoves aca = game.getOptions();
+	    try{
             if (hand.isEmpty()) {
-                int betOption = rnd.nextInt(3);
-                switch(betOption){
-                    case 0:
-                        aca.makeMove(BlackJackAction.BET_25);
-                        break;
-                    case 1:
-                        aca.makeMove(BlackJackAction.BET_50);
-                        break;
-                    case 2:
-                        aca.makeMove(BlackJackAction.BET_75);
-                        break;
-                    default:
-                        aca.makeMove(BlackJackAction.BET_25);
-                }
-                aca.makeMove(BlackJackAction.BET);
-	    } else {
-		BlackJackAction action = getBestMove();
-		game.getOptions().makeMove(action);
+		int betOption = rnd.nextInt(3);
+		    switch (betOption) {
+			case 0:
+			    aca.makeMove(BlackJackAction.BET_25);
+			    break;
+			case 1:
+			    aca.makeMove(BlackJackAction.BET_50);
+			    break;
+			case 2:
+			    aca.makeMove(BlackJackAction.BET_75);
+			    break;
+			default:
+			    aca.makeMove(BlackJackAction.BET_25);
+		    }
+		    aca.makeMove(BlackJackAction.BET);
+
+		}else{
+		    BlackJackAction action = getBestMove();
+		    game.getOptions().makeMove(action);
+		}
+	    }catch(CardGameActionException e){
+		e.printStackTrace();
 	    }
+
         }
         }
     private BlackJackAction getBestMove() {

@@ -1,6 +1,7 @@
 package Pictures;
 
 import Cards.CardSuit;
+import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,30 +13,38 @@ import java.util.Map;
 
 public class Images
 {
-    private BufferedImage imageClub, imageDiamond, imageHeart, imageSpade,
+    private static BufferedImage imageClub, imageDiamond, imageHeart, imageSpade,
 	    imageBackground, imageTable,
 	    imageRedPokerChip, imageBlackPokerChip, imageGreenPokerChip;
-    private String filePath = "";
-    private String clubPic = "club.gif";
-    private String diamondPic = "diamond.png";
-    private String heartPic = "heart.gif";
-    private String spadePic = "spade.gif";
-    private String backgroundPic = "PokerBackground.jpg";
-    private String tablePic = "TableBackground.jpg";
-    private String redPokerChip = "redPokerChip.gif";
-    private String greenPokerChip = "greenPokerChip.gif";
-    private String blackPokerChip = "blackPokerChip.gif";
-    private Map<CardSuit, BufferedImage> cardTypesMap;
+    private static String filePath = "C:\\Users\\Emil\\IdeaProjects\\CardGame - DemoVer\\src\\Pictures\\pictures\\";
+    private static String clubPic = "club.gif";
+    private static String diamondPic = "diamond.png";
+    private static String heartPic = "heart.gif";
+    private static String spadePic = "spade.gif";
+    private static String backgroundPic = "PokerBackground.jpg";
+    private static String tablePic = "TableBackground.jpg";
+    private static String redPokerChip = "redPokerChip.gif";
+    private static String greenPokerChip = "greenPokerChip.gif";
+    private static String blackPokerChip = "blackPokerChip.gif";
+    private static Map<CardSuit, BufferedImage> cardTypesMap;
     private static final int CARD_IMAGE_X = 15 * 3 / 2;
     private static final int CARD_IMAGE_Y = 20 * 3 / 2;
 
-    public Images() {
+    private Images() {
 	getPictures();
 	this.cardTypesMap = new HashMap<CardSuit, BufferedImage>();
 	cardTypesMap.put(CardSuit.HEARTS, imageHeart);
 	cardTypesMap.put(CardSuit.SPADES, imageSpade);
 	cardTypesMap.put(CardSuit.DIAMONDS, imageDiamond);
 	cardTypesMap.put(CardSuit.CLUBS, imageClub);
+    }
+
+    private static class ImageHandlerHolder{
+	private static Images imageHandlerInstance = new Images();
+    }
+
+    public static Images getInstance()	{
+	return ImageHandlerHolder.imageHandlerInstance;
     }
 
     private void getPictures()	{
@@ -54,32 +63,31 @@ public class Images
 	}
     }
 
-    public BufferedImage getImageBackground() {
+    public static BufferedImage getImageBackground() {
 	return imageBackground;
     }
 
-    public BufferedImage getImageRedPokerChip() {
+    public static BufferedImage getImageRedPokerChip() {
 	return imageRedPokerChip;
     }
 
-    public BufferedImage getImageBlackPokerChip() {
+    public static BufferedImage getImageBlackPokerChip() {
 	return imageBlackPokerChip;
     }
 
-    public BufferedImage getImageGreenPokerChip() {
+    public static BufferedImage getImageGreenPokerChip() {
 	return imageGreenPokerChip;
     }
 
-
-    public BufferedImage getTable()	{
+    public static BufferedImage getTable()	{
 	return imageTable;
     }
 
-     public BufferedImage getPicture(CardSuit ct){
+    public static BufferedImage getPicture(CardSuit ct){
 	    return cardTypesMap.get(ct);
 	}
 
-    static public int getPrefferedX(CardSuit ct)	{
+    public static int getPrefferedX(CardSuit ct)	{
 	switch(ct)	{
 	    case DIAMONDS:
 		return CARD_IMAGE_X * 3 / 2;
@@ -88,7 +96,7 @@ public class Images
 	}
     }
 
-    static public int getPrefferedY(CardSuit ct)	{
+    public static int getPrefferedY(CardSuit ct)	{
 	switch(ct)	{
 	    case DIAMONDS:
 		return CARD_IMAGE_Y * 3 / 2;
@@ -97,7 +105,7 @@ public class Images
 	}
     }
 
-    public ImageIcon getBackgroundImageIcon()	{
+    public static ImageIcon getBackgroundImageIcon()	{
 	return new ImageIcon(filePath + backgroundPic);
     }
 }

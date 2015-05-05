@@ -116,6 +116,7 @@ public class TexasHoldem extends AbstractGame
 	for (int i = 1; i < players.size() ; i++) {
 	    players.get(i).changePersonState(PersonState.LOSER);
 	}
+	assert false : players;
     }
 
     @Override public void startGame() {

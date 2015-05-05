@@ -1,5 +1,6 @@
 package PokerRules.BlackJack;
 
+import CardGameExceptions.CardGameActionException;
 import Money.Pot;
 import Person.Dealer;
 
@@ -28,16 +29,20 @@ public class BlackJackDealer extends Dealer
     }
 
     @Override public void turn() {
-	if (hand.isAllCardsVisible()) {
-	    if (hand.getSumAceOnTop() < DEALER_LIMIT && !hitSoft17) {
-		game.getOptions().makeMove(BlackJackAction.HIT);
-	    } else if(hand.getLegalHandSum() < 17 && hitSoft17)	{
-		game.getOptions().makeMove(BlackJackAction.HIT);
-	    }	else {
-		game.setIsOverState(true);
+	try {
+	    if (hand.isAllCardsVisible()) {
+		if (hand.getSumAceOnTop() < DEALER_LIMIT && !hitSoft17) {
+		    game.getOptions().makeMove(BlackJackAction.HIT);
+		} else if (hand.getLegalHandSum() < 17 && hitSoft17) {
+		    game.getOptions().makeMove(BlackJackAction.HIT);
+		} else {
+		    game.setIsOverState(true);
+		}
+	    } else if (hand.getSize() == 2) {
+		hand.getCardByIndex(1).setVisible();
 	    }
-	}	else if(hand.getSize() == 2)	{
-	    hand.getCardByIndex(1).setVisible();
+	}	catch(CardGameActionException e)	{
+	    e.printStackTrace();
 	}
     }
 }

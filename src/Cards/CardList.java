@@ -141,10 +141,6 @@ public class CardList
 	return cardList.get(index);
     }
 
-    public void setCardList(ArrayList<Card> cardList){
-          this.cardList = cardList;
-    }
-
     public void createOrdinaryDeck(){
 	for (CardSuit cardType : CardSuit.values()) {
 	    if(cardType != CardSuit.DONT_CARE) {

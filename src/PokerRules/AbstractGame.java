@@ -48,6 +48,7 @@ public abstract class AbstractGame extends Table
 
     abstract public AbstractPokermoves getOptions(); //return options for PokerGame
 
+
     public void runGameForward()	{
 	//The method that runs the game forward
 
@@ -77,7 +78,7 @@ public abstract class AbstractGame extends Table
 	notifyListeners();
     }
 
-    protected void getNextPlayer()	{
+    protected void getNextPlayer() {
 	setCurrentPlayer(nextPerson());
      }
 

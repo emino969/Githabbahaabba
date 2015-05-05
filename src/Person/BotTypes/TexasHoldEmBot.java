@@ -1,5 +1,6 @@
 package Person.BotTypes;
 
+import CardGameExceptions.CardGameActionException;
 import Cards.Card;
 import Cards.CardList;
 import Cards.CardSuit;
@@ -40,16 +41,20 @@ public class TexasHoldEmBot extends Person
     }
 
     @Override public void turn() {
-	AbstractPokermoves abstractPokermoves = game.getOptions();
-	if (this.hasTurn()) {
-	    if(raiseThisRound) abstractPokermoves.makeMove(TexasHoldemAction.CALL);
-	    else if (game.getDealer().getHand().getCopy().getSize() <= 3) {
-		abstractPokermoves.makeMove(TexasHoldemAction.CALL);
-	    } else {
-		TexasHoldemAction texasHoldemAction = getBestMove();
-		if(texasHoldemAction == TexasHoldemAction.RAISE) raiseThisRound = true;
-		abstractPokermoves.makeMove(getBestMove());
+	try {
+	    AbstractPokermoves abstractPokermoves = game.getOptions();
+	    if (this.hasTurn()) {
+		if (raiseThisRound) abstractPokermoves.makeMove(TexasHoldemAction.CALL);
+		else if (game.getDealer().getHand().getCopy().getSize() <= 3) {
+		    abstractPokermoves.makeMove(TexasHoldemAction.CALL);
+		} else {
+		    TexasHoldemAction texasHoldemAction = getBestMove();
+		    if (texasHoldemAction == TexasHoldemAction.RAISE) raiseThisRound = true;
+		    abstractPokermoves.makeMove(getBestMove());
+		}
 	    }
+	}	catch(CardGameActionException e)	{
+	    e.printStackTrace();
 	}
     }
 

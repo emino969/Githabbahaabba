@@ -28,7 +28,7 @@ public class PokerComponent extends JComponent
 	this.game = game;
 	this.frame = frame;
 	this.playerFrame = playerFrame;
-	this.imageHandler = new Images();
+	this.imageHandler = Images.getInstance();
 	this.tableComponent = buildTableComponent();
 	GameListener gl = new GameListener()	{
 	    @Override public void gameChanged()	{

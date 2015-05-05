@@ -1,5 +1,6 @@
 package GUI;
 
+import CardGameExceptions.CardGameActionException;
 import GameListeners.GameListener;
 import Person.PersonState;
 import Person.Player;
@@ -7,7 +8,7 @@ import PokerRules.AbstractGame;
 import PokerRules.AbstractPokermoves;
 import PokerRules.CardGameAction;
 import Table.Table;
-
+import java.awt.event.KeyEvent;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,13 +50,20 @@ public class PlayerFrame extends JToolBar
 
     public void updateOptions()	{
 	for (final CardGameAction cardGameAction : pokermoves.getOptions(player))	{
-	    JButton button = new JButton(cardGameAction.toString());
-	    button.addActionListener(new ActionListener() {
+	    String actionName = cardGameAction.toString();
+	    JButton button = new JButton(actionName);
+	    button.setMnemonic(actionName.charAt(0));
+	    button.addActionListener(new ActionListener()
+	    {
 		@Override public void actionPerformed(ActionEvent e) {
-		    if	(game.getPlayer().hasTurn()) {
-			pokermoves.makeMove(cardGameAction);
+		    if (game.getPlayer().hasTurn()) {
+			try {
+			    pokermoves.makeMove(cardGameAction);
+			} catch (CardGameActionException e1) {
+			    e1.printStackTrace();
+			}
 			updateLabels();
-			if(!game.getPlayer().isPersonState(PersonState.TURN)) game.nextMove();
+			if (!game.getPlayer().isPersonState(PersonState.TURN)) game.nextMove();
 		    }
 		}
 	    });
