@@ -25,6 +25,5 @@ public class Player extends Person
 
     public void turn()	{
 	/** Välj ett drag */
-	System.out.println(this.getBestState());
     }
 }

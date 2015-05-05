@@ -16,7 +16,7 @@ public class Images
     private static BufferedImage imageClub, imageDiamond, imageHeart, imageSpade,
 	    imageBackground, imageTable,
 	    imageRedPokerChip, imageBlackPokerChip, imageGreenPokerChip;
-    private static String filePath = "C:\\Users\\Emil\\IdeaProjects\\CardGame - DemoVer\\src\\Pictures\\pictures\\";
+    private static String filePath = "Pictures\\";
     private static String clubPic = "club.gif";
     private static String diamondPic = "diamond.png";
     private static String heartPic = "heart.gif";
