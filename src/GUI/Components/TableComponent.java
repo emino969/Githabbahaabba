@@ -14,11 +14,10 @@ public class TableComponent extends JComponent
     private DealerComponent dealer;
     private int width, height;
     private int tableX, tableY;
-    private Images imageHandler;
     private static final int BAR_SIZE = 20;
 
     public TableComponent(final List<PlayerComponent> players, PokerComponent pokerComponent, final DealerComponent dealer, final int tableX,
-			  final int tableY, final int width, final int height, Images imageHandler)
+			  final int tableY, final int width, final int height)
     {
 	this.players = players;
 	this.dealer = dealer;
@@ -27,16 +26,14 @@ public class TableComponent extends JComponent
 	this.height = height;
 	this.tableX = tableX;
 	this.tableY = tableY;
-	this.imageHandler = imageHandler;
     }
 
     public TableComponent(final List<PlayerComponent> players, final PokerComponent pokerComponent,
-			  final DealerComponent dealer, Images imageHandler)
+			  final DealerComponent dealer)
     {
 	this.players = players;
 	this.pokerComponent = pokerComponent;
 	this.dealer = dealer;
-	this.imageHandler = imageHandler;
     }
 
 
@@ -45,7 +42,7 @@ public class TableComponent extends JComponent
 	int xPos,yPos;
 	g.setColor(Color.BLACK);
 	g.fillRect(tableX - BAR_SIZE, tableY - BAR_SIZE, width + BAR_SIZE * 2, height + BAR_SIZE * 2);
-	g.drawImage(imageHandler.getTable(), tableX, tableY, width, height, this);
+	g.drawImage(Images.getTable(), tableX, tableY, width, height, this);
 	/**
 	int xPos = tableX + 100; //dealer needs some space dammit!
 	int yPos = tableY;

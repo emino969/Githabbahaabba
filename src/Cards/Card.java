@@ -126,9 +126,9 @@ public class Card {
 	}
     }
 
-    public void draw(Graphics2D g, int X, int Y, JComponent comp, Images imageHandler)	{
-	final int IMAGE_X = imageHandler.getPrefferedX(cardSuit);
-	final int IMAGE_Y = imageHandler.getPrefferedY(cardSuit);
+    public void draw(Graphics2D g, int X, int Y, JComponent comp)	{
+	final int IMAGE_X = Images.getPrefferedX(cardSuit);
+	final int IMAGE_Y = Images.getPrefferedY(cardSuit);
 	this.fm = comp.getFontMetrics(new Font("Serif", Font.BOLD, FONT_SIZE));
 
 	if(isVisible) {
@@ -149,7 +149,7 @@ public class Card {
 			 X + CARD_SIZE_X / 2 + STRING_SPACE_FROM_MIDDLE + FONT_SPACE - getStringWidth(getSymbolFromInt(getCardIntValue())),
 			 Y + CARD_SIZE_Y - 5);
 
-	    g.drawImage(imageHandler.getPicture(cardSuit),
+	    g.drawImage(Images.getPicture(cardSuit),
 			X + CARD_SIZE_X / 2 - IMAGE_X / 2,
 			Y + CARD_SIZE_Y / 2 - CARD_SPACE_PIC,
 			IMAGE_X,

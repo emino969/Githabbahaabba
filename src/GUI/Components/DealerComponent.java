@@ -18,12 +18,10 @@ public class DealerComponent extends JComponent
     private final static int FONT_SIZE = 20;
     private int width, height;
     private String name;
-    private Images imageHandler;
     private FontMetrics fm;
 
-    public DealerComponent(Dealer dealer, Images imageHandler) {
+    public DealerComponent(Dealer dealer) {
 	this.dealer = dealer;
-	this.imageHandler = imageHandler;
 	this.fm = getFontMetrics(new Font("Serif", Font.BOLD, FONT_SIZE));
 	this.name = dealer.getName();
 	this.width = getMinimumWidth() + PERSON_RECTANGLE * 3;
@@ -104,16 +102,16 @@ public class DealerComponent extends JComponent
 	Image image;
 	switch (rows){
 	    case 0:
-		image = imageHandler.getImageBlackPokerChip();
+		image = Images.getImageBlackPokerChip();
 		break;
 	    case 1:
-		image = imageHandler.getImageRedPokerChip();
+		image = Images.getImageRedPokerChip();
 		break;
 	    case 2:
-		image = imageHandler.getImageGreenPokerChip();
+		image = Images.getImageGreenPokerChip();
 		break;
 	    default:
-		image = imageHandler.getImageBlackPokerChip();
+		image = Images.getImageBlackPokerChip();
 		break;
 	}
 	return image;
@@ -122,7 +120,7 @@ public class DealerComponent extends JComponent
 
     private void drawDealerCards(final Graphics g, int x, int y)	{
 	for (int i = 0; i < dealer.getHand().getSize(); i++) {
-	    dealer.getHand().getCardByIndex(i).draw((Graphics2D) g, x + i * CARD_SPACE_X + 50, y, this, imageHandler);
+	    dealer.getHand().getCardByIndex(i).draw((Graphics2D) g, x + i * CARD_SPACE_X + 50, y, this);
 	}
     }
 

@@ -19,15 +19,13 @@ public class PlayerComponent extends JComponent
     private final static int PERSON_RECTANGLE = 10;
     private final static int RECTANGLE_BAR = 2;
     private final static int BET_CIRCLE_RADIUS = 50;
-    private Images imageHandler;
     private FontMetrics fm;
     private TableSeat ts;
     private int width, height;
     private String name;
 
-    public PlayerComponent(final Person person, Images imageHandler) {
+    public PlayerComponent(final Person person) {
 	this.person = person;
-	this.imageHandler = imageHandler;
 	this.fm = getFontMetrics(new Font("Serif", Font.BOLD, 20));
 	this.name = person.getName();
 	this.width = getMinimumWidth() + PERSON_RECTANGLE * 3;
@@ -129,11 +127,11 @@ public class PlayerComponent extends JComponent
     private void drawHand(CardList cl, final Graphics g, int x, int y)	{
 	for (int i = 0; i < cl.getSize(); i++) {
 	    if	(ts.equals(TableSeat.FIRST_SIDE)) {
-		cl.getCardByIndex(i).draw((Graphics2D) g, x + i * cardSpaceX, y + 80, this, imageHandler);
+		cl.getCardByIndex(i).draw((Graphics2D) g, x + i * cardSpaceX, y + 80, this);
 	    }	else if(ts.equals(TableSeat.SECOND_SIDE))	{
-		cl.getCardByIndex(i).draw((Graphics2D) g, x - i * cardSpaceX - 25, y, this, imageHandler);
+		cl.getCardByIndex(i).draw((Graphics2D) g, x - i * cardSpaceX - 25, y, this);
 	    }	else	{
-		cl.getCardByIndex(i).draw((Graphics2D) g, x - i * cardSpaceX, y - 90, this, imageHandler);
+		cl.getCardByIndex(i).draw((Graphics2D) g, x - i * cardSpaceX, y - 90, this);
 	    }
 	}
     }
@@ -153,17 +151,17 @@ public class PlayerComponent extends JComponent
 
     private void drawChips(Graphics g, int x, int y) {
 	int money = person.getLastBet() + person.getBetHolder();
-	Image image = imageHandler.getImageBlackPokerChip();
+	Image image = Images.getImageBlackPokerChip();
 	int i = 0;
 	while(0 < money){
 	    if(75 <= money){
-		image = imageHandler.getImageBlackPokerChip();
+		image = Images.getImageBlackPokerChip();
 		money -= 75;
 	    }else if(50 <= money) {
-		image = imageHandler.getImageRedPokerChip();
+		image = Images.getImageRedPokerChip();
 		money -= 50;
 	    }else if(25 <= money){
-		image = imageHandler.getImageGreenPokerChip();
+		image = Images.getImageGreenPokerChip();
 		money -= 25;
 	    }
 	    g.drawImage(image, x + 5 + 10 * (i % 4), y + 5 + 10 * (i / 4), 30, 30, this);

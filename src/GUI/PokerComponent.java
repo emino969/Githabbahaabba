@@ -19,7 +19,6 @@ public class PokerComponent extends JComponent
     private AbstractGame game;
     private PokerFrame frame; //Temporarily changed
     private TableComponent tableComponent;
-    private Images imageHandler;
     private static final int X_CONST = 140;
     private static final int Y_CONST = 90;
     private static final int ADJ_CONST = 50;
@@ -28,7 +27,6 @@ public class PokerComponent extends JComponent
 	this.game = game;
 	this.frame = frame;
 	this.playerFrame = playerFrame;
-	this.imageHandler = Images.getInstance();
 	this.tableComponent = buildTableComponent();
 	GameListener gl = new GameListener()	{
 	    @Override public void gameChanged()	{
@@ -41,15 +39,14 @@ public class PokerComponent extends JComponent
     private TableComponent buildTableComponent() {
 	ArrayList<PlayerComponent> players = new ArrayList<PlayerComponent>();
 	for (Person player : game.getOnlyPlayers()) {
-	    players.add(new PlayerComponent(player, imageHandler));
+	    players.add(new PlayerComponent(player));
 	}
 	TableComponent table = new TableComponent(players, this,
-						  new DealerComponent(game.getDealer(), imageHandler),
+						  new DealerComponent(game.getDealer()),
 						  frame.getWidth()/4 - X_CONST,
 						  frame.getHeight()/3 - Y_CONST,
 						  frame.getWidth()/2+ X_CONST * 2,
-						  frame.getHeight()/3 + ADJ_CONST * 2,
-						  imageHandler);
+						  frame.getHeight()/3 + ADJ_CONST * 2);
 	return table;
     }
 
